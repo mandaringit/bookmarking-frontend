@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { iTodo } from "../../types/entity";
 import styled from "styled-components";
 import cx from "classnames";
 import todoAPI from "../../api/todos";
+import TodoEditForm from "./TodoEditForm";
 
 interface TodoItemProps {
   todo: iTodo;
@@ -10,6 +11,7 @@ interface TodoItemProps {
 }
 
 const TodoItem = ({ todo, setTodos }: TodoItemProps) => {
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const toggleTodo = () => {
     todoAPI
       .toggleTodo(todo.id)
@@ -22,12 +24,36 @@ const TodoItem = ({ todo, setTodos }: TodoItemProps) => {
       })
       .catch((err) => console.log(err));
   };
+
+  const onRemoveHandler = () => {
+    todoAPI
+      .removeTodo(todo.id)
+      .then((res) => {
+        if (res.status === 204) {
+          setTodos((prev) => prev.filter((t) => t.id !== todo.id));
+        }
+      })
+      .catch((e) => console.log(e));
+  };
   return (
-    <Container>
-      <div className='todo__info'>
-        <span className={cx({ done: todo.done })}>{todo.text}</span>
-        <input type='checkbox' checked={todo.done} onChange={toggleTodo} />
-      </div>
+    <Container onDoubleClick={onRemoveHandler}>
+      {isUpdate ? (
+        <TodoEditForm
+          todo={todo}
+          setTodos={setTodos}
+          setIsUpdate={setIsUpdate}
+        />
+      ) : (
+        <div className='todo__info'>
+          <span
+            className={cx({ done: todo.done })}
+            onClick={() => setIsUpdate(!isUpdate)}
+          >
+            {todo.text}
+          </span>
+          <input type='checkbox' checked={todo.done} onChange={toggleTodo} />
+        </div>
+      )}
       <span className='todo__date'>
         {new Date(todo.createdAt).toLocaleString()}
       </span>
