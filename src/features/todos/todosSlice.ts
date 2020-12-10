@@ -1,6 +1,18 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+} from "@reduxjs/toolkit";
 import todoAPI from "../../api/todos";
+import { RootState } from "../../store";
 import { iTodo } from "../../types/entity";
+
+const todosAdapter = createEntityAdapter({
+  sortComparer: (a: iTodo, b: iTodo) =>
+    b.createdAt.toString().localeCompare(a.createdAt.toString()),
+});
+
+const initialState = todosAdapter.getInitialState();
 
 // THUNKS
 export const getTodos = createAsyncThunk<iTodo[]>(
@@ -47,32 +59,35 @@ export const updateTodoText = createAsyncThunk<
 // SLICE
 const todosSlice = createSlice({
   name: "todos",
-  initialState: { todos: [] as iTodo[] },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getTodos.fulfilled, (state, action) => {
-      state.todos = action.payload;
+      todosAdapter.upsertMany(state, action.payload);
     });
 
     builder.addCase(addTodo.fulfilled, (state, action) => {
-      state.todos = [action.payload, ...state.todos];
+      todosAdapter.addOne(state, action.payload);
     });
 
-    builder.addCase(toggleTodo.fulfilled, (state, { payload: { id } }) => {
-      const idx = state.todos.findIndex((todo) => todo.id === id);
-      state.todos[idx].done = !state.todos[idx].done;
-    });
+    builder.addCase(
+      toggleTodo.fulfilled,
+      (state, { payload: { id, done } }) => {
+        todosAdapter.updateOne(state, {
+          id,
+          changes: { done },
+        });
+      }
+    );
 
     builder.addCase(removeTodo.fulfilled, (state, action) => {
-      const todoId = action.payload;
-      state.todos = state.todos.filter((todo) => todo.id !== todoId);
+      todosAdapter.removeOne(state, action.payload);
     });
 
     builder.addCase(
       updateTodoText.fulfilled,
       (state, { payload: { id, text } }) => {
-        const idx = state.todos.findIndex((todo) => todo.id === id);
-        state.todos[idx].text = text;
+        todosAdapter.updateOne(state, { id, changes: { text } });
       }
     );
   },
@@ -80,3 +95,8 @@ const todosSlice = createSlice({
 
 // REDUCER
 export default todosSlice.reducer;
+
+// SELECTORS
+export const { selectAll: selectAllTodos } = todosAdapter.getSelectors(
+  (state: RootState) => state.todos
+);

@@ -3,12 +3,11 @@ import TodoItem from "./TodoItem";
 import styled from "styled-components";
 import TodoAddForm from "./TodoAddForm";
 import { useDispatch, useSelector } from "react-redux";
-import { getTodos } from "./todosSlice";
-import { RootState } from "../../store";
+import { getTodos, selectAllTodos } from "./todosSlice";
 
 const TodoList = () => {
   const dispatch = useDispatch();
-  const todos = useSelector((state: RootState) => state.todos.todos);
+  const todos = useSelector(selectAllTodos);
   useEffect(() => {
     dispatch(getTodos());
   }, [dispatch]);
