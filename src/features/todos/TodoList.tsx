@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { iTodo } from "../../types/entity";
+import React, { useEffect } from "react";
 import TodoItem from "./TodoItem";
 import styled from "styled-components";
 import TodoAddForm from "./TodoAddForm";
-import todoAPI from "../../api/todos";
+import { useDispatch, useSelector } from "react-redux";
+import { getTodos } from "./todosSlice";
+import { RootState } from "../../store";
 
 const TodoList = () => {
-  const [todos, setTodos] = useState<iTodo[]>([]);
-
+  const dispatch = useDispatch();
+  const todos = useSelector((state: RootState) => state.todos.todos);
   useEffect(() => {
-    todoAPI
-      .getTodos()
-      .then((res) => {
-        const todos = res.data;
-        setTodos(todos);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+    dispatch(getTodos());
+  }, [dispatch]);
 
   return (
     <Container>
       <h1>TodoList</h1>
-      <TodoAddForm setTodos={setTodos} />
+      <TodoAddForm />
       <ul>
         {todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} setTodos={setTodos} />
+          <TodoItem key={todo.id} todo={todo} />
         ))}
       </ul>
     </Container>

@@ -1,14 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { iTodo } from "../../types/entity";
-import todoAPI from "../../api/todos";
+import { addTodo } from "./todosSlice";
 
-interface TodoAddFormProps {
-  setTodos: React.Dispatch<React.SetStateAction<iTodo[]>>;
-}
-
-const TodoAddForm = ({ setTodos }: TodoAddFormProps) => {
+const TodoAddForm = () => {
   const [text, setText] = useState<string>("");
+  const dispatch = useDispatch();
   const onChangeHanlder = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setText(value);
@@ -16,14 +13,8 @@ const TodoAddForm = ({ setTodos }: TodoAddFormProps) => {
 
   const onClickHanlder = (e: React.MouseEvent) => {
     e.preventDefault();
-    todoAPI
-      .addTodo(text)
-      .then((res) => {
-        const newTodo = res.data;
-        setText("");
-        setTodos((prev) => [newTodo, ...prev]);
-      })
-      .catch((e) => console.log(e));
+    dispatch(addTodo({ text }));
+    setText("");
   };
 
   return (

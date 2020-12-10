@@ -1,16 +1,17 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import todoAPI from "../../api/todos";
 import { iTodo } from "../../types/entity";
+import { updateTodoText } from "./todosSlice";
 
 interface TodoEditFormProps {
   todo: iTodo;
-  setTodos: React.Dispatch<React.SetStateAction<iTodo[]>>;
   setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const TodoEditForm = ({ todo, setTodos, setIsUpdate }: TodoEditFormProps) => {
+const TodoEditForm = ({ todo, setIsUpdate }: TodoEditFormProps) => {
   const [text, setText] = useState(todo.text);
+  const dispatch = useDispatch();
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setText(value);
@@ -23,17 +24,8 @@ const TodoEditForm = ({ todo, setTodos, setIsUpdate }: TodoEditFormProps) => {
       return;
     }
 
-    todoAPI
-      .updateTodoText(todo.id, text)
-      .then((res) => {
-        const updatedTodo = res.data;
-        setTodos((prev) => {
-          const idx = prev.findIndex((t) => t.id === todo.id);
-          return [...prev.slice(0, idx), updatedTodo, ...prev.slice(idx + 1)];
-        });
-        setIsUpdate((prev) => !prev);
-      })
-      .catch((e) => console.log(e));
+    dispatch(updateTodoText({ todoId: todo.id, text }));
+    setIsUpdate((prev) => !prev);
   };
   return (
     <Form>

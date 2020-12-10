@@ -2,47 +2,24 @@ import React, { useState } from "react";
 import { iTodo } from "../../types/entity";
 import styled from "styled-components";
 import cx from "classnames";
-import todoAPI from "../../api/todos";
 import TodoEditForm from "./TodoEditForm";
+import { useDispatch } from "react-redux";
+import { removeTodo, toggleTodo } from "./todosSlice";
 
 interface TodoItemProps {
   todo: iTodo;
-  setTodos: React.Dispatch<React.SetStateAction<iTodo[]>>;
 }
 
-const TodoItem = ({ todo, setTodos }: TodoItemProps) => {
+const TodoItem = ({ todo }: TodoItemProps) => {
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
-  const toggleTodo = () => {
-    todoAPI
-      .toggleTodo(todo.id)
-      .then((res) => {
-        const todo = res.data;
-        setTodos((prev) => {
-          const idx = prev.findIndex((t) => t.id === todo.id);
-          return [...prev.slice(0, idx), todo, ...prev.slice(idx + 1)];
-        });
-      })
-      .catch((err) => console.log(err));
-  };
+  const dispatch = useDispatch();
+  const onChangeHandler = () => dispatch(toggleTodo({ todoId: todo.id }));
+  const onRemoveHandler = () => dispatch(removeTodo({ todoId: todo.id }));
 
-  const onRemoveHandler = () => {
-    todoAPI
-      .removeTodo(todo.id)
-      .then((res) => {
-        if (res.status === 204) {
-          setTodos((prev) => prev.filter((t) => t.id !== todo.id));
-        }
-      })
-      .catch((e) => console.log(e));
-  };
   return (
     <Container onDoubleClick={onRemoveHandler}>
       {isUpdate ? (
-        <TodoEditForm
-          todo={todo}
-          setTodos={setTodos}
-          setIsUpdate={setIsUpdate}
-        />
+        <TodoEditForm todo={todo} setIsUpdate={setIsUpdate} />
       ) : (
         <div className='todo__info'>
           <span
@@ -51,7 +28,11 @@ const TodoItem = ({ todo, setTodos }: TodoItemProps) => {
           >
             {todo.text}
           </span>
-          <input type='checkbox' checked={todo.done} onChange={toggleTodo} />
+          <input
+            type='checkbox'
+            checked={todo.done}
+            onChange={onChangeHandler}
+          />
         </div>
       )}
       <span className='todo__date'>
