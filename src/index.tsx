@@ -1,19 +1,29 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
 import store from "./store";
+import { createGlobalStyle } from "styled-components";
+import { Router } from "react-router-dom";
+import customHistory from "./lib/customHistory";
+
+const GlobalStyle = createGlobalStyle`
+  html,body,#root {
+    height:100%;
+  }
+  body{
+    margin:0; 
+  }
+`;
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <Router history={customHistory}>
+      <Provider store={store}>
+        <GlobalStyle />
+        <App />
+      </Provider>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

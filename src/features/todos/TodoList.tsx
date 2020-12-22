@@ -4,10 +4,18 @@ import styled from "styled-components";
 import TodoAddForm from "./TodoAddForm";
 import { useDispatch, useSelector } from "react-redux";
 import { getTodos, selectAllTodos } from "./todosSlice";
+import { selectLoggedInUser } from "../auth/authSlice";
+import { RouteComponentProps } from "react-router-dom";
 
-const TodoList = () => {
+const TodoList = ({ history }: RouteComponentProps) => {
   const dispatch = useDispatch();
   const todos = useSelector(selectAllTodos);
+  const loggedInUser = useSelector(selectLoggedInUser);
+
+  useEffect(() => {
+    if (!loggedInUser) history.push("/login");
+  }, [history, loggedInUser]);
+
   useEffect(() => {
     dispatch(getTodos());
   }, [dispatch]);

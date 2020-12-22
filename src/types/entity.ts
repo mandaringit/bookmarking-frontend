@@ -4,3 +4,10 @@ export interface iTodo {
   done: boolean;
   createdAt: Date;
 }
+
+export interface iUser {
+  id: string;
+  email: string;
+  googleId: string;
+  username: string;
+}
