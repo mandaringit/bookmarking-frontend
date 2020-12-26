@@ -11,6 +11,11 @@ const initialState = {
   loading: false,
 };
 
+export const checkAuth = createAsyncThunk<iUser>("auth/checkAuth", async () => {
+  const response = await authAPI.checkAuth();
+  return response.data;
+});
+
 export const localLogIn = createAsyncThunk<iUser, iLocalLoginForm, iThunkAPI>(
   "auth/localLogin",
   async ({ email, password }) => {
@@ -22,20 +27,43 @@ export const localLogIn = createAsyncThunk<iUser, iLocalLoginForm, iThunkAPI>(
 const authSlice = createSlice({
   initialState,
   name: "auth",
-  reducers: {},
+  reducers: {
+    tempSetUser: (state, action) => {
+      state.loggedInUser = action.payload;
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(localLogIn.rejected, (state, action) => {
-      state.error = "잘못된 로그인 정보입니다.";
+    /**
+     * checkAuth - 새로고침시 유저 체크
+     */
+    builder.addCase(checkAuth.fulfilled, (state, action) => {
+      state.error = "";
+      state.loggedInUser = action.payload;
+      localStorage.setItem("mandarin-dev", JSON.stringify(action.payload));
     });
+    builder.addCase(checkAuth.rejected, (state, action) => {
+      state.loggedInUser = null;
+      localStorage.removeItem("mandarin-dev");
+      customHistory.push("/");
+    });
+    /**
+     * localLogin - 로컬 전략 로그인
+     */
     builder.addCase(localLogIn.fulfilled, (state, action) => {
       state.error = "";
       state.loggedInUser = action.payload;
+      localStorage.setItem("mandarin-dev", JSON.stringify(action.payload));
       customHistory.push("/");
+    });
+    builder.addCase(localLogIn.rejected, (state, action) => {
+      state.error = "잘못된 로그인 정보입니다.";
     });
   },
 });
 
 export default authSlice.reducer;
+
+export const { tempSetUser } = authSlice.actions;
 
 export const selectLoggedInUser = (store: RootState) => store.auth.loggedInUser;
 export const selectAuthError = (store: RootState) => store.auth.error;

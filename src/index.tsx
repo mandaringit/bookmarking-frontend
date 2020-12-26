@@ -6,6 +6,7 @@ import store from "./store";
 import { createGlobalStyle } from "styled-components";
 import { Router } from "react-router-dom";
 import customHistory from "./lib/customHistory";
+import { checkAuth, tempSetUser } from "./features/auth/authSlice";
 
 const GlobalStyle = createGlobalStyle`
   html,body,#root {
@@ -15,6 +16,13 @@ const GlobalStyle = createGlobalStyle`
     margin:0; 
   }
 `;
+
+if (localStorage.getItem("mandarin-dev")) {
+  store.dispatch(
+    tempSetUser(JSON.parse(localStorage.getItem("mandarin-dev") as string))
+  );
+  store.dispatch(checkAuth());
+}
 
 ReactDOM.render(
   <React.StrictMode>
