@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import Button from "../../components/basic/Button";
+import Input from "../../components/basic/Input";
 import { localLogIn } from "./authSlice";
 
 export interface iLocalLoginForm {
@@ -11,6 +13,7 @@ export interface iLocalLoginForm {
 const Container = styled.form`
   display: flex;
   flex-direction: column;
+  width: 500px;
 `;
 
 const LocalLoginForm = () => {
@@ -34,28 +37,24 @@ const LocalLoginForm = () => {
   };
   return (
     <Container onSubmit={onSubmit}>
-      <label htmlFor='email'>
-        이메일 :
-        <input
-          type='text'
-          id='email'
-          name='email'
-          value={user.email}
-          onChange={onInputChange}
-        />
-      </label>
+      <Input
+        type='text'
+        id='email'
+        name='email'
+        value={user.email}
+        onChange={onInputChange}
+        placeholder='이메일'
+      />
 
-      <label htmlFor='password'>
-        패스워드 :
-        <input
-          type='password'
-          id='password'
-          name='password'
-          value={user.password}
-          onChange={onInputChange}
-        />
-      </label>
-      <button type='submit'>LOGIN</button>
+      <Input
+        type='password'
+        id='password'
+        name='password'
+        value={user.password}
+        onChange={onInputChange}
+        placeholder='비밀번호'
+      />
+      <Button type='submit' label={"LOGIN"} />
     </Container>
   );
 };
