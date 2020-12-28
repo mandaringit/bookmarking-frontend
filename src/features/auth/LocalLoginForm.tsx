@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import Button from "../../components/basic/Button";
-import Input from "../../components/basic/Input";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
 import { localLogIn } from "./authSlice";
 
 export interface iLocalLoginForm {
@@ -54,7 +54,7 @@ const LocalLoginForm = () => {
         onChange={onInputChange}
         placeholder='비밀번호'
       />
-      <Button type='submit' label={"LOGIN"} />
+      <Button type='submit'>LOGIN</Button>
     </Container>
   );
 };

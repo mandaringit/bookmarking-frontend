@@ -4,7 +4,7 @@ import Button, { CustomButtonProps } from "./Button";
 import styled from "styled-components";
 
 export default {
-  title: "Basic/Button",
+  title: "Components/Button",
   component: Button,
   argTypes: {},
 } as Meta;

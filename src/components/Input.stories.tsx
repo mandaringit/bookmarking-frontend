@@ -2,7 +2,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import Input, { CutstomInputProps } from "./Input";
 
 export default {
-  title: "Basic/Input",
+  title: "Components/Input",
   component: Input,
   argTypes: {},
 } as Meta;
