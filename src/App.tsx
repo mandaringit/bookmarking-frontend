@@ -5,6 +5,8 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Login from "./features/auth/Login";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
+import { useSelector } from "react-redux";
+import { selectLoggedInUser } from "./features/auth/authSlice";
 
 const Container = styled.div`
   height: 100%;
@@ -17,9 +19,10 @@ const RouteContainer = styled.div`
 `;
 
 function App() {
+  const loggedInUser = useSelector(selectLoggedInUser);
   return (
     <Container>
-      <Navbar />
+      <Navbar loggedInUser={loggedInUser} />
       <RouteContainer>
         <Switch>
           <Route exact path='/' component={Home} />
