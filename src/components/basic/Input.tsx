@@ -4,10 +4,11 @@ export interface CutstomInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const StyledInput = styled.input`
-  border: none;
-  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  background-color: #ffffff;
   border-radius: 3px;
-  padding: 0.8rem 1rem;
+  padding: 0.8rem 0.5rem;
+  min-width: 200px;
   :focus {
     outline: none;
   }
