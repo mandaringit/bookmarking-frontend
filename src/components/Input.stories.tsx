@@ -32,3 +32,8 @@ Password.args = {
   type: "password",
   value: Text.args.value,
 };
+
+export const FullWidth = Template.bind({});
+FullWidth.args = {
+  width: "100%",
+};

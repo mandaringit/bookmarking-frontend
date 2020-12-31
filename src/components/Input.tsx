@@ -1,7 +1,20 @@
 import styled from "styled-components";
 
 export interface CutstomInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  /**
+   * 인풋의 값
+   */
+  value?: string;
+  /**
+   * 인풋 핸들러
+   */
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  /**
+   * 인풋의 너비
+   */
+  width?: string | number;
+}
 
 const StyledInput = styled.input`
   border: 1px solid #e0e0e0;
@@ -9,12 +22,17 @@ const StyledInput = styled.input`
   border-radius: 3px;
   padding: 0.8rem 0.5rem;
   min-width: 200px;
+  width: ${(props) => props.width};
+  box-sizing: border-box;
   :focus {
     outline: none;
   }
 `;
 
-const Input = (props: CutstomInputProps) => {
+/**
+ * `Input` 컴포넌트는 사용자의 입력값을 제어합니다.
+ */
+const Input = ({ ...props }: CutstomInputProps) => {
   return <StyledInput {...props} />;
 };
 
