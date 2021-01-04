@@ -1,20 +1,10 @@
-# Todo FE
+# BOOKMARKING (Frontend)
 
-정말 간단한 TODO 프로젝트
+책을 읽고 그때 그때 들었던 생각을 바로 바로 남길 수 있는 웹앱
 
-- using api
-- styled-components
+## 기술스택
+
+- React
+- Redux
 - Typescript
-
-## Feautre
-
-- [x] TODO CREATE
-- [x] TODO UPDATE
-- [x] TODO TOGGLE
-- [x] TODO DELETE
-- [x] READ TODOS
-
-## Plan
-
-- [x] 리덕스로 변경
-- [ ] 애니메이션 추가
+- Storybook
