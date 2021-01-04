@@ -1,17 +1,26 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { selectAuthError } from "./authSlice";
+import styled from "styled-components";
 import LocalLoginForm from "./LocalLoginForm";
 
-const Login = () => {
-  const error = useSelector(selectAuthError);
+export interface PureLoginProps {}
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PureLogin = (props: PureLoginProps) => {
   return (
-    <div>
+    <Container>
       <LocalLoginForm />
-      {error ? <span>{error}</span> : null}
-    </div>
+    </Container>
   );
+};
+
+const Login = () => {
+  return <PureLogin />;
 };
 
 export default Login;
