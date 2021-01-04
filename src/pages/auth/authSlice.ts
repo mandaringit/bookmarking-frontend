@@ -4,11 +4,12 @@ import customHistory from "../../lib/customHistory";
 import { RootState, iThunkAPI } from "../../store";
 import { iUser } from "../../types/entity";
 import { iLocalLoginForm } from "./LocalLoginForm";
+import { LoadingState } from "../../types/utils";
 
 const initialState = {
   error: "",
   loggedInUser: null as iUser | null,
-  loading: false,
+  loading: "idle" as LoadingState,
 };
 
 export const checkAuth = createAsyncThunk<iUser>("auth/checkAuth", async () => {
@@ -46,16 +47,24 @@ const authSlice = createSlice({
       localStorage.removeItem("mandarin-dev");
       customHistory.push("/");
     });
+
     /**
      * localLogin - 로컬 전략 로그인
      */
+    builder.addCase(localLogIn.pending, (state, action) => {
+      state.loading = "loading";
+    });
+
     builder.addCase(localLogIn.fulfilled, (state, action) => {
       state.error = "";
+      state.loading = "succeeded";
       state.loggedInUser = action.payload;
       localStorage.setItem("mandarin-dev", JSON.stringify(action.payload));
       customHistory.push("/");
     });
+
     builder.addCase(localLogIn.rejected, (state, action) => {
+      state.loading = "failed";
       state.error = "잘못된 로그인 정보입니다.";
     });
   },
@@ -67,3 +76,4 @@ export const { tempSetUser } = authSlice.actions;
 
 export const selectLoggedInUser = (store: RootState) => store.auth.loggedInUser;
 export const selectAuthError = (store: RootState) => store.auth.error;
+export const selectAuthLoading = (store: RootState) => store.auth.loading;
