@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import naverApi, { NaverBook } from "../../api/naverApi";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
+import SearchBar from "../../components/molecules/SearchBar";
 import { useInput } from "../../hooks/useInput";
 import BookSearchList from "./BookSearchList";
 
@@ -31,16 +30,15 @@ const Container = styled.div`
 `;
 
 export const PureBookSearch = ({
-  query,
   books,
   loading,
+  query,
   onChange,
   onSearch,
 }: PureBookSearchProps) => {
   return (
     <Container>
-      <Input value={query} onChange={onChange} width='100%' />
-      <Button onClick={onSearch}>SEARCH</Button>
+      <SearchBar query={query} onChange={onChange} onSearch={onSearch} />
       <BookSearchList books={books} loading={loading} />
     </Container>
   );

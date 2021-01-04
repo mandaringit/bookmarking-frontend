@@ -3,7 +3,8 @@ import { PureBookSearch, PureBookSearchProps } from "./BookSearch";
 import { Fetch10Items } from "./BookSearchList.stories";
 
 export default {
-  title: "Page/BookSearch",
+  title: "Pages/BookSearch",
+  component: PureBookSearch,
 } as Meta;
 
 const Template: Story<PureBookSearchProps> = (args) => (
@@ -12,24 +13,26 @@ const Template: Story<PureBookSearchProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
+  query: "",
   books: [],
   loading: false,
+  onChange: () => {},
+  onSearch: () => {},
 };
 
 export const Loading = Template.bind({});
 Loading.args = {
-  books: [],
+  ...Default.args,
   loading: true,
 };
 
-export const ItemEmpty = Template.bind({});
-ItemEmpty.args = {
-  books: [],
-  loading: false,
+export const Item0 = Template.bind({});
+Item0.args = {
+  ...Default.args,
 };
 
-export const ItemExist = Template.bind({});
-ItemExist.args = {
+export const Item10 = Template.bind({});
+Item10.args = {
+  ...Default.args,
   books: Fetch10Items.args!.books,
-  loading: false,
 };

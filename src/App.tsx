@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import TodoList from "./features/todos/TodoList";
+import TodoList from "./pages/todos/TodoList";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Login from "./features/auth/Login";
-import Navbar from "./components/Navbar";
+import Login from "./pages/auth/Login";
+import Navbar from "./components/orgranisms/Navbar";
 import { useSelector } from "react-redux";
-import { selectLoggedInUser } from "./features/auth/authSlice";
-import BookSearch from "./features/books/BookSearch";
+import { selectLoggedInUser } from "./pages/auth/authSlice";
+import BookSearch from "./pages/books/BookSearch";
 
 const Container = styled.div`
   height: 100%;

@@ -3,7 +3,7 @@ import Navbar, { NavbarProps } from "./Navbar";
 import { BrowserRouter as Router } from "react-router-dom";
 
 export default {
-  title: "Components/Navbar",
+  title: "Organisms/Navbar",
   component: Navbar,
   decorators: [(story) => <Router>{story()}</Router>],
 } as Meta;

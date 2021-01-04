@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { iUser } from "../types/entity";
+import { iUser } from "../../types/entity";
 
 export interface NavbarProps {
   /**

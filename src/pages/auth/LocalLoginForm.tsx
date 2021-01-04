@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
+import Button from "../../components/atoms/Button";
+import Input from "../../components/atoms/Input";
 import { localLogIn } from "./authSlice";
 
 export interface iLocalLoginForm {

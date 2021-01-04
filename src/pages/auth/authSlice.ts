@@ -3,7 +3,7 @@ import authAPI from "../../api/auth";
 import customHistory from "../../lib/customHistory";
 import { RootState, iThunkAPI } from "../../store";
 import { iUser } from "../../types/entity";
-import { iLocalLoginForm } from "../auth/LocalLoginForm";
+import { iLocalLoginForm } from "./LocalLoginForm";
 
 const initialState = {
   error: "",

@@ -2,7 +2,8 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import BookSearchItem, { BookSearchItemProps } from "./BookSearchItem";
 
 export default {
-  title: "Components/BookSearchItem",
+  title: "Molecules/BookSearch/BookSearchItem",
+  component: BookSearchItem,
 } as Meta;
 
 const Template: Story<BookSearchItemProps> = (args) => (

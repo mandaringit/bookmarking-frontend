@@ -20,7 +20,8 @@ const StyledInput = styled.input`
   border: 1px solid #e0e0e0;
   background-color: #ffffff;
   border-radius: 3px;
-  padding: 0.8rem 0.5rem;
+  padding: 0.3rem 0.5rem;
+  height: 2.5rem;
   min-width: 200px;
   width: ${(props) => props.width};
   box-sizing: border-box;
