@@ -59,10 +59,10 @@ const StyledButton = styled.button<CustomButtonProps>`
   padding: 0rem 1rem;
   transition-duration: 0.3s;
   width: ${(props) => props.width};
+  cursor: pointer;
   ${(props) => themes[props.theme]}
   ${(props) => size[props.size]}
-
-  &:focus {
+    &:focus {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
   }
 
