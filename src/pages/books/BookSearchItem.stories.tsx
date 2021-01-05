@@ -14,18 +14,21 @@ export const Default = Template.bind({});
 Default.args = {
   alreadyAdded: false,
   book: {
-    title: "<b>90년생</b>이 온다",
-    link: "http://book.naver.com/bookdb/book_detail.php?bid=14143041",
-    image:
-      "https://bookthumb-phinf.pstatic.net/cover/141/430/14143041.jpg?type=m1&udate=20201224",
-    author: "임홍택",
-    price: "14000",
-    discount: "12600",
-    publisher: "웨일북(whalebooks)",
-    pubdate: "20181116",
-    isbn: "1188248677 9791188248674",
-    description:
-      "새로운 세대, <b>90년</b>대 생과 함께 생존하기 위한 가이드!\n조직에서는 신입 사원이, 시장에서는 트렌드를 이끄는 주요 소비자가 되어 우리 곁에 있는 <b>90년</b>대 생. 자신에게 꼰대질을 하는 기성세대나 자신을... 『<b>90년생</b>이 온다』는 빠르게 변하는 세상에 몰려오는 그들과 공존하기 위해 이해하기 어려워도 받아들여야... ",
+    authors: ["조현영"],
+    contents:
+      "서버와 데이터베이스 개념을 시작으로 노드의 기본 개념을 차근차근 설명해나간다. 군더더기 없는 직관적인 설명, 풍부한 그림으로 기본 개념을 확실히 이해하고, 노드의 기능과 생태계를 사용해보며 실제로 동작하는 서버를 만들어보자. 웹 서버, 웹 API 서버, SNS 서비스, 실시간 GIF 채팅방, 경매 시스템, 위치 기반 장소 검색 서비스, 커맨드라인 인터페이스를 모두 만들어 볼 수 있다. 실무에 당장 적용할 수 있고, 참고할 수 있는 예제와 코드를",
+    datetime: "2018-08-01T00:00:00.000+09:00",
+    isbn: "1160505225 9791160505221",
+    price: 32000,
+    publisher: "길벗",
+    sale_price: 28800,
+    status: "정상판매",
+    thumbnail:
+      "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1597391%3Ftimestamp%3D20201211142827",
+    title: "Node.js 교과서",
+    translators: [],
+    url:
+      "https://search.daum.net/search?w=bookpage&bookId=1597391&q=Node.js+%EA%B5%90%EA%B3%BC%EC%84%9C",
   },
 };
 

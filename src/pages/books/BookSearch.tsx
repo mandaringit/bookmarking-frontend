@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import naverApi, { NaverBook } from "../../api/naverApi";
+import kakaoApi, { KakaoBook } from "../../api/kakaoApi";
 import SearchBar from "../../components/molecules/SearchBar";
 import { useInput } from "../../hooks/useInput";
 import BookSearchList from "./BookSearchList";
@@ -13,7 +13,7 @@ export interface PureBookSearchProps {
   /**
    * API 요청 후 받아온 책 목록
    */
-  books: NaverBook[];
+  books: KakaoBook[];
   /**
    * 로딩 상태
    */
@@ -46,16 +46,16 @@ export const PureBookSearch = ({
 
 const BookSearch = () => {
   const { value: query, onChange } = useInput("");
-  const [books, setBooks] = useState<NaverBook[]>([]);
+  const [books, setBooks] = useState<KakaoBook[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const onSearch = async () => {
     setLoading(true);
-    const { data } = await naverApi.searchBooks(query);
+    const { data } = await kakaoApi.searchBooks(query);
     setLoading(false);
 
-    if (data.items.length === 0) return;
-    setBooks(data.items);
+    if (data.meta.total_count === 0) return;
+    setBooks(data.documents);
   };
 
   return (

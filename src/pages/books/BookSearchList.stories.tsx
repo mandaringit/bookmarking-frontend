@@ -18,48 +18,55 @@ Default.args = {
   loading: false,
   books: [
     {
-      title: "<b>90년생</b>이 온다",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=14143041",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/141/430/14143041.jpg?type=m1&udate=20201224",
-      author: "임홍택",
-      price: "14000",
-      discount: "12600",
-      publisher: "웨일북(whalebooks)",
-      pubdate: "20181116",
-      isbn: "1188248677 9791188248674",
-      description:
-        "새로운 세대, <b>90년</b>대 생과 함께 생존하기 위한 가이드!\n조직에서는 신입 사원이, 시장에서는 트렌드를 이끄는 주요 소비자가 되어 우리 곁에 있는 <b>90년</b>대 생. 자신에게 꼰대질을 하는 기성세대나 자신을... 『<b>90년생</b>이 온다』는 빠르게 변하는 세상에 몰려오는 그들과 공존하기 위해 이해하기 어려워도 받아들여야... ",
+      authors: ["조현영"],
+      contents:
+        "서버와 데이터베이스 개념을 시작으로 노드의 기본 개념을 차근차근 설명해나간다. 군더더기 없는 직관적인 설명, 풍부한 그림으로 기본 개념을 확실히 이해하고, 노드의 기능과 생태계를 사용해보며 실제로 동작하는 서버를 만들어보자. 웹 서버, 웹 API 서버, SNS 서비스, 실시간 GIF 채팅방, 경매 시스템, 위치 기반 장소 검색 서비스, 커맨드라인 인터페이스를 모두 만들어 볼 수 있다. 실무에 당장 적용할 수 있고, 참고할 수 있는 예제와 코드를",
+      datetime: "2018-08-01T00:00:00.000+09:00",
+      isbn: "1160505225 9791160505221",
+      price: 32000,
+      publisher: "길벗",
+      sale_price: 28800,
+      status: "정상판매",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1597391%3Ftimestamp%3D20201211142827",
+      title: "Node.js 교과서",
+      translators: [],
+      url:
+        "https://search.daum.net/search?w=bookpage&bookId=1597391&q=Node.js+%EA%B5%90%EA%B3%BC%EC%84%9C",
     },
     {
-      title:
-        "80년생 김 팀장과 <b>90년생</b> 이 대리가 웃으며 일하는 법 (자꾸 눈치 보게 되는 <b>90년생</b>과 일로 행복해지는 비결)",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=16311453",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/163/114/16311453.jpg?type=m1&udate=20200930",
-      author: "김범준",
-      price: "13500",
-      discount: "12150",
-      publisher: "한빛비즈",
-      pubdate: "20200401",
-      isbn: "1157844030 9791157844036",
-      description:
-        "팀장과 \n<b>90년생</b> 이 대리가 함께 웃으며 일로 행복해지는 비결누구의 부하도 되지 않으려는 <b>90년생</b> 이 대리. 리더로 인정받기 위해 애쓰는 80년생 김 팀장.... 위로부터의 실적 압박은 거세지기만 하고, 팀원들과 소통해서 대책을 강구하려고 해도 ‘왜 그래야 하죠?’라고 따져 묻는 <b>90년생</b> 이 대리를 설득하기조차... ",
+      authors: ["Mario Casciaro", "Luciano Mammino"],
+      contents:
+        "한 차원 높은 웹 설계를 위한 Node.js 디자인 패턴 가이드 Node.js는 JavaScript를 사용하여 쉽게 확장 가능한 서버 측 어플리케이션을 만들 수 있는 매우 유용한 소프트웨어 플랫폼으로, 효율적인 코드 작성을 통해 설계 및 코드 분할을 가능하게 합니다. 이 책은 Node.js의 비동기 단일 스레드 아키텍처와 주요 디자인 패턴을 설명하고, 비동기식 제어 흐름 패턴과 스트림 구성 요소를 마스터하는 방법을 보여주며, 가장 일반적인 디자인 패턴",
+      datetime: "2018-10-20T00:00:00.000+09:00",
+      isbn: "8931459424 9788931459425",
+      price: 27000,
+      publisher: "영진닷컴",
+      sale_price: 24300,
+      status: "정상판매",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F3774855%3Ftimestamp%3D20201230154827",
+      title: "Node.js 디자인 패턴",
+      translators: ["김성원"],
+      url:
+        "https://search.daum.net/search?w=bookpage&bookId=3774855&q=Node.js+%EB%94%94%EC%9E%90%EC%9D%B8+%ED%8C%A8%ED%84%B4",
     },
     {
-      title:
-        "<b>90년생</b> 재테크! (네이버 NO.1 재테크 카페 월재연 슈퍼루키 10인의 이야기)",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=15986833",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/159/868/15986833.jpg?type=m1&udate=20200313",
-      author: "월재연 슈퍼루키 10인",
-      price: "14000",
-      discount: "12600",
-      publisher: "진서원",
-      pubdate: "20200107",
-      isbn: "1186647361 9791186647363",
-      description:
-        "〈<b>90년생</b> 재테크!〉 주인공들은 현재를 즐기되, 그들만의 방식으로 균형 있는 삶의 모습을 보여준다. \n  일명 블로그 재테크라 불리는 맛집 탐방, 데이트... 〈<b>90년생</b> 재테크!〉는 금융지식이 해박하지 않은, 아직 재테크가 멀게만 느껴지는 <b>90년생</b>들에게 더욱 제격인 책이다. 월재연 슈퍼루키 10인은 원래... ",
+      authors: ["정재곤"],
+      contents:
+        "[Node.js 프로그래밍]은 누구나 쉽게 접근할 수 있는 자바스크립트 언어로 웹 서버를 만들며 서버 개발에 입문할 수 있도록 구성한 책이다. 책에서 다루는 코드는 Node.js의 최신 Current 버전을 사용하여 새롭게 제공되는 서버 기능을 빠르게 적용할 수 있으며, 모두 실제 서버로 구동 가능하다. 실제 돌아가는 서버를 만들고 클라우드에 업로드하는 다양한 방법까지 설명하기 때문에 서버 개발 전과정을 배우며 Node.js 서버 전문가로 거듭날 수",
+      datetime: "2017-03-06T00:00:00.000+09:00",
+      isbn: "1187370800 9791187370802",
+      price: 35000,
+      publisher: "이지스퍼블리싱",
+      sale_price: 31500,
+      status: "정상판매",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1641193%3Ftimestamp%3D20201230152436",
+      title: "Do it! Node.js 프로그래밍(전면개정판)",
+      translators: [],
+      url:
+        "https://search.daum.net/search?w=bookpage&bookId=1641193&q=Do+it%21+Node.js+%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%28%EC%A0%84%EB%A9%B4%EA%B0%9C%EC%A0%95%ED%8C%90%29",
     },
   ],
 };
@@ -81,151 +88,172 @@ Fetch10Items.args = {
   loading: false,
   books: [
     {
-      title: "<b>90년생</b>이 온다",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=14143041",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/141/430/14143041.jpg?type=m1&udate=20201224",
-      author: "임홍택",
-      price: "14000",
-      discount: "12600",
-      publisher: "웨일북(whalebooks)",
-      pubdate: "20181116",
-      isbn: "1188248677 9791188248674",
-      description:
-        "새로운 세대, <b>90년</b>대 생과 함께 생존하기 위한 가이드!\n조직에서는 신입 사원이, 시장에서는 트렌드를 이끄는 주요 소비자가 되어 우리 곁에 있는 <b>90년</b>대 생. 자신에게 꼰대질을 하는 기성세대나 자신을... 『<b>90년생</b>이 온다』는 빠르게 변하는 세상에 몰려오는 그들과 공존하기 위해 이해하기 어려워도 받아들여야... ",
+      authors: ["조현영"],
+      contents:
+        "서버와 데이터베이스 개념을 시작으로 노드의 기본 개념을 차근차근 설명해나간다. 군더더기 없는 직관적인 설명, 풍부한 그림으로 기본 개념을 확실히 이해하고, 노드의 기능과 생태계를 사용해보며 실제로 동작하는 서버를 만들어보자. 웹 서버, 웹 API 서버, SNS 서비스, 실시간 GIF 채팅방, 경매 시스템, 위치 기반 장소 검색 서비스, 커맨드라인 인터페이스를 모두 만들어 볼 수 있다. 실무에 당장 적용할 수 있고, 참고할 수 있는 예제와 코드를",
+      datetime: "2018-08-01T00:00:00.000+09:00",
+      isbn: "1160505225 9791160505221",
+      price: 32000,
+      publisher: "길벗",
+      sale_price: 28800,
+      status: "정상판매",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1597391%3Ftimestamp%3D20201211142827",
+      title: "Node.js 교과서",
+      translators: [],
+      url:
+        "https://search.daum.net/search?w=bookpage&bookId=1597391&q=Node.js+%EA%B5%90%EA%B3%BC%EC%84%9C",
     },
     {
-      title:
-        "80년생 김 팀장과 <b>90년생</b> 이 대리가 웃으며 일하는 법 (자꾸 눈치 보게 되는 <b>90년생</b>과 일로 행복해지는 비결)",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=16311453",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/163/114/16311453.jpg?type=m1&udate=20200930",
-      author: "김범준",
-      price: "13500",
-      discount: "12150",
-      publisher: "한빛비즈",
-      pubdate: "20200401",
-      isbn: "1157844030 9791157844036",
-      description:
-        "팀장과 \n<b>90년생</b> 이 대리가 함께 웃으며 일로 행복해지는 비결누구의 부하도 되지 않으려는 <b>90년생</b> 이 대리. 리더로 인정받기 위해 애쓰는 80년생 김 팀장.... 위로부터의 실적 압박은 거세지기만 하고, 팀원들과 소통해서 대책을 강구하려고 해도 ‘왜 그래야 하죠?’라고 따져 묻는 <b>90년생</b> 이 대리를 설득하기조차... ",
+      authors: ["Mario Casciaro", "Luciano Mammino"],
+      contents:
+        "한 차원 높은 웹 설계를 위한 Node.js 디자인 패턴 가이드 Node.js는 JavaScript를 사용하여 쉽게 확장 가능한 서버 측 어플리케이션을 만들 수 있는 매우 유용한 소프트웨어 플랫폼으로, 효율적인 코드 작성을 통해 설계 및 코드 분할을 가능하게 합니다. 이 책은 Node.js의 비동기 단일 스레드 아키텍처와 주요 디자인 패턴을 설명하고, 비동기식 제어 흐름 패턴과 스트림 구성 요소를 마스터하는 방법을 보여주며, 가장 일반적인 디자인 패턴",
+      datetime: "2018-10-20T00:00:00.000+09:00",
+      isbn: "8931459424 9788931459425",
+      price: 27000,
+      publisher: "영진닷컴",
+      sale_price: 24300,
+      status: "정상판매",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F3774855%3Ftimestamp%3D20201230154827",
+      title: "Node.js 디자인 패턴",
+      translators: ["김성원"],
+      url:
+        "https://search.daum.net/search?w=bookpage&bookId=3774855&q=Node.js+%EB%94%94%EC%9E%90%EC%9D%B8+%ED%8C%A8%ED%84%B4",
     },
     {
-      title:
-        "<b>90년생</b> 재테크! (네이버 NO.1 재테크 카페 월재연 슈퍼루키 10인의 이야기)",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=15986833",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/159/868/15986833.jpg?type=m1&udate=20200313",
-      author: "월재연 슈퍼루키 10인",
-      price: "14000",
-      discount: "12600",
-      publisher: "진서원",
-      pubdate: "20200107",
-      isbn: "1186647361 9791186647363",
-      description:
-        "〈<b>90년생</b> 재테크!〉 주인공들은 현재를 즐기되, 그들만의 방식으로 균형 있는 삶의 모습을 보여준다. \n  일명 블로그 재테크라 불리는 맛집 탐방, 데이트... 〈<b>90년생</b> 재테크!〉는 금융지식이 해박하지 않은, 아직 재테크가 멀게만 느껴지는 <b>90년생</b>들에게 더욱 제격인 책이다. 월재연 슈퍼루키 10인은 원래... ",
+      authors: ["정재곤"],
+      contents:
+        "[Node.js 프로그래밍]은 누구나 쉽게 접근할 수 있는 자바스크립트 언어로 웹 서버를 만들며 서버 개발에 입문할 수 있도록 구성한 책이다. 책에서 다루는 코드는 Node.js의 최신 Current 버전을 사용하여 새롭게 제공되는 서버 기능을 빠르게 적용할 수 있으며, 모두 실제 서버로 구동 가능하다. 실제 돌아가는 서버를 만들고 클라우드에 업로드하는 다양한 방법까지 설명하기 때문에 서버 개발 전과정을 배우며 Node.js 서버 전문가로 거듭날 수",
+      datetime: "2017-03-06T00:00:00.000+09:00",
+      isbn: "1187370800 9791187370802",
+      price: 35000,
+      publisher: "이지스퍼블리싱",
+      sale_price: 31500,
+      status: "정상판매",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1641193%3Ftimestamp%3D20201230152436",
+      title: "Do it! Node.js 프로그래밍(전면개정판)",
+      translators: [],
+      url:
+        "https://search.daum.net/search?w=bookpage&bookId=1641193&q=Do+it%21+Node.js+%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%28%EC%A0%84%EB%A9%B4%EA%B0%9C%EC%A0%95%ED%8C%90%29",
     },
     {
-      title:
-        "<b>90년생</b>과 일하는 방법 (밀레니얼세대의 새로운 가치관에 맞게 일하는 26가지 소통의 기술)",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=15760176",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/157/601/15760176.jpg?type=m1&udate=20200113",
-      author: "윤영철",
-      price: "14800",
-      discount: "13320",
-      publisher: "보랏빛소",
-      pubdate: "20191122",
-      isbn: "1187856886 9791187856887",
-      description:
-        "“<b>90년생</b> 후배와 일하는 거 저만 이렇게 힘든가요?”\n186개 회사 5,000여 팀장이 들려주는 생생한 사례\n<b>90년생</b> 후배와 협업하고 성과를 이끄는 현장 실무... 밀레니얼세대, <b>90년생</b>, 요즘 것들. 여러 이름으로 불리는 이들은 전 세계적으로 화두다. 이들과 원활한 협업이 프로젝트의 성패를 이끌고, 소비 시장을... ",
+      authors: ["정민석"],
+      contents:
+        "효율적인 구성으로 단시간에 배우는 Node.js 프로그래밍!  이 책은 Node.js를 이용한 웹 서버 제작 방법을 단계별로 설명하면서 그 과정에서 파생하는 이슈나 문제 해결 과정을 담고 있다. 서버를 개발할 수 있는 언어는 다양하지만 왜 Node.js를 사용해야 하는지를 다른 언어와의 비교를 통해 설명하였고, 저자의 경험을 토대로 콜백(callback) 지옥에 대한 해법도 제시한다.  여러분이 린(lean)하게 개발해야 하는 스타트업 개발자이거나 자바",
+      datetime: "2018-08-06T00:00:00.000+09:00",
+      isbn: "1188621297 9791188621293",
+      price: 20000,
+      publisher: "제이펍",
+      sale_price: 18000,
+      status: "정상판매",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1647790%3Ftimestamp%3D20201224141907",
+      title: "node.js 프로그래밍(웹 서비스를 만들며 배우는)",
+      translators: [],
+      url:
+        "https://search.daum.net/search?w=bookpage&bookId=1647790&q=node.js+%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%28%EC%9B%B9+%EC%84%9C%EB%B9%84%EC%8A%A4%EB%A5%BC+%EB%A7%8C%EB%93%A4%EB%A9%B0+%EB%B0%B0%EC%9A%B0%EB%8A%94%29",
     },
     {
-      title:
-        "<b>90년생</b>이 사무실에 들어오셨습니다 (밀레니얼이 어려운 X세대를 위한 코칭 수업)",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=16562766",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/165/627/16562766.jpg?type=m1&udate=20200904",
-      author: "김현정",
-      price: "12800",
-      discount: "11520",
-      publisher: "자음과모음",
-      pubdate: "20200814",
-      isbn: "8954444733 9788954444736",
-      description:
-        "『<b>90년생</b>이 사무실에 들어오셨습니다』의 김현정 저자는 지난 10여 년간 세계적으로 화두가 된 기업 내 ‘세대론’을 국내 현실에 적용하며 꾸준히 강연을 개발하고 다듬어왔다. 현장에서 만난 리더들이 세대 차이로 힘들어할 때 함께 머리를 맞대고 고민했고, 그것을 해결하기 위한 솔루션들을 시행해보았다.... ",
+      authors: ["김경록", "정지현"],
+      contents:
+        "총 5개 파트 200개의 예제로 구성되어 있는 이 책은, ES6 문법과 함수형 프로그래밍을 한 번에 배우기 위해 만들어졌습니다. 웹 브라우저에서만 사용하던 스크립트 언어였던 자바스크립트를 node.js라는 엔진이 나오면서 웹 브라우저뿐만 아니라 서버, 앱 등 많은 분야에서 사용하기 때문에 개발하는 데 편리함을 줍니다. 또한 노드는 npm이라는 라이브러리 공유 시스템이 있어서 유용한 라이브러리들을 활용할 수 있습니다. node.js를 배우고 싶고, 프로젝트",
+      datetime: "2018-03-30T00:00:00.000+09:00",
+      isbn: "8956747792 9788956747798",
+      price: 23000,
+      publisher: "정보문화사",
+      sale_price: 20700,
+      status: "정상판매",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F743761%3Ftimestamp%3D20201227133424",
+      title: "초보자를 위한 Node.js 200제",
+      translators: [],
+      url:
+        "https://search.daum.net/search?w=bookpage&bookId=743761&q=%EC%B4%88%EB%B3%B4%EC%9E%90%EB%A5%BC+%EC%9C%84%ED%95%9C+Node.js+200%EC%A0%9C",
     },
     {
-      title: "<b>90년생</b>과 어떻게 일할 것인가",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=14959866",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/149/598/14959866.jpg?type=m1&udate=20191206",
-      author: "최경춘",
-      price: "16000",
-      discount: "14400",
-      publisher: "위즈덤하우스",
-      pubdate: "20190529",
-      isbn: "1190065681 9791190065689",
-      description:
-        "시장의 트렌드를 선도하는 주요 소비자가 된 <b>90년생</b>은 기업의 흥망성쇠를 좌우하는 세대로 주목받고 있다. 반면에 신입사원으로 입사한 그들로 인해... 《<b>90년생</b>과 어떻게 일할 것인가》는 올드한 리더십 스킬이 아닌, ‘진실한’ 리더십으로 ‘의미 있는 성과’를 만들어내고 미래의 주역이 될 그들과의 세대 차... ",
+      authors: ["Surhone Lambert M"],
+      contents: "",
+      datetime: "2012-04-20T00:00:00.000+09:00",
+      isbn: "6133180196 9786133180192",
+      price: 60580,
+      publisher: "Betascript",
+      sale_price: -1,
+      status: "",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F2913032%3Ftimestamp%3D20190216153605",
+      title: "Node.Js",
+      translators: [],
+      url: "https://search.daum.net/search?w=bookpage&bookId=2913032&q=Node.Js",
     },
     {
-      title:
-        "<b>90년생</b>은 이해 못하는 70년생 부장님의 회심의 한마디 “라떼는 말이야” (어느 <b>90년생</b>의 직장생활 1년 보고서)",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=16264781",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/162/647/16264781.jpg?type=m1&udate=20200229",
-      author: "조기준",
-      price: "15000",
-      discount: "13500",
-      publisher: "활자공방",
-      pubdate: "20200210",
-      isbn: "1196947805 9791196947804",
-      description:
-        "어느 <b>90년생</b>의 첫 직장생활 1년 보고서!\n낯설고 알쏭달쏭한 조직 생리와 섣불리 넘나들기 힘든 조직 내 세대 차이,\n그 속에서 얻은 깨달음과 실전 철학!힘든... 이 책은 <b>90년</b>대생 사회 초년병의 시각으로 조직의 어엿한 일원이 되어가는 과정을 여과 없이 생생히 그려내는 가운데, 이 시대의 직장생활과 일의 의미를... ",
+      authors: ["정대천"],
+      contents:
+        "넷플릭스, 아마존닷컴, 이베이를 포함한 대규모 웹 사이트들이 모놀리식 아키텍처에서 마이크로서비스 아키텍처로 변화하고 있다. 이들은 왜 마이크로서비스 아키텍처를 선택했을까? 마이크로서비스 아키텍처를 직접 설계하고 구현해보며 개념과 구축 방법을 이해하고, 장애 처리, 보안, 로그 수집, 배포, 적용 시점처럼 고려해야 할 주제들도 함께 학습한다.",
+      datetime: "2018-02-28T00:00:00.000+09:00",
+      isbn: "1160504210 9791160504217",
+      price: 26000,
+      publisher: "길벗",
+      sale_price: 23400,
+      status: "정상판매",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1596345%3Ftimestamp%3D20201230154211",
+      title: "Node.js 마이크로서비스 코딩 공작소",
+      translators: [],
+      url:
+        "https://search.daum.net/search?w=bookpage&bookId=1596345&q=Node.js+%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4+%EC%BD%94%EB%94%A9+%EA%B3%B5%EC%9E%91%EC%86%8C",
     },
     {
-      title:
-        "<b>90년생</b>이 팀장의 성과를 만든다 (밀레니얼세대와 X세대 팀장의 사선문화를 통한 소통)",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=15768327",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/157/683/15768327.jpg?type=m1&udate=20191213",
-      author: "김인옥",
-      price: "10000",
-      discount: "9000",
-      publisher: "텔루스tellus",
-      pubdate: "20191120",
-      isbn: "1196837708 9791196837709",
-      description:
-        "요즘 우리 사회의 불편한 단면이자 세대간의 차이를 보여주는 장면들이다. 이 책을 통하여 저자는 18년동안 직장생활을 하면서 격은 조직문화의 경험을 바탕으로 X세대 관리자와 <b>90년생</b>의 사원들이 함께 어울림의 방법을 알려주고 있다.",
+      authors: ["페르난두 몬테이루"],
+      contents:
+        "노드(Node.js)는 서버 사이드 애플리케이션을 만드는 사실상 표준 프레임워크다. 이 책은 최신 LTS 버전인 6.x을 기준으로 각종 프레임워크와 라이브러리를 활용하여 모던 웹 앱 개발 과정을 훑어본다. 간단한 SNS, 상점 찾기, 실시간 채팅 등 10가지 예제를 통해 MVC 디자인 패턴, DB, Restful API, 지속적 배포 같은 주제를 자기 것으로 만들 수 있다. 격변하는 웹 개발 환경 속에서 스킬을 빠르게 향상하고 적합한 도구를 선택할",
+      datetime: "2017-07-03T00:00:00.000+09:00",
+      isbn: "896848757X 9788968487576",
+      price: 30000,
+      publisher: "한빛미디어",
+      sale_price: 27000,
+      status: "정상판매",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F945175%3Ftimestamp%3D20201115131358",
+      title: "Node.js 6.x 블루프린트",
+      translators: ["맹기완"],
+      url:
+        "https://search.daum.net/search?w=bookpage&bookId=945175&q=Node.js+6.x+%EB%B8%94%EB%A3%A8%ED%94%84%EB%A6%B0%ED%8A%B8",
     },
     {
-      title:
-        "<b>90년생</b>과 갈등없이 잘 지내는 대화법 (당신도 존경받는 선배가 될 수 있다!)",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=16215218",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/162/152/16215218.jpg?type=m1&udate=20200214",
-      author: "강지연",
-      price: "16000",
-      discount: "14400",
-      publisher: "메이트북스",
-      pubdate: "20200203",
-      isbn: "1160022720 9791160022728",
-      description:
-        "너무 어려운 <b>90년생</b>과의 대화, 이렇게 하자!문재인 대통령이 청와대 직원들에게 선물한 책 『<b>90년생</b>이 온다』가 선풍적인 인기를 끌며 <b>90년생</b>의 특징을 잘 표현했다면, 이제는 한발 더 나아가 그들과 현장에서 직접 부딪치며 관계를 맺고 대화하는 방법을 구체적으로 알아갈 때이다. 실제로 최근 회사에서... ",
+      authors: ["셸리 파워즈"],
+      contents:
+        "제대로 배우는 『Node.js 프로그래밍』. 이 책은 Node.js에 대해 이론적인 내용 대신, 수많은 예제들과 실제 가장 많이 사용되는 모듈들을 다루는 데 초점을 맞추고 있다. 비동기 개발에 대한 Node의 독특한 접근방법을 살펴보고, Express 프레임워크와 Connect 미들웨어로 Node 애플리케이션 예제를 만들어본다. 나아가 WebSocket을 사용하여 브라우저와 서버 간에 양방향 통신을 구성하고, 클라우드나 자신의 시스템에 Node 애플리케이션",
+      datetime: "2013-06-10T00:00:00.000+09:00",
+      isbn: "8994774408 9788994774404",
+      price: 28000,
+      publisher: "비제이퍼블릭",
+      sale_price: 25200,
+      status: "정상판매",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1428849%3Ftimestamp%3D20201210142333",
+      title: "Node.js 프로그래밍(제대로 배우는)",
+      translators: ["안재우"],
+      url:
+        "https://search.daum.net/search?w=bookpage&bookId=1428849&q=Node.js+%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%28%EC%A0%9C%EB%8C%80%EB%A1%9C+%EB%B0%B0%EC%9A%B0%EB%8A%94%29",
     },
     {
-      title: "<b>90년생</b> 공무원이 왔다",
-      link: "http://book.naver.com/bookdb/book_detail.php?bid=17525025",
-      image:
-        "https://bookthumb-phinf.pstatic.net/cover/175/250/17525025.jpg?type=m1&udate=20201201",
-      author: "정부혁신어벤져스",
-      price: "0",
-      discount: "",
-      publisher: "경성e-북스",
-      pubdate: "20201118",
-      isbn: "1156982960 9791156982968",
-      description:
-        "오랜 기간 베스트셀러로 주목을 받고 있는 임홍택 작가의 《<b>90년생</b>이 온다》라는 책은 이를 잘 보여... 이 책 《<b>90년생</b> 공무원이 왔다》에는 이러한 공직 사회의 변화에 대한 여러 목소리가 담겨 있습니다.... 역할을 담당할 <b>90년</b>대생 공무원에게도 힘찬 격려의 박수를 보냅니다. 감사합니다.행정안전부 장관 진 영",
+      authors: ["송형주", "고현준"],
+      contents:
+        "이 책의 목적은 자바스크립트의 핵심 원리, 언어적 특성을 정확하고 알기 쉽게 설명하는 것이다. 물론 이 책이 자바스크립트의 모든 것을 다룬 바이블은 아니다. 그러나 자바스크립트를 제대로 공부하고자 하는 개발자에게 여러 자바스크립트 응용 기술들을 소화할 수 있는 기초 체력을 기를 수 있게 도와주는 좋은 가이드가 될 것이다.",
+      datetime: "2014-01-02T00:00:00.000+09:00",
+      isbn: "8968480656 9788968480652",
+      price: 18000,
+      publisher: "한빛미디어",
+      sale_price: 16200,
+      status: "정상판매",
+      thumbnail:
+        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F945952%3Ftimestamp%3D20201230155531",
+      title: "인사이드 자바스크립트",
+      translators: [],
+      url:
+        "https://search.daum.net/search?w=bookpage&bookId=945952&q=%EC%9D%B8%EC%82%AC%EC%9D%B4%EB%93%9C+%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8",
     },
   ],
 };

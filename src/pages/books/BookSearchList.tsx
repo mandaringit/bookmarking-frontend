@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { NaverBook } from "../../api/naverApi";
+import { KakaoBook } from "../../api/kakaoApi";
 import BookSearchItem from "./BookSearchItem";
 
 export interface BookSearchListProps {
   loading: boolean;
-  books: NaverBook[];
+  books: KakaoBook[];
 }
 
 const BookSearchList = ({ books, loading }: BookSearchListProps) => {

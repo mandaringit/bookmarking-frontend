@@ -24,7 +24,7 @@ export interface KakaoBook {
 
 interface KakaoBookSearchApiResponse {
   meta: KakaoResponseMeta;
-  documents: KakaoBook;
+  documents: KakaoBook[];
 }
 
 const kakaoApi = {
