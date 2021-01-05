@@ -1,27 +1,40 @@
-import { NaverBook } from "../../api/naverApi";
 import React from "react";
 import styled from "styled-components";
 import Button from "../../components/atoms/Button";
-import { removeHTMLTag } from "../../lib/utils";
+import { useDispatch } from "react-redux";
+import { createReportThunk } from "../../slices/reportsSlice";
+import { KakaoBook } from "../../api/kakaoApi";
+import { KakaoBookForm } from "../../types/utils";
+import {
+  extractKakaoBookThumbnailFname,
+  getKakaoThumbnailUrl,
+} from "../../lib/utils";
 
 interface AddButtonProps {
   alreadyAdded: boolean;
-  book: NaverBook;
+  book: KakaoBookForm;
 }
 
 /**
  * 책 추가 버튼
  */
 const AddButton = ({ alreadyAdded, book }: AddButtonProps) => {
+  const dipatch = useDispatch();
+
   if (alreadyAdded) {
     return <Button disabled>이미 등록된 책</Button>;
   }
   const onAdd = () => {
-    // TODO: 책 생성 & 리포트 생성
-    console.log("책 & 리포트를 생성합니다");
-    console.log(book);
-    const title = removeHTMLTag(book.title);
-    console.log(title);
+    const thumbnailFname = extractKakaoBookThumbnailFname(book.thumbnail);
+    dipatch(
+      createReportThunk({
+        book: {
+          ...book,
+          thumbnail: thumbnailFname,
+        },
+        title: `${book.title}의 생각 모음`,
+      })
+    );
   };
   return <Button onClick={onAdd}>추가하기</Button>;
 };
@@ -30,7 +43,7 @@ export interface PureBookSearchItemProps {
   /**
    * 네이버 API로 가져온 책 정보
    */
-  book: NaverBook;
+  book: KakaoBook;
   /**
    * 로그인한 유저가 이미 등록한 책인지에 대한 여부
    */
@@ -44,18 +57,19 @@ export const PureBookSearchItem = ({
   book,
   alreadyAdded,
 }: PureBookSearchItemProps) => {
-  const { author, image, title, description } = book;
+  const { thumbnail, title, authors, contents } = book;
+  const thumbnailUrl = getKakaoThumbnailUrl(thumbnail, 150);
   return (
     <Container>
       <div className='book__image'>
-        <img src={image} alt={`${title} 표지`} />
+        <img src={thumbnailUrl} alt={`${title} 표지`} />
       </div>
       <div className='book__info'>
         <span className='title' dangerouslySetInnerHTML={{ __html: title }} />
-        <span className='author'>{author}</span>
+        <span className='author'>{authors[0]}</span>
         <p
           className='description'
-          dangerouslySetInnerHTML={{ __html: description }}
+          dangerouslySetInnerHTML={{ __html: contents }}
         />
         <AddButton alreadyAdded={alreadyAdded} book={book} />
       </div>
@@ -64,7 +78,7 @@ export const PureBookSearchItem = ({
 };
 
 export interface BookSearchItemProps {
-  book: NaverBook;
+  book: KakaoBook;
 }
 
 const BookSearchItem = ({ book }: BookSearchItemProps) => {
@@ -79,7 +93,7 @@ const Container = styled.li`
   list-style: none;
   display: grid;
   gap: 1rem;
-  grid-template-columns: auto auto;
+  grid-template-columns: 100px auto;
   border-bottom: 2px solid #f0f0f0;
   padding: 1rem 0;
 
