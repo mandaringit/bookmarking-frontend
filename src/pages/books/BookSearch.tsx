@@ -23,7 +23,7 @@ export interface PureBookSearchProps {
 }
 
 const Container = styled.div`
-  max-width: 800px;
+  width: 800px;
   margin: 0 auto;
   display: grid;
   gap: 1rem;
@@ -48,6 +48,7 @@ const BookSearch = () => {
   const { value: query, onChange } = useInput("");
   const [books, setBooks] = useState<NaverBook[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+
   const onSearch = async () => {
     setLoading(true);
     const { data } = await naverApi.searchBooks(query);
