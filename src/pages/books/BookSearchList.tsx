@@ -9,7 +9,6 @@ export interface BookSearchListProps {
 
 const BookSearchList = ({ books, loading }: BookSearchListProps) => {
   if (loading) {
-    // TODO: Loading 구현
     return (
       <Container>
         <LoadingItem />
