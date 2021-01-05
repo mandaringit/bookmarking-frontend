@@ -3,9 +3,9 @@ import {
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import todoAPI from "../../api/todos";
-import { RootState } from "../../store";
-import { iTodo } from "../../types/entity";
+import todoAPI from "../api/todos";
+import { RootState } from "../store";
+import { iTodo } from "../types/entity";
 
 const todosAdapter = createEntityAdapter({
   sortComparer: (a: iTodo, b: iTodo) =>

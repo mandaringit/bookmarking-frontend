@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import authAPI from "../../api/auth";
-import customHistory from "../../lib/customHistory";
-import { RootState, iThunkAPI } from "../../store";
-import { iUser } from "../../types/entity";
-import { iLocalLoginForm } from "./LocalLoginForm";
-import { LoadingState } from "../../types/utils";
+import authAPI from "../api/auth";
+import customHistory from "../lib/customHistory";
+import { RootState, iThunkAPI } from "../store";
+import { iUser } from "../types/entity";
+import { iLocalLoginForm } from "../pages/auth/LocalLoginForm";
+import { LoadingState } from "../types/utils";
 
 const initialState = {
   error: "",

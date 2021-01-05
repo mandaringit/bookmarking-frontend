@@ -3,8 +3,8 @@ import TodoItem from "./TodoItem";
 import styled from "styled-components";
 import TodoAddForm from "./TodoAddForm";
 import { useDispatch, useSelector } from "react-redux";
-import { getTodos, selectAllTodos } from "./todosSlice";
-import { selectLoggedInUser } from "../auth/authSlice";
+import { getTodos, selectAllTodos } from "../../slices/todosSlice";
+import { selectLoggedInUser } from "../../slices/authSlice";
 import { RouteComponentProps } from "react-router-dom";
 
 const TodoList = ({ history }: RouteComponentProps) => {

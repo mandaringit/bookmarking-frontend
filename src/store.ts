@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import todoReducer from "./pages/todos/todosSlice";
-import authReducer from "./pages/auth/authSlice";
+import todoReducer from "./slices/todosSlice";
+import authReducer from "./slices/authSlice";
 import { History } from "history";
 import customHistory from "./lib/customHistory";
 

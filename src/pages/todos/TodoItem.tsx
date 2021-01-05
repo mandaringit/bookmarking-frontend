@@ -4,7 +4,7 @@ import styled from "styled-components";
 import cx from "classnames";
 import TodoEditForm from "./TodoEditForm";
 import { useDispatch } from "react-redux";
-import { removeTodo, toggleTodo } from "./todosSlice";
+import { removeTodo, toggleTodo } from "../../slices/todosSlice";
 
 interface TodoItemProps {
   todo: iTodo;

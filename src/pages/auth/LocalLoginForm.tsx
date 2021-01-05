@@ -4,7 +4,11 @@ import styled from "styled-components";
 import Button from "../../components/atoms/Button";
 import Input from "../../components/atoms/Input";
 import { LoadingState } from "../../types/utils";
-import { localLogIn, selectAuthError, selectAuthLoading } from "./authSlice";
+import {
+  localLogIn,
+  selectAuthError,
+  selectAuthLoading,
+} from "../../slices/authSlice";
 
 export interface iLocalLoginForm {
   email: string;

@@ -6,7 +6,7 @@ import store from "./store";
 import { createGlobalStyle } from "styled-components";
 import { Router } from "react-router-dom";
 import customHistory from "./lib/customHistory";
-import { checkAuth, tempSetUser } from "./pages/auth/authSlice";
+import { checkAuth, tempSetUser } from "./slices/authSlice";
 
 const GlobalStyle = createGlobalStyle`
   html,body,#root {

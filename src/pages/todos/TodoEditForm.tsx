@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { iTodo } from "../../types/entity";
-import { updateTodoText } from "./todosSlice";
+import { updateTodoText } from "../../slices/todosSlice";
 
 interface TodoEditFormProps {
   todo: iTodo;

@@ -5,7 +5,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import Navbar from "./components/orgranisms/Navbar";
 import { useSelector } from "react-redux";
-import { selectLoggedInUser } from "./pages/auth/authSlice";
+import { selectLoggedInUser } from "./slices/authSlice";
 import BookSearch from "./pages/books/BookSearch";
 
 const Container = styled.div`
