@@ -5,10 +5,7 @@ import { useDispatch } from "react-redux";
 import { createReportThunk } from "../../slices/reportsSlice";
 import { KakaoBook } from "../../api/kakaoApi";
 import { KakaoBookForm } from "../../types/utils";
-import {
-  extractKakaoBookThumbnailFname,
-  getKakaoThumbnailUrl,
-} from "../../lib/utils";
+import { extractFname, getFullThumbnailUrl } from "../../lib/utils";
 
 interface AddButtonProps {
   alreadyAdded: boolean;
@@ -25,12 +22,12 @@ const AddButton = ({ alreadyAdded, book }: AddButtonProps) => {
     return <Button disabled>이미 등록된 책</Button>;
   }
   const onAdd = () => {
-    const thumbnailFname = extractKakaoBookThumbnailFname(book.thumbnail);
+    const fname = extractFname(book.thumbnail);
     dipatch(
       createReportThunk({
         book: {
           ...book,
-          thumbnail: thumbnailFname,
+          thumbnail: fname,
         },
         title: `${book.title}의 생각 모음`,
       })
@@ -58,11 +55,12 @@ export const PureBookSearchItem = ({
   alreadyAdded,
 }: PureBookSearchItemProps) => {
   const { thumbnail, title, authors, contents } = book;
-  const thumbnailUrl = getKakaoThumbnailUrl(thumbnail, 150);
+  const fname = extractFname(thumbnail);
+  const imageURL = getFullThumbnailUrl(fname, 150);
   return (
     <Container>
       <div className='book__image'>
-        <img src={thumbnailUrl} alt={`${title} 표지`} />
+        <img src={imageURL} alt={`${title} 표지`} />
       </div>
       <div className='book__info'>
         <span className='title' dangerouslySetInnerHTML={{ __html: title }} />
