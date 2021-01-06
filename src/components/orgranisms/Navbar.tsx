@@ -18,8 +18,8 @@ const Navbar = ({ loggedInUser }: NavbarProps) => {
     <Nav>
       <div className='container'>
         <div className='main'>
-          <Link to='/'>🐸 다집어넣은투두</Link>
-          {loggedInUser ? <Link to='/todos'>할일</Link> : null}
+          <Link to='/'>🔖 북마킹</Link>
+          {loggedInUser ? <Link to='/myreports'>나의 독후감</Link> : null}
         </div>
 
         <div className='sub'>
