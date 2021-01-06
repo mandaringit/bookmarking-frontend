@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import reportsAPI from "../api/reports";
-import { iReport } from "../types/entity";
+import { RootState } from "../store";
+import { iReport, ReportWithoutUser } from "../types/entity";
 import { LoadingState, CreateReportForm } from "../types/utils";
 
 export const createReportThunk = createAsyncThunk<iReport, CreateReportForm>(
@@ -12,7 +13,7 @@ export const createReportThunk = createAsyncThunk<iReport, CreateReportForm>(
 );
 
 const initialState = {
-  reports: [] as iReport[],
+  reports: [] as ReportWithoutUser[],
   loading: "idle" as LoadingState,
   error: "",
 };
@@ -38,3 +39,5 @@ const reportsSlice = createSlice({
 });
 
 export default reportsSlice.reducer;
+
+export const selectReports = (state: RootState) => state.reports.reports;

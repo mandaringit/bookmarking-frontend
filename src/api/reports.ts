@@ -1,15 +1,16 @@
 import { AxiosResponse } from "axios";
-import { iReport } from "../types/entity";
+import { iReport, ReportWithoutUser } from "../types/entity";
 import { KakaoBookForm } from "../types/utils";
 import { client } from "./client";
 
-type ReportResponse = AxiosResponse<iReport>;
-type ReportsResponse = AxiosResponse<iReport[]>;
+type CreateReportResponse = AxiosResponse<iReport>;
+type FindMyReportsResponse = AxiosResponse<ReportWithoutUser[]>;
 
 const reportsAPI = {
-  findMyReports: async () => await client.get<any, ReportsResponse>("/reports"),
+  findMyReports: async () =>
+    await client.get<any, FindMyReportsResponse>("/reports"),
   createReport: async (book: KakaoBookForm, title: string) =>
-    await client.post<any, ReportResponse>("/reports", {
+    await client.post<any, CreateReportResponse>("/reports", {
       title,
       bookInfo: book,
     }),

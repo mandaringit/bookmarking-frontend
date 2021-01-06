@@ -30,3 +30,5 @@ export interface iReport {
   user: iUser;
   book: iBook;
 }
+
+export type ReportWithoutUser = Pick<iReport, "id" | "book" | "title">;
