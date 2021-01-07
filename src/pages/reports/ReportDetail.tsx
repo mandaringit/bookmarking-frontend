@@ -58,6 +58,8 @@ const ReportDetail = ({ match }: RouteComponentProps<{ reportId: string }>) => {
 export default ReportDetail;
 
 const Container = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
   & > h1 {
     margin: 0;
   }
