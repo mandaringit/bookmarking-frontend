@@ -45,7 +45,7 @@ export const PureBookSearch = ({
 };
 
 const BookSearch = () => {
-  const { value: query, onChange } = useInput("");
+  const { value: query, onChange } = useInput<HTMLInputElement>("");
   const [books, setBooks] = useState<KakaoBook[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
