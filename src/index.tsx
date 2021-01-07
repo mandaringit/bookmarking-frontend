@@ -7,6 +7,9 @@ import { Router } from "react-router-dom";
 import customHistory from "./lib/customHistory";
 import { checkAuth, tempSetUser } from "./slices/authSlice";
 import GlobalStyle from "./GlobalStyle";
+import "moment/locale/ko";
+import moment from "moment";
+moment.locale("ko");
 
 if (localStorage.getItem("mandarin-dev")) {
   store.dispatch(
