@@ -1,8 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import fragmentAPI from "../api/fragments";
 import reportsAPI from "../api/reports";
 import { RootState } from "../store";
-import { BasicReport, BasicReportWithFragments } from "../types/entity";
-import { LoadingState, CreateReportForm } from "../types/utils";
+import {
+  BasicFragment,
+  BasicReport,
+  BasicReportWithFragments,
+} from "../types/entity";
+import {
+  LoadingState,
+  CreateReportForm,
+  CreateFragmentForm,
+} from "../types/utils";
 
 export const createReportThunk = createAsyncThunk<
   BasicReport,
@@ -28,6 +37,14 @@ export const findReportByIdThunk = createAsyncThunk<
   return response.data;
 });
 
+export const createFragmentThunk = createAsyncThunk<
+  BasicFragment,
+  CreateFragmentForm
+>("fragments/createFragment", async ({ reportId, text }) => {
+  const response = await fragmentAPI.createFragement(reportId, text);
+  return response.data;
+});
+
 const initialState = {
   reports: [] as BasicReport[],
   report: null as BasicReportWithFragments | null,
@@ -44,7 +61,11 @@ const initialState = {
 const reportsSlice = createSlice({
   initialState,
   name: "reports",
-  reducers: {},
+  reducers: {
+    clearReport: (state) => {
+      state.report = null;
+    },
+  },
   extraReducers: (builder) => {
     /**
      * 리포트 아이디로 하나 가져오기
@@ -85,8 +106,17 @@ const reportsSlice = createSlice({
       state.loading.createReport = "failed";
       state.error.createReport = "독후감을 만드는데 실패했습니다.";
     });
+
+    /**
+     * 기억 조각 생성하기
+     */
+    builder.addCase(createFragmentThunk.fulfilled, (state, action) => {
+      state.report!.fragments.push(action.payload);
+    });
   },
 });
+
+export const { clearReport } = reportsSlice.actions;
 
 export default reportsSlice.reducer;
 
