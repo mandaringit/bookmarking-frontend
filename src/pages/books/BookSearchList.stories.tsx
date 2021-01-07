@@ -2,7 +2,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import BookSearchList, { BookSearchListProps } from "./BookSearchList";
 
 export default {
-  title: "Molecules/BookSearch/BookSearchList",
+  title: "Pages/BookSearch/BookSearchList",
   component: BookSearchList,
   decorators: [
     (story) => <div style={{ padding: "1rem 3rem" }}>{story()}</div>,

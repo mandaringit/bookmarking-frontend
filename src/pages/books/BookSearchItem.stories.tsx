@@ -2,7 +2,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import { PureBookSearchItem, PureBookSearchItemProps } from "./BookSearchItem";
 
 export default {
-  title: "Molecules/BookSearch/BookSearchItem",
+  title: "Pages/BookSearch/BookSearchItem",
   component: PureBookSearchItem,
 } as Meta;
 

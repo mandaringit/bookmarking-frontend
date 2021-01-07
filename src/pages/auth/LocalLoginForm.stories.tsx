@@ -2,7 +2,7 @@ import { Meta, Story } from "@storybook/react/types-6-0";
 import { PureLocalLoginForm, PureLocalLoginFormProps } from "./LocalLoginForm";
 
 export default {
-  title: "Molecules/Login/LocalLoginForm",
+  title: "Pages/Login/LocalLoginForm",
   component: PureLocalLoginForm,
   decorators: [
     (story) => (
