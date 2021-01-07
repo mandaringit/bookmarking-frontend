@@ -1,10 +1,11 @@
 import { AxiosResponse } from "axios";
-import { iReport, ReportWithoutUser } from "../types/entity";
+import { iReport, BasicReport } from "../types/entity";
 import { KakaoBookForm } from "../types/utils";
 import { client } from "./client";
 
 type CreateReportResponse = AxiosResponse<iReport>;
-type FindMyReportsResponse = AxiosResponse<ReportWithoutUser[]>;
+type FindMyReportsResponse = AxiosResponse<BasicReport[]>;
+type FindReportByIdResponse = AxiosResponse;
 
 const reportsAPI = {
   findMyReports: async () =>
@@ -14,6 +15,10 @@ const reportsAPI = {
       title,
       bookInfo: book,
     }),
+  findReportById: async (reportId: string) =>
+    await client.get<any, FindReportByIdResponse>(
+      `/reports/find?reportId=${reportId}`
+    ),
 };
 
 export default reportsAPI;

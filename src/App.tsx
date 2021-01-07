@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import TodoList from "./pages/todos/TodoList";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import Navbar from "./components/orgranisms/Navbar";
 import { useSelector } from "react-redux";
 import { selectLoggedInUser } from "./slices/authSlice";
 import BookSearch from "./pages/books/BookSearch";
+import MyReports from "./pages/reports/MyReports";
+import ReportDetail from "./pages/reports/ReportDetail";
 
 const Container = styled.div`
   height: 100%;
@@ -27,8 +28,9 @@ function App() {
       <RouteContainer>
         <Switch>
           <Route exact path='/' component={BookSearch} />
-          <Route path='/todos' component={TodoList} />
           <Route path='/login' component={Login} />
+          <Route path='/myreports' component={MyReports} />
+          <Route path='/report/:reportId' component={ReportDetail} />
           <Redirect to='/' />
         </Switch>
       </RouteContainer>
