@@ -1,8 +1,34 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Button from "../../components/atoms/Button";
 import { getFullThumbnailUrl } from "../../lib/utils";
+import { removeReportByIdThunk } from "../../slices/reportsSlice";
 import { BasicReport } from "../../types/entity";
+
+export interface PureReportItemProps extends ReportItemProps {
+  /**
+   * 독후감 삭제 버튼 클릭 핸들러
+   */
+  onRemove: () => void;
+}
+
+export const PureReportItem = ({ report, onRemove }: PureReportItemProps) => {
+  return (
+    <Container>
+      <Button onClick={onRemove}>X</Button>
+      <Link to={`/report/${report.id}`}>
+        <img
+          className='item__thumbnail'
+          src={getFullThumbnailUrl(report.book.thumbnail, 152)}
+          alt={`${report.book.title} 썸네일`}
+        />
+        <span className='item__title'>{report.title}</span>
+      </Link>
+    </Container>
+  );
+};
 
 export interface ReportItemProps {
   /**
@@ -15,18 +41,11 @@ export interface ReportItemProps {
  * `ReportItem`은 독후감 하나를 받아 간단한 정보를 표시하고, 디테일 페이지로 이동할 수 있게끔 하는 컴포넌트입니다.
  */
 const ReportItem = ({ report }: ReportItemProps) => {
-  return (
-    <Container>
-      <Link to={`/report/${report.id}`}>
-        <img
-          className='item__thumbnail'
-          src={getFullThumbnailUrl(report.book.thumbnail, 152)}
-          alt={`${report.book.title} 썸네일`}
-        />
-        <span className='item__title'>{report.title}</span>
-      </Link>
-    </Container>
-  );
+  const dispatch = useDispatch();
+  const onRemove = () => {
+    dispatch(removeReportByIdThunk({ reportId: report.id }));
+  };
+  return <PureReportItem report={report} onRemove={onRemove} />;
 };
 
 export default ReportItem;

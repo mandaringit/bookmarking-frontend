@@ -1,12 +1,14 @@
 import { Meta, Story } from "@storybook/react/types-6-0";
-import ReportItem, { ReportItemProps } from "./ReportItem";
+import { PureReportItem, PureReportItemProps } from "./ReportItem";
 
 export default {
   title: "Pages/MyReports/ReportItem",
-  component: ReportItem,
+  component: PureReportItem,
 } as Meta;
 
-const Template: Story<ReportItemProps> = (args) => <ReportItem {...args} />;
+const Template: Story<PureReportItemProps> = (args) => (
+  <PureReportItem {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {

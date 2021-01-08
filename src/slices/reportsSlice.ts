@@ -6,12 +6,18 @@ import {
   BasicFragment,
   BasicReport,
   BasicReportWithFragments,
+  ID,
 } from "../types/entity";
 import {
   LoadingState,
   CreateReportForm,
   CreateFragmentForm,
 } from "../types/utils";
+
+/**
+ * Thunk
+ * Report - Create / Read(all) / Read(one) / Delete
+ */
 
 export const createReportThunk = createAsyncThunk<
   BasicReport,
@@ -31,11 +37,24 @@ export const findMyReportsThunk = createAsyncThunk<BasicReport[]>(
 
 export const findReportByIdThunk = createAsyncThunk<
   BasicReportWithFragments,
-  { reportId: string }
+  { reportId: ID }
 >("reports/findReportById", async ({ reportId }) => {
   const response = await reportsAPI.findReportById(reportId);
   return response.data;
 });
+
+export const removeReportByIdThunk = createAsyncThunk<
+  Pick<BasicReport, "id">,
+  { reportId: ID }
+>("reports/removeReportById", async ({ reportId }) => {
+  const response = await reportsAPI.removeReport(reportId);
+  return response.data;
+});
+
+/**
+ * Thunk
+ * Report의 Fragment Create /
+ */
 
 export const createFragmentThunk = createAsyncThunk<
   BasicFragment,
@@ -44,6 +63,10 @@ export const createFragmentThunk = createAsyncThunk<
   const response = await fragmentAPI.createFragement(reportId, text);
   return response.data;
 });
+
+/**
+ * 초기상태
+ */
 
 const initialState = {
   reports: [] as BasicReport[],
@@ -108,6 +131,16 @@ const reportsSlice = createSlice({
     });
 
     /**
+     * 리포트 삭제
+     */
+
+    builder.addCase(removeReportByIdThunk.fulfilled, (state, action) => {
+      state.reports = state.reports.filter(
+        (report) => report.id !== action.payload.id
+      );
+    });
+
+    /**
      * 기억 조각 생성하기
      */
     builder.addCase(createFragmentThunk.fulfilled, (state, action) => {
@@ -116,9 +149,21 @@ const reportsSlice = createSlice({
   },
 });
 
+/**
+ * 액션
+ */
+
 export const { clearReport } = reportsSlice.actions;
 
+/**
+ * 리듀서
+ */
+
 export default reportsSlice.reducer;
+
+/**
+ * 셀렉터
+ */
 
 export const selectReports = (state: RootState) => state.reports.reports;
 export const selectReport = (state: RootState) => state.reports.report;
