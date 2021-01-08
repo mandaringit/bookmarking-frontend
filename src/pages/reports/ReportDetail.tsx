@@ -31,7 +31,7 @@ export const PureReportDetail = ({ report }: PureReportDetailProps) => {
         <span>📔 {book.title}</span>
         <span>✍️ {book.author.name}</span>
       </div>
-      <FragmentAddFrom reportId={report.id.toString()} />
+      <FragmentAddFrom reportId={report.id} />
       <FragmentList fragments={fragments} />
     </Container>
   );

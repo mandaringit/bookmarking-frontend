@@ -1,4 +1,5 @@
 import { KakaoBook } from "../api/kakaoApi";
+import { ID } from "./entity";
 
 export type LoadingState = "idle" | "loading" | "succeeded" | "failed";
 
@@ -12,6 +13,6 @@ export interface CreateReportForm {
 }
 
 export interface CreateFragmentForm {
-  reportId: string;
+  reportId: ID;
   text: string;
 }

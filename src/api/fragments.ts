@@ -1,11 +1,11 @@
 import { AxiosResponse } from "axios";
-import { BasicFragment } from "../types/entity";
+import { BasicFragment, ID } from "../types/entity";
 import { client } from "./client";
 
 export type CreateFragmentResponse = AxiosResponse<BasicFragment>;
 
 const fragmentAPI = {
-  createFragement: async (reportId: string, text: string) =>
+  createFragement: async (reportId: ID, text: string) =>
     await client.post<any, CreateFragmentResponse>("/fragments", {
       reportId,
       text,

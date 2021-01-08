@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Button from "../../components/atoms/Button";
 import { useInput } from "../../hooks/useInput";
 import { createFragmentThunk } from "../../slices/reportsSlice";
+import { ID } from "../../types/entity";
 
 export interface PureFragmentAddFormProps {
   value: string;
@@ -29,7 +30,7 @@ export const PureFragmentAddForm = ({
 };
 
 interface FragmentAddFormProps {
-  reportId: string;
+  reportId: ID;
 }
 
 const FragmentAddForm = ({ reportId }: FragmentAddFormProps) => {

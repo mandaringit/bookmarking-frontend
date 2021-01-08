@@ -1,24 +1,19 @@
-export interface iTodo {
-  id: number;
-  text: string;
-  done: boolean;
-  createdAt: Date;
-}
+export type ID = string | number;
 
 export interface iUser {
-  id: string;
+  id: ID;
   email: string;
   googleId: string;
   username: string;
 }
 
 export interface iAuthor {
-  id: number;
+  id: ID;
   name: string;
 }
 
 export interface iBook {
-  id: number;
+  id: ID;
   title: string;
   thumbnail: string;
   isbn: string;
@@ -26,14 +21,14 @@ export interface iBook {
 }
 
 export interface iFragment {
-  id: number;
+  id: ID;
   text: string;
   createdAt: string;
   report: iReport;
   user: iUser;
 }
 export interface iReport {
-  id: number;
+  id: ID;
   title: string;
   user: iUser;
   book: iBook;
