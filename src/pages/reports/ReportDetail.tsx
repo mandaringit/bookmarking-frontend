@@ -2,10 +2,14 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import styled from "styled-components";
-import Button from "../../components/atoms/Button";
 import { getFullThumbnailUrl } from "../../lib/utils";
-import { findReportByIdThunk, selectReport } from "../../slices/reportsSlice";
+import {
+  clearReport,
+  findReportByIdThunk,
+  selectReport,
+} from "../../slices/reportsSlice";
 import { BasicReportWithFragments } from "../../types/entity";
+import FragmentAddFrom from "./FragmentAddForm";
 import FragmentList from "./FragmentList";
 
 export interface PureReportDetailProps {
@@ -27,9 +31,7 @@ export const PureReportDetail = ({ report }: PureReportDetailProps) => {
         <span>📔 {book.title}</span>
         <span>✍️ {book.author.name}</span>
       </div>
-      <div>
-        <Button>생각 조각 추가</Button>
-      </div>
+      <FragmentAddFrom reportId={report.id.toString()} />
       <FragmentList fragments={fragments} />
     </Container>
   );
@@ -40,11 +42,9 @@ const ReportDetail = ({ match }: RouteComponentProps<{ reportId: string }>) => {
   const dispatch = useDispatch();
   const report = useSelector(selectReport);
   useEffect(() => {
-    // reportId를 가진 리포트 가져오기. "기억조각"과 함께 가져와야 함
     dispatch(findReportByIdThunk({ reportId }));
-
     return () => {
-      // report 클린하게 정리
+      dispatch(clearReport());
     };
   }, [dispatch, reportId]);
 
