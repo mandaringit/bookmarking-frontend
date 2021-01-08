@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import todoReducer from "./slices/todosSlice";
 import authReducer from "./slices/authSlice";
 import reportsReducer from "./slices/reportsSlice";
 import { History } from "history";
@@ -7,7 +6,6 @@ import customHistory from "./lib/customHistory";
 
 const store = configureStore({
   reducer: {
-    todos: todoReducer,
     auth: authReducer,
     reports: reportsReducer,
   },
