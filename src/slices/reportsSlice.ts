@@ -64,6 +64,14 @@ export const createFragmentThunk = createAsyncThunk<
   return response.data;
 });
 
+export const removeFragmentThunk = createAsyncThunk<
+  Pick<BasicFragment, "id">,
+  { fragemntId: ID }
+>("fragments/removeFragment", async ({ fragemntId }) => {
+  const response = await fragmentAPI.removeFragment(fragemntId);
+  return response.data;
+});
+
 /**
  * 초기상태
  */
@@ -145,6 +153,11 @@ const reportsSlice = createSlice({
      */
     builder.addCase(createFragmentThunk.fulfilled, (state, action) => {
       state.report!.fragments.push(action.payload);
+    });
+    builder.addCase(removeFragmentThunk.fulfilled, (state, action) => {
+      state.report!.fragments = state.report!.fragments.filter(
+        (fragment) => fragment.id !== action.payload.id
+      );
     });
   },
 });

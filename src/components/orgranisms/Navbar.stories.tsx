@@ -21,7 +21,7 @@ NotLogIn.args = {
 export const LogIn = Template.bind({});
 LogIn.args = {
   loggedInUser: {
-    id: "1",
+    id: 1,
     email: "mandarin.test@gmail.com",
     googleId: "131231249812904asdas",
     username: "MANDARIN",

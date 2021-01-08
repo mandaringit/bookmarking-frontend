@@ -42,7 +42,7 @@ const ReportDetail = ({ match }: RouteComponentProps<{ reportId: string }>) => {
   const dispatch = useDispatch();
   const report = useSelector(selectReport);
   useEffect(() => {
-    dispatch(findReportByIdThunk({ reportId }));
+    dispatch(findReportByIdThunk({ reportId: parseInt(reportId) }));
     return () => {
       dispatch(clearReport());
     };
