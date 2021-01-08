@@ -3,7 +3,7 @@ import { BasicReport, BasicReportWithFragments, ID } from "../types/entity";
 import { KakaoBookForm } from "../types/utils";
 import { client } from "./client";
 
-type RemoveReportResponse = AxiosResponse<{ id: ID }>;
+type RemoveReportResponse = AxiosResponse<Pick<BasicReport, "id">>;
 type CreateReportResponse = AxiosResponse<BasicReport>;
 type FindMyReportsResponse = AxiosResponse<BasicReport[]>;
 type FindReportByIdResponse = AxiosResponse<BasicReportWithFragments>;
