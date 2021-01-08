@@ -11,7 +11,7 @@ const FragmentList = ({ fragments }: FragmentListProps) => {
   return (
     <Container>
       {fragments.map((fragment) => (
-        <FragmentItem fragment={fragment} />
+        <FragmentItem fragment={fragment} key={fragment.id} />
       ))}
     </Container>
   );

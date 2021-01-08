@@ -59,6 +59,7 @@ export default ReportDetail;
 
 const Container = styled.div`
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
   & > h1 {
     margin: 0;
