@@ -1,7 +1,35 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { logoutThunk } from "../../slices/authSlice";
 import { iUser } from "../../types/entity";
+
+export interface PureNavbarProps extends NavbarProps {
+  onLogout: () => void;
+}
+
+export const PureNavbar = ({ loggedInUser, onLogout }: PureNavbarProps) => {
+  return (
+    <Nav>
+      <div className='container'>
+        <div className='main'>
+          <Link to='/'>🔖 북마킹</Link>
+        </div>
+        <div className='sub'>
+          {!loggedInUser ? (
+            <Link to='/login'>로그인</Link>
+          ) : (
+            <>
+              <Link to='/myreports'>독후감</Link>
+              <span onClick={onLogout}>로그아웃</span>
+            </>
+          )}
+        </div>
+      </div>
+    </Nav>
+  );
+};
 
 export interface NavbarProps {
   /**
@@ -14,25 +42,11 @@ export interface NavbarProps {
  * 기본 네비게이션입니다.
  */
 const Navbar = ({ loggedInUser }: NavbarProps) => {
-  return (
-    <Nav>
-      <div className='container'>
-        <div className='main'>
-          <Link to='/'>🔖 북마킹</Link>
-          {loggedInUser ? <Link to='/myreports'>나의 독후감</Link> : null}
-        </div>
-
-        <div className='sub'>
-          {!loggedInUser ? (
-            <Link to='/login'>로그인</Link>
-          ) : (
-            // TODO: 로그아웃 구현 필요
-            <Link to='/'>로그아웃</Link>
-          )}
-        </div>
-      </div>
-    </Nav>
-  );
+  const dispatch = useDispatch();
+  const onLogout = () => {
+    dispatch(logoutThunk());
+  };
+  return <PureNavbar loggedInUser={loggedInUser} onLogout={onLogout} />;
 };
 
 export default Navbar;
@@ -46,9 +60,12 @@ const Nav = styled.nav`
     max-width: 800px;
     height: 100%;
     margin: 0 auto;
-
     display: flex;
     align-items: center;
+
+    .main {
+      flex-grow: 1;
+    }
 
     a {
       text-decoration: none;
@@ -56,12 +73,13 @@ const Nav = styled.nav`
       font-weight: bold;
     }
 
-    a + a {
-      margin-left: 1rem;
+    span {
+      font-weight: bold;
     }
 
-    .main {
-      flex-grow: 1;
+    a + a,
+    a + span {
+      margin-left: 1rem;
     }
   }
 `;

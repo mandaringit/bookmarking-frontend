@@ -6,6 +6,8 @@ import { iUser } from "../types/entity";
 import { iLocalLoginForm } from "../pages/auth/LocalLoginForm";
 import { LoadingState } from "../types/utils";
 
+const LOCAL_STORAGE_KEY = "mandarin-dev";
+
 const initialState = {
   error: "",
   loggedInUser: null as iUser | null,
@@ -25,6 +27,11 @@ export const localLogIn = createAsyncThunk<iUser, iLocalLoginForm, iThunkAPI>(
   }
 );
 
+export const logoutThunk = createAsyncThunk("auth/logut", async () => {
+  const response = await authAPI.logout();
+  return response.data;
+});
+
 const authSlice = createSlice({
   initialState,
   name: "auth",
@@ -40,11 +47,11 @@ const authSlice = createSlice({
     builder.addCase(checkAuth.fulfilled, (state, action) => {
       state.error = "";
       state.loggedInUser = action.payload;
-      localStorage.setItem("mandarin-dev", JSON.stringify(action.payload));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(action.payload));
     });
     builder.addCase(checkAuth.rejected, (state, action) => {
       state.loggedInUser = null;
-      localStorage.removeItem("mandarin-dev");
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
       customHistory.push("/");
     });
 
@@ -59,13 +66,22 @@ const authSlice = createSlice({
       state.error = "";
       state.loading = "succeeded";
       state.loggedInUser = action.payload;
-      localStorage.setItem("mandarin-dev", JSON.stringify(action.payload));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(action.payload));
       customHistory.push("/");
     });
 
     builder.addCase(localLogIn.rejected, (state, action) => {
       state.loading = "failed";
       state.error = "잘못된 로그인 정보입니다.";
+    });
+
+    /**
+     * 로그아웃
+     */
+    builder.addCase(logoutThunk.fulfilled, (state, action) => {
+      state.loggedInUser = null;
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+      customHistory.push("/");
     });
   },
 });

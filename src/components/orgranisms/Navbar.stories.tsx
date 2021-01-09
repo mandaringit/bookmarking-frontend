@@ -1,12 +1,12 @@
 import { Story, Meta } from "@storybook/react/types-6-0";
-import Navbar, { NavbarProps } from "./Navbar";
+import { PureNavbar, PureNavbarProps } from "./Navbar";
 
 export default {
   title: "Organisms/Navbar",
-  component: Navbar,
+  component: PureNavbar,
 } as Meta;
 
-const Template: Story<NavbarProps> = (args) => <Navbar {...args} />;
+const Template: Story<PureNavbarProps> = (args) => <PureNavbar {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
