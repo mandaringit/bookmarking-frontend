@@ -55,8 +55,8 @@ const Navbar = ({ loggedInUser }: NavbarProps) => {
 export default Navbar;
 
 const Nav = styled.nav`
-  background-color: #ffecb3;
-  border-bottom: 1px solid #f0f0f0;
+  /* background-color: #ffecb3; */
+  border-bottom: 2px solid black;
   height: 3rem;
 
   .container {

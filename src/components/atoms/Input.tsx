@@ -17,7 +17,7 @@ export interface CutstomInputProps
 }
 
 const StyledInput = styled.input`
-  border: 1px solid #e0e0e0;
+  border: 2px solid black;
   background-color: #ffffff;
   border-radius: 3px;
   padding: 0.3rem 0.5rem;

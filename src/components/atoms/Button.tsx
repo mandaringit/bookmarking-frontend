@@ -73,10 +73,10 @@ const StyledButton = styled.button<CustomButtonProps>`
 
 const themes: { [key: string]: FlattenSimpleInterpolation } = {
   primary: css`
-    background: #ef6c00;
+    background: black;
     color: white;
     &:disabled {
-      background: #ffe0b2;
+      background: #e0e0e0;
     }
   `,
   secondary: css`
@@ -88,9 +88,9 @@ const themes: { [key: string]: FlattenSimpleInterpolation } = {
   `,
   tertiary: css`
     background: none;
-    color: #ef6c00;
+    color: black;
     &:disabled {
-      color: #ffe0b2;
+      color: #c6d3e1;
     }
   `,
 };
