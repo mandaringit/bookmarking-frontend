@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Login from "./pages/auth/Login";
+import Auth from "./pages/auth/Auth";
 import Navbar from "./components/orgranisms/Navbar";
 import { useSelector } from "react-redux";
 import { selectLoggedInUser } from "./slices/authSlice";
@@ -28,7 +28,8 @@ function App() {
       <RouteContainer>
         <Switch>
           <Route exact path='/' component={BookSearch} />
-          <Route path='/login' component={Login} />
+          <Route path='/login' render={() => <Auth type='login' />} />
+          <Route path='/signup' render={() => <Auth type='signup' />} />
           <Route path='/myreports' component={MyReports} />
           <Route path='/report/:reportId' component={ReportDetail} />
           <Redirect to='/' />

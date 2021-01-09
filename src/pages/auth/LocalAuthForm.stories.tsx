@@ -1,9 +1,9 @@
 import { Meta, Story } from "@storybook/react/types-6-0";
-import { PureLocalLoginForm, PureLocalLoginFormProps } from "./LocalLoginForm";
+import { PureLocalAuthForm, PureLocalAuthFormProps } from "./LocalAuthForm";
 
 export default {
-  title: "Pages/Login/LocalLoginForm",
-  component: PureLocalLoginForm,
+  title: "Pages/Login/LocalAuthForm",
+  component: PureLocalAuthForm,
   decorators: [
     (story) => (
       <div style={{ display: "flex", justifyContent: "center" }}>{story()}</div>
@@ -11,12 +11,13 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<PureLocalLoginFormProps> = (args) => (
-  <PureLocalLoginForm {...args} />
+const Template: Story<PureLocalAuthFormProps> = (args) => (
+  <PureLocalAuthForm {...args} />
 );
 
 export const Default = Template.bind({});
 Default.args = {
+  type: "login",
   user: {
     email: "",
     password: "",
@@ -24,9 +25,11 @@ Default.args = {
   error: "",
   loading: "idle",
   onChange: () => {},
-  onSubmit: (e) => {
-    e.preventDefault();
+  onLogin: () => {
     console.log("로그인 시도");
+  },
+  onSignup: () => {
+    console.log("회원가입 시도");
   },
 };
 
@@ -49,4 +52,10 @@ Error.args = {
   },
   loading: "failed",
   error: "로그인 에러 발생",
+};
+
+export const Singup = Template.bind({});
+Singup.args = {
+  ...Default.args,
+  type: "signup",
 };

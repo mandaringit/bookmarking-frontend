@@ -3,25 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../../components/atoms/Button";
 import Input from "../../components/atoms/Input";
-import { LoadingState } from "../../types/utils";
+import { LoadingState, LoginForm } from "../../types/utils";
 import {
   localLogIn,
   selectAuthError,
   selectAuthLoading,
+  signupThunk,
 } from "../../slices/authSlice";
 
-export interface iLocalLoginForm {
-  email: string;
-  password: string;
-}
-
-export interface PureLocalLoginFormProps {
+export interface PureLocalAuthFormProps extends LocalAuthFormProps {
   /**
-   * 로그인하는 유저 정보
+   * 로그인 & 회원가입하는 유저 정보
    */
   user: { email: string; password: string };
   /**
-   * 로그인 실패 에러 메시지
+   * 로그인 & 회원가입 실패 에러 메시지
    */
   error: string;
   /**
@@ -29,9 +25,13 @@ export interface PureLocalLoginFormProps {
    */
   loading: LoadingState;
   /**
-   * Submit 이벤트 핸들러
+   * Login 이벤트 핸들러
    */
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onLogin: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  /**
+   * Signup 이벤트 핸들러
+   */
+  onSignup: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /**
    * Input Change 이벤트 핸들러
    */
@@ -63,15 +63,17 @@ const Container = styled.form`
 /**
  * `LocalLoginForm`은 아이디, 패스워드를 통한 직접 로그인 폼입니다.
  */
-export const PureLocalLoginForm = ({
+export const PureLocalAuthForm = ({
   user,
   error,
   loading,
-  onSubmit,
+  type,
+  onLogin,
+  onSignup,
   onChange,
-}: PureLocalLoginFormProps) => {
+}: PureLocalAuthFormProps) => {
   return (
-    <Container onSubmit={onSubmit}>
+    <Container onSubmit={(e) => e.preventDefault()}>
       <h1 className='title'>🔖 북마킹 🔖</h1>
       <Input
         type='text'
@@ -90,20 +92,42 @@ export const PureLocalLoginForm = ({
         onChange={onChange}
         placeholder='비밀번호'
       />
+      {type === "login" ? (
+        <Button
+          size='medium'
+          disabled={loading === "loading"}
+          onClick={onLogin}
+        >
+          로그인
+        </Button>
+      ) : (
+        <Button
+          size='medium'
+          disabled={loading === "loading"}
+          onClick={onSignup}
+        >
+          회원가입
+        </Button>
+      )}
 
-      <Button type='submit' size='medium' disabled={loading === "loading"}>
-        로그인
-      </Button>
       <span className='error'>{error ? error : null}</span>
     </Container>
   );
 };
 
-const LocalLoginForm = () => {
-  const [user, setUsername] = useState<iLocalLoginForm>({
+interface LocalAuthFormProps {
+  /**
+   * 로그인 혹은 회원가입 폼 타입
+   */
+  type: "login" | "signup";
+}
+
+const LocalLoginForm = ({ type }: LocalAuthFormProps) => {
+  const [user, setUsername] = useState<LoginForm>({
     email: "",
     password: "",
   });
+
   const error = useSelector(selectAuthError);
   const loading = useSelector(selectAuthLoading);
 
@@ -116,18 +140,23 @@ const LocalLoginForm = () => {
     });
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSignup = (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(signupThunk(user));
+  };
+
+  const onLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(localLogIn(user));
   };
 
   return (
-    <PureLocalLoginForm
+    <PureLocalAuthForm
       user={user}
       error={error}
       loading={loading}
-      onSubmit={onSubmit}
+      onSignup={onSignup}
+      onLogin={onLogin}
       onChange={onChange}
+      type={type}
     />
   );
 };

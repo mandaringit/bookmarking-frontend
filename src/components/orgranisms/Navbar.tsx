@@ -18,7 +18,10 @@ export const PureNavbar = ({ loggedInUser, onLogout }: PureNavbarProps) => {
         </div>
         <div className='sub'>
           {!loggedInUser ? (
-            <Link to='/login'>로그인</Link>
+            <>
+              <Link to='/login'>로그인</Link>
+              <Link to='/signup'>회원가입</Link>
+            </>
           ) : (
             <>
               <Link to='/myreports'>독후감</Link>

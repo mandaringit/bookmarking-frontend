@@ -1,10 +1,14 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  AnyAction,
+  AsyncThunk,
+  createAsyncThunk,
+  createSlice,
+} from "@reduxjs/toolkit";
 import authAPI from "../api/auth";
 import customHistory from "../lib/customHistory";
 import { RootState, iThunkAPI } from "../store";
 import { iUser } from "../types/entity";
-import { iLocalLoginForm } from "../pages/auth/LocalLoginForm";
-import { LoadingState } from "../types/utils";
+import { LoadingState, LoginForm, SignupForm } from "../types/utils";
 
 const LOCAL_STORAGE_KEY = "mandarin-dev";
 
@@ -14,12 +18,20 @@ const initialState = {
   loading: "idle" as LoadingState,
 };
 
+export const signupThunk = createAsyncThunk<iUser, SignupForm>(
+  "auth/signup",
+  async ({ email, password }) => {
+    const response = await authAPI.signup(email, password);
+    return response.data;
+  }
+);
+
 export const checkAuth = createAsyncThunk<iUser>("auth/checkAuth", async () => {
   const response = await authAPI.checkAuth();
   return response.data;
 });
 
-export const localLogIn = createAsyncThunk<iUser, iLocalLoginForm, iThunkAPI>(
+export const localLogIn = createAsyncThunk<iUser, LoginForm, iThunkAPI>(
   "auth/localLogin",
   async ({ email, password }) => {
     const response = await authAPI.localAuth(email, password);
@@ -41,28 +53,7 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    /**
-     * checkAuth - 새로고침시 유저 체크
-     */
-    builder.addCase(checkAuth.fulfilled, (state, action) => {
-      state.error = "";
-      state.loggedInUser = action.payload;
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(action.payload));
-    });
-    builder.addCase(checkAuth.rejected, (state, action) => {
-      state.loggedInUser = null;
-      localStorage.removeItem(LOCAL_STORAGE_KEY);
-      customHistory.push("/");
-    });
-
-    /**
-     * localLogin - 로컬 전략 로그인
-     */
-    builder.addCase(localLogIn.pending, (state, action) => {
-      state.loading = "loading";
-    });
-
-    builder.addCase(localLogIn.fulfilled, (state, action) => {
+    builder.addCase(signupThunk.fulfilled, (state, action) => {
       state.error = "";
       state.loading = "succeeded";
       state.loggedInUser = action.payload;
@@ -70,10 +61,40 @@ const authSlice = createSlice({
       customHistory.push("/");
     });
 
-    builder.addCase(localLogIn.rejected, (state, action) => {
-      state.loading = "failed";
-      state.error = "잘못된 로그인 정보입니다.";
-    });
+    /**
+     * checkAuth - 새로고침시 유저 체크
+     */
+    builder
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.error = "";
+        state.loggedInUser = action.payload;
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(action.payload));
+      })
+      .addCase(checkAuth.rejected, (state, action) => {
+        state.loggedInUser = null;
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
+        customHistory.push("/");
+      });
+
+    /**
+     * localLogin - 로컬 전략 로그인
+     */
+    builder
+      .addCase(localLogIn.pending, (state, action) => {
+        state.loading = "loading";
+      })
+      .addCase(localLogIn.fulfilled, (state, action) => {
+        console.log(action.meta);
+        state.error = "";
+        state.loading = "succeeded";
+        state.loggedInUser = action.payload;
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(action.payload));
+        customHistory.push("/");
+      })
+      .addCase(localLogIn.rejected, (state, action) => {
+        state.loading = "failed";
+        state.error = "잘못된 로그인 정보입니다.";
+      });
 
     /**
      * 로그아웃
