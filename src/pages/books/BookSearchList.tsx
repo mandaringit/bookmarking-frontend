@@ -1,14 +1,30 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { KakaoBook } from "../../api/kakaoApi";
+import { selectBooks, selectSearchStatus } from "../../slices/searchSlice";
+import { LoadingState } from "../../types/utils";
 import BookSearchItem from "./BookSearchItem";
 
-export interface BookSearchListProps {
-  loading: boolean;
+export interface PureBookSearchListProps {
+  /**
+   * API 요청 후 받아온 책 목록
+   */
   books: KakaoBook[];
+  /**
+   * API 요청 상태
+   */
+  status: LoadingState;
 }
 
-const BookSearchList = ({ books, loading }: BookSearchListProps) => {
-  if (loading) {
+export const PureBookSearchList = ({
+  books,
+  status,
+}: PureBookSearchListProps) => {
+  if (status === "idle") {
+    return null;
+  }
+
+  if (status === "loading") {
     return (
       <Container>
         <LoadingItem />
@@ -18,7 +34,7 @@ const BookSearchList = ({ books, loading }: BookSearchListProps) => {
     );
   }
 
-  if (books.length === 0) {
+  if (status === "succeeded" && books.length === 0) {
     // TODO: 빈화면 구현
     return <Container>EMPTY!</Container>;
   }
@@ -32,9 +48,17 @@ const BookSearchList = ({ books, loading }: BookSearchListProps) => {
   );
 };
 
+const BookSearchList = () => {
+  const books = useSelector(selectBooks);
+  const status = useSelector(selectSearchStatus);
+
+  return <PureBookSearchList books={books} status={status} />;
+};
+
 export default BookSearchList;
 
 const Container = styled.ul`
+  width: 100%;
   margin: 0;
   padding: 0;
   display: grid;

@@ -24,6 +24,7 @@ export const PureNavbar = ({ loggedInUser, onLogout }: PureNavbarProps) => {
             </>
           ) : (
             <>
+              <Link to='/search'>검색</Link>
               <Link to='/myreports'>독후감</Link>
               <span onClick={onLogout}>로그아웃</span>
             </>

@@ -8,6 +8,8 @@ import { selectLoggedInUser } from "./slices/authSlice";
 import BookSearch from "./pages/books/BookSearch";
 import MyReports from "./pages/reports/MyReports";
 import ReportDetail from "./pages/reports/ReportDetail";
+import Home from "./pages/Home";
+import { iUser } from "./types/entity";
 
 const Container = styled.div`
   height: 100%;
@@ -27,12 +29,14 @@ function App() {
       <Navbar loggedInUser={loggedInUser} />
       <RouteContainer>
         <Switch>
-          <Route exact path='/' component={BookSearch} />
+          <Route exact path='/' component={Home} />
           <Route path='/login' render={() => <Auth type='login' />} />
           <Route path='/signup' render={() => <Auth type='signup' />} />
+          {/* TODO: PRIVATE ROUTE 설정 */}
+          <Route path='/search' component={BookSearch} />
           <Route path='/myreports' component={MyReports} />
           <Route path='/report/:reportId' component={ReportDetail} />
-          <Redirect to='/' />
+          {/* TODO: NOMATCH ROUTE 설정 */}
         </Switch>
       </RouteContainer>
     </Container>
@@ -40,3 +44,16 @@ function App() {
 }
 
 export default App;
+
+interface AuthRouteProps {
+  children: React.ReactNode;
+  loggedInUser: null | iUser;
+}
+
+const LoggedInRoute = ({ children, loggedInUser }: AuthRouteProps) => {
+  return (
+    <Route
+      render={() => (loggedInUser ? children : <Redirect to='/login' />)}
+    />
+  );
+};

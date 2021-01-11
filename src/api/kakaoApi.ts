@@ -22,7 +22,7 @@ export interface KakaoBook {
   url: string;
 }
 
-interface KakaoBookSearchApiResponse {
+export interface KakaoBookSearchApiResponse {
   meta: KakaoResponseMeta;
   documents: KakaoBook[];
 }

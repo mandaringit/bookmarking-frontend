@@ -1,11 +1,16 @@
 import { Meta, Story } from "@storybook/react/types-6-0";
-import SearchBar, { SearchBarProps } from "./SearchBar";
+import { PureSearchBar, PureSearchBarProps } from "./SearchBar";
 
 export default {
-  title: "Molecules/SearchBar",
-  component: SearchBar,
+  title: "Pages/BookSearch/SearchBar",
+  component: PureSearchBar,
 } as Meta;
 
-const Template: Story<SearchBarProps> = (args) => <SearchBar {...args} />;
+const Template: Story<PureSearchBarProps> = (args) => (
+  <PureSearchBar {...args} />
+);
 
 export const Default = Template.bind({});
+Default.args = {
+  query: "",
+};
