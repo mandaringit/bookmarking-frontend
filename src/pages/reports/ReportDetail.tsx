@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import styled from "styled-components";
-import { getFullThumbnailUrl } from "../../lib/utils";
+// import { getFullThumbnailUrl } from "../../lib/utils";
 import {
   clearReport,
   findReportByIdThunk,

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { pageContainer } from "../styles/shared";
 
 const Home = () => {
   return (
@@ -18,9 +19,12 @@ const Home = () => {
 export default Home;
 
 const Container = styled.div`
+  ${pageContainer}
+
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   .home__welcome {
     font-size: 3rem;

@@ -38,28 +38,6 @@ export interface PureLocalAuthFormProps extends LocalAuthFormProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Container = styled.form`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  * + * {
-    margin-top: 0.5rem;
-  }
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  padding: 2rem 1rem;
-
-  .title {
-    text-align: center;
-  }
-  .error {
-    color: red;
-    text-align: center;
-    padding: 0.3rem 0;
-  }
-`;
-
 /**
  * `LocalLoginForm`은 아이디, 패스워드를 통한 직접 로그인 폼입니다.
  */
@@ -74,7 +52,7 @@ export const PureLocalAuthForm = ({
 }: PureLocalAuthFormProps) => {
   return (
     <Container onSubmit={(e) => e.preventDefault()}>
-      <h1 className='title'>🔖 북마킹 🔖</h1>
+      <h1 className='title'>🔖 북마킹</h1>
       <Input
         type='text'
         id='email'
@@ -162,3 +140,24 @@ const LocalLoginForm = ({ type }: LocalAuthFormProps) => {
 };
 
 export default LocalLoginForm;
+
+const Container = styled.form`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  * + * {
+    margin-top: 0.8rem;
+  }
+  border-radius: 5px;
+  padding: 2rem 1rem;
+
+  .title {
+    text-align: center;
+  }
+  .error {
+    color: red;
+    text-align: center;
+    padding: 0.3rem 0;
+  }
+`;

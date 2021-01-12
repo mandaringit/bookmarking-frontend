@@ -21,7 +21,7 @@ const StyledInput = styled.input`
   background-color: #ffffff;
   border-radius: 3px;
   padding: 0.3rem 0.5rem;
-  height: 2.5rem;
+  height: 3rem;
   min-width: 200px;
   width: ${(props) => props.width};
   box-sizing: border-box;

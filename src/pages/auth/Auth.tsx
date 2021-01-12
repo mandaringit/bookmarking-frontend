@@ -1,15 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { pageContainer } from "../../styles/shared";
 import LocalAuthForm from "./LocalAuthForm";
 
 export interface PureAuthProps extends AuthProps {}
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
 
 export const PureAuth = ({ type }: PureAuthProps) => {
   return (
@@ -32,3 +26,12 @@ const Auth = ({ type }: AuthProps) => {
 };
 
 export default Auth;
+
+const Container = styled.div`
+  ${pageContainer}
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;

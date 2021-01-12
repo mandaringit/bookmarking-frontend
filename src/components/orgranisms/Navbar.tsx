@@ -56,8 +56,11 @@ const Navbar = ({ loggedInUser }: NavbarProps) => {
 export default Navbar;
 
 const Nav = styled.nav`
-  /* background-color: #ffecb3; */
+  /* sticky는 top, bottom 이런 속성이 하나라도 있어야 함 */
+  position: sticky;
+  top: 0;
   border-bottom: 2px solid black;
+  background-color: white;
   height: 3rem;
 
   .container {

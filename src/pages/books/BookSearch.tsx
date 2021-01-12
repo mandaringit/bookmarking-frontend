@@ -3,14 +3,8 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import SearchBar from "../../components/molecules/SearchBar";
 import { searchInit } from "../../slices/searchSlice";
+import { pageContainer } from "../../styles/shared";
 import BookSearchList from "./BookSearchList";
-
-const Container = styled.div`
-  width: 800px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 export interface BookSearchProps {}
 const BookSearch = (props: BookSearchProps) => {
@@ -29,3 +23,12 @@ const BookSearch = (props: BookSearchProps) => {
 };
 
 export default BookSearch;
+
+const Container = styled.div`
+  ${pageContainer}
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+`;

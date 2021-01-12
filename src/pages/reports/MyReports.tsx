@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import { findMyReportsThunk, selectReports } from "../../slices/reportsSlice";
+import { pageContainer } from "../../styles/shared";
 import { BasicReport } from "../../types/entity";
 import ReportList from "./ReportList";
 
@@ -16,10 +18,10 @@ export interface PureMyReportsProps {
  */
 export const PureMyReports = ({ reports }: PureMyReportsProps) => {
   return (
-    <div>
+    <Container>
       <h1>나의 독후감 목록</h1>
       <ReportList reports={reports} />
-    </div>
+    </Container>
   );
 };
 
@@ -35,3 +37,7 @@ const MyReports = () => {
 };
 
 export default MyReports;
+
+const Container = styled.div`
+  ${pageContainer}
+`;
