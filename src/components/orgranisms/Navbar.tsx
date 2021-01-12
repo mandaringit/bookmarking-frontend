@@ -1,10 +1,26 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { logoutThunk } from "../../slices/authSlice";
 import { iUser } from "../../types/entity";
 
+interface SelectableLinkProps {
+  to: string;
+  children: React.ReactNode;
+}
+
+/**
+ * 선택시 pathname을 통해 선택 여부 확인
+ */
+const SelectableLink = ({ children, to }: SelectableLinkProps) => {
+  const { pathname } = useLocation();
+  return (
+    <Link to={to} className={`link nav ${pathname === to && "selected"}`}>
+      {children}
+    </Link>
+  );
+};
 export interface PureNavbarProps extends NavbarProps {
   onLogout: () => void;
 }
@@ -12,25 +28,29 @@ export interface PureNavbarProps extends NavbarProps {
 export const PureNavbar = ({ loggedInUser, onLogout }: PureNavbarProps) => {
   return (
     <Nav>
-      <div className='container'>
+      <Container>
         <div className='main'>
-          <Link to='/'>🔖 북마킹</Link>
+          <Link className='link' to='/'>
+            🔖 북마킹
+          </Link>
         </div>
         <div className='sub'>
           {!loggedInUser ? (
             <>
-              <Link to='/login'>로그인</Link>
-              <Link to='/signup'>회원가입</Link>
+              <SelectableLink to='/login'>로그인</SelectableLink>
+              <SelectableLink to='/signup'>회원가입</SelectableLink>
             </>
           ) : (
             <>
-              <Link to='/search'>검색</Link>
-              <Link to='/myreports'>독후감</Link>
-              <span onClick={onLogout}>로그아웃</span>
+              <SelectableLink to='/search'>검색</SelectableLink>
+              <SelectableLink to='/myreports'>독후감</SelectableLink>
+              <span className='link' onClick={onLogout}>
+                로그아웃
+              </span>
             </>
           )}
         </div>
-      </div>
+      </Container>
     </Nav>
   );
 };
@@ -50,11 +70,13 @@ const Navbar = ({ loggedInUser }: NavbarProps) => {
   const onLogout = () => {
     dispatch(logoutThunk());
   };
+
   return <PureNavbar loggedInUser={loggedInUser} onLogout={onLogout} />;
 };
 
 export default Navbar;
 
+// 전체적인 네비게이션 모습
 const Nav = styled.nav`
   /* sticky는 top, bottom 이런 속성이 하나라도 있어야 함 */
   position: sticky;
@@ -62,31 +84,38 @@ const Nav = styled.nav`
   border-bottom: 2px solid black;
   background-color: white;
   height: 3rem;
+`;
 
-  .container {
-    max-width: 800px;
-    height: 100%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
+// 네비게이션 내부
+const Container = styled.div`
+  max-width: 800px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
 
-    .main {
-      flex-grow: 1;
+  font-size: 1.2rem;
+  .main {
+    flex-grow: 1;
+  }
+
+  .link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    &.nav {
+      opacity: 0.6;
+      &:hover {
+        opacity: 1;
+      }
+      &.selected {
+        opacity: 1;
+      }
     }
+  }
 
-    a {
-      text-decoration: none;
-      color: black;
-      font-weight: bold;
-    }
-
-    span {
-      font-weight: bold;
-    }
-
-    a + a,
-    a + span {
-      margin-left: 1rem;
-    }
+  a + a,
+  a + span {
+    margin-left: 1rem;
   }
 `;
