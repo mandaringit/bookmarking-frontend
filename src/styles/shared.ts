@@ -6,4 +6,13 @@ export const pageContainer = css`
   width: 100%;
   margin: 0 auto;
   height: 100%;
+  animation: fade 0.5s;
+  @keyframes fade {
+    from {
+      opacity: 0.2;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
