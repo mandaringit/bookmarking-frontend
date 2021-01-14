@@ -4,6 +4,7 @@ import reportsReducer from "./slices/reportsSlice";
 import searchReducer from "./slices/searchSlice";
 import { History } from "history";
 import customHistory from "./lib/customHistory";
+import { useDispatch } from "react-redux";
 
 const store = configureStore({
   reducer: {
@@ -28,3 +29,6 @@ export type RootState = ReturnType<typeof store.getState>;
 export interface iThunkAPI {
   extra: { history: History };
 }
+
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
