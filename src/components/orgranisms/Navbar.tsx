@@ -1,8 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { logoutThunk } from "../../slices/authSlice";
+import { useAppDispatch } from "../../store";
 import { iUser } from "../../types/entity";
 
 interface SelectableLinkProps {
@@ -66,9 +66,14 @@ export interface NavbarProps {
  * 기본 네비게이션입니다.
  */
 const Navbar = ({ loggedInUser }: NavbarProps) => {
-  const dispatch = useDispatch();
-  const onLogout = () => {
-    dispatch(logoutThunk());
+  const dispatch = useAppDispatch();
+  const history = useHistory();
+  const onLogout = async () => {
+    const { meta } = await dispatch(logoutThunk());
+    if (meta.requestStatus === "fulfilled") {
+      localStorage.removeItem("mandarin-dev");
+      history.push("/");
+    }
   };
 
   return <PureNavbar loggedInUser={loggedInUser} onLogout={onLogout} />;

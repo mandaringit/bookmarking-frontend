@@ -15,7 +15,20 @@ if (localStorage.getItem("mandarin-dev")) {
   store.dispatch(
     tempSetUser(JSON.parse(localStorage.getItem("mandarin-dev") as string))
   );
-  store.dispatch(checkAuth());
+
+  store.dispatch(checkAuth()).then((res) => {
+    const { meta, payload } = res;
+
+    switch (meta.requestStatus) {
+      case "fulfilled":
+        localStorage.setItem("mandarin-dev", JSON.stringify(payload));
+        break;
+      case "rejected":
+        localStorage.removeItem("mandarin-dev");
+        customHistory.push("/");
+        break;
+    }
+  });
 }
 
 ReactDOM.render(

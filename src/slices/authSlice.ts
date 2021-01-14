@@ -1,16 +1,8 @@
-import {
-  AnyAction,
-  AsyncThunk,
-  createAsyncThunk,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authAPI from "../api/auth";
-import customHistory from "../lib/customHistory";
 import { RootState, iThunkAPI } from "../store";
 import { iUser } from "../types/entity";
 import { LoadingState, LoginForm, SignupForm } from "../types/utils";
-
-const LOCAL_STORAGE_KEY = "mandarin-dev";
 
 const initialState = {
   error: "",
@@ -57,8 +49,6 @@ const authSlice = createSlice({
       state.error = "";
       state.loading = "succeeded";
       state.loggedInUser = action.payload;
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(action.payload));
-      customHistory.push("/");
     });
 
     /**
@@ -68,12 +58,9 @@ const authSlice = createSlice({
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.error = "";
         state.loggedInUser = action.payload;
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(action.payload));
       })
-      .addCase(checkAuth.rejected, (state, action) => {
+      .addCase(checkAuth.rejected, (state) => {
         state.loggedInUser = null;
-        localStorage.removeItem(LOCAL_STORAGE_KEY);
-        customHistory.push("/");
       });
 
     /**
@@ -84,12 +71,9 @@ const authSlice = createSlice({
         state.loading = "loading";
       })
       .addCase(localLogIn.fulfilled, (state, action) => {
-        console.log(action.meta);
         state.error = "";
         state.loading = "succeeded";
         state.loggedInUser = action.payload;
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(action.payload));
-        customHistory.push("/");
       })
       .addCase(localLogIn.rejected, (state, action) => {
         state.loading = "failed";
@@ -101,8 +85,6 @@ const authSlice = createSlice({
      */
     builder.addCase(logoutThunk.fulfilled, (state, action) => {
       state.loggedInUser = null;
-      localStorage.removeItem(LOCAL_STORAGE_KEY);
-      customHistory.push("/");
     });
   },
 });

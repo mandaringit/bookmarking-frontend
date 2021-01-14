@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../../components/atoms/Button";
 import Input from "../../components/atoms/Input";
@@ -10,6 +10,8 @@ import {
   selectAuthLoading,
   signupThunk,
 } from "../../slices/authSlice";
+import { useAppDispatch } from "../../store";
+import { useHistory } from "react-router-dom";
 
 export interface PureLocalAuthFormProps extends LocalAuthFormProps {
   /**
@@ -101,6 +103,7 @@ interface LocalAuthFormProps {
 }
 
 const LocalLoginForm = ({ type }: LocalAuthFormProps) => {
+  const history = useHistory();
   const [user, setUsername] = useState<LoginForm>({
     email: "",
     password: "",
@@ -109,7 +112,7 @@ const LocalLoginForm = ({ type }: LocalAuthFormProps) => {
   const error = useSelector(selectAuthError);
   const loading = useSelector(selectAuthLoading);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setUsername({
@@ -118,12 +121,20 @@ const LocalLoginForm = ({ type }: LocalAuthFormProps) => {
     });
   };
 
-  const onSignup = (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(signupThunk(user));
+  const onSignup = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { meta, payload } = await dispatch(signupThunk(user));
+    if (meta.requestStatus === "fulfilled") {
+      localStorage.setItem("mandarin-dev", JSON.stringify(payload));
+      history.push("/");
+    }
   };
 
   const onLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(localLogIn(user));
+    const { meta, payload } = await dispatch(localLogIn(user));
+    if (meta.requestStatus === "fulfilled") {
+      localStorage.setItem("mandarin-dev", JSON.stringify(payload));
+      history.push("/");
+    }
   };
 
   return (
