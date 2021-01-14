@@ -16,7 +16,7 @@ import {
 
 /**
  * Thunk
- * Report - Create / Read(all) / Read(one) / Delete
+ * Report - Create / Read(all) / Read(one) / Delete / Update
  */
 
 export const createReportThunk = createAsyncThunk<
@@ -51,6 +51,14 @@ export const removeReportByIdThunk = createAsyncThunk<
   return response.data;
 });
 
+export const updateReportTitleThunk = createAsyncThunk<
+  Pick<BasicReport, "id" | "title">,
+  { reportId: ID; title: string }
+>("reports/updateReportTitle", async ({ reportId, title }) => {
+  const response = await reportsAPI.updateReportTitle(reportId, title);
+  return response.data;
+});
+
 /**
  * Thunk
  * Report의 Fragment Create /
@@ -79,13 +87,14 @@ export const removeFragmentThunk = createAsyncThunk<
 const initialState = {
   reports: [] as BasicReport[],
   report: null as BasicReportWithFragments | null,
-  loading: {
+  status: {
     findMyReports: "idle" as LoadingState,
     createReport: "idle" as LoadingState,
-  },
+  } as { [requestId: string]: LoadingState },
   error: {
     findMyReports: "",
     createReport: "",
+    removeReportByIdThunk: "",
   },
 };
 
@@ -109,16 +118,16 @@ const reportsSlice = createSlice({
      * 나의 리포트 가져오기.
      */
     builder.addCase(findMyReportsThunk.pending, (state, action) => {
-      state.loading.findMyReports = "loading";
+      state.status.findMyReports = "loading";
       state.error.findMyReports = "";
     });
     builder.addCase(findMyReportsThunk.fulfilled, (state, action) => {
-      state.loading.findMyReports = "succeeded";
+      state.status.findMyReports = "succeeded";
       state.error.findMyReports = "";
       state.reports = action.payload;
     });
     builder.addCase(findMyReportsThunk.rejected, (state, action) => {
-      state.loading.findMyReports = "failed";
+      state.status.findMyReports = "failed";
       state.error.findMyReports = "독후감을 가져오는데 실패했습니다.";
     });
 
@@ -126,26 +135,41 @@ const reportsSlice = createSlice({
      * 리포트 생성하기
      */
     builder.addCase(createReportThunk.pending, (state, action) => {
-      state.loading.createReport = "loading";
+      state.status.createReport = "loading";
       state.error.createReport = "";
     });
     builder.addCase(createReportThunk.fulfilled, (state, action) => {
-      state.loading.createReport = "succeeded";
+      state.status.createReport = "succeeded";
       state.reports.push(action.payload);
     });
     builder.addCase(createReportThunk.rejected, (state, action) => {
-      state.loading.createReport = "failed";
+      state.status.createReport = "failed";
       state.error.createReport = "독후감을 만드는데 실패했습니다.";
     });
 
     /**
-     * 리포트 삭제
+     * 리포트 삭제. 아직 따로 하는 일 없음.
      */
 
-    builder.addCase(removeReportByIdThunk.fulfilled, (state, action) => {
-      state.reports = state.reports.filter(
-        (report) => report.id !== action.payload.id
-      );
+    // builder
+    //   .addCase(removeReportByIdThunk.pending, (state, action) => {
+    //     state.status.removeReportByIdThunk = "loading";
+    //     state.error.removeReportByIdThunk = "";
+    //   })
+    //   .addCase(removeReportByIdThunk.fulfilled, (state, action) => {
+    //     state.status.removeReportByIdThunk = "succeeded";
+    //   })
+    //   .addCase(removeReportByIdThunk.rejected, (state, action) => {
+    //     state.status.removeReportByIdThunk = "failed";
+    //     state.error.removeReportByIdThunk = "삭제에 실패했습니다.";
+    //   });
+
+    /**
+     * 리포트 업데이트
+     */
+
+    builder.addCase(updateReportTitleThunk.fulfilled, (state, action) => {
+      state.report!.title = action.payload.title;
     });
 
     /**
@@ -180,3 +204,4 @@ export default reportsSlice.reducer;
 
 export const selectReports = (state: RootState) => state.reports.reports;
 export const selectReport = (state: RootState) => state.reports.report;
+export const selectReportStatus = (state: RootState) => state.reports.status;

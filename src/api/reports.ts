@@ -5,6 +5,7 @@ import { client } from "./client";
 
 type RemoveReportResponse = AxiosResponse<Pick<BasicReport, "id">>;
 type CreateReportResponse = AxiosResponse<BasicReport>;
+type UpdateReportResponse = AxiosResponse<Pick<BasicReport, "id" | "title">>;
 type FindMyReportsResponse = AxiosResponse<BasicReport[]>;
 type FindReportByIdResponse = AxiosResponse<BasicReportWithFragments>;
 
@@ -23,6 +24,13 @@ const reportsAPI = {
   findReportById: async (reportId: ID) =>
     await client.get<any, FindReportByIdResponse>(
       `/reports/find?reportId=${reportId}`
+    ),
+  updateReportTitle: async (reportId: ID, title: string) =>
+    await client.patch<any, UpdateReportResponse>(
+      `/reports?reportId=${reportId}`,
+      {
+        title,
+      }
     ),
 };
 
