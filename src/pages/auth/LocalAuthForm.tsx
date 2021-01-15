@@ -6,9 +6,9 @@ import Input from "../../components/atoms/Input";
 import { LoadingState, LoginForm } from "../../types/utils";
 import {
   localLogIn,
-  selectAuthError,
-  selectAuthLoading,
-  signupThunk,
+  selectAuthErrors,
+  selectAuthStatus,
+  signup,
 } from "../../slices/authSlice";
 import { useAppDispatch } from "../../store";
 import { useHistory } from "react-router-dom";
@@ -25,7 +25,7 @@ export interface PureLocalAuthFormProps extends LocalAuthFormProps {
   /**
    * 로딩 상태
    */
-  loading: LoadingState;
+  status: LoadingState;
   /**
    * Login 이벤트 핸들러
    */
@@ -46,7 +46,7 @@ export interface PureLocalAuthFormProps extends LocalAuthFormProps {
 export const PureLocalAuthForm = ({
   user,
   error,
-  loading,
+  status,
   type,
   onLogin,
   onSignup,
@@ -73,17 +73,13 @@ export const PureLocalAuthForm = ({
         placeholder='비밀번호'
       />
       {type === "login" ? (
-        <Button
-          size='medium'
-          disabled={loading === "loading"}
-          onClick={onLogin}
-        >
+        <Button size='medium' disabled={status === "loading"} onClick={onLogin}>
           로그인
         </Button>
       ) : (
         <Button
           size='medium'
-          disabled={loading === "loading"}
+          disabled={status === "loading"}
           onClick={onSignup}
         >
           회원가입
@@ -104,15 +100,16 @@ interface LocalAuthFormProps {
 
 const LocalLoginForm = ({ type }: LocalAuthFormProps) => {
   const history = useHistory();
+  const dispatch = useAppDispatch();
+
   const [user, setUsername] = useState<LoginForm>({
     email: "",
     password: "",
   });
 
-  const error = useSelector(selectAuthError);
-  const loading = useSelector(selectAuthLoading);
+  const errors = useSelector(selectAuthErrors);
+  const status = useSelector(selectAuthStatus);
 
-  const dispatch = useAppDispatch();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setUsername({
@@ -122,7 +119,8 @@ const LocalLoginForm = ({ type }: LocalAuthFormProps) => {
   };
 
   const onSignup = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { meta, payload } = await dispatch(signupThunk(user));
+    const { meta, payload } = await dispatch(signup(user));
+
     if (meta.requestStatus === "fulfilled") {
       localStorage.setItem("mandarin-dev", JSON.stringify(payload));
       history.push("/");
@@ -140,8 +138,8 @@ const LocalLoginForm = ({ type }: LocalAuthFormProps) => {
   return (
     <PureLocalAuthForm
       user={user}
-      error={error}
-      loading={loading}
+      error={errors[type]}
+      status={status[type]}
       onSignup={onSignup}
       onLogin={onLogin}
       onChange={onChange}

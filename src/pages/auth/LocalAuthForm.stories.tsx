@@ -23,7 +23,7 @@ Default.args = {
     password: "",
   },
   error: "",
-  loading: "idle",
+  status: "idle",
   onChange: () => {},
   onLogin: () => {
     console.log("로그인 시도");
@@ -36,7 +36,7 @@ Default.args = {
 export const Loading = Template.bind({});
 Loading.args = {
   ...Default.args,
-  loading: "loading",
+  status: "loading",
   user: {
     email: "mandarin.test@kakao.com",
     password: "1234567",
@@ -50,7 +50,7 @@ Error.args = {
     email: "mandarin.test@kakao.com",
     password: "1234567",
   },
-  loading: "failed",
+  status: "failed",
   error: "로그인 에러 발생",
 };
 
