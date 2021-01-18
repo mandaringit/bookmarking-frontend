@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "../../components/atoms/Input";
 import Dialog from "../../components/molecules/Dialog";
@@ -34,6 +34,11 @@ const ReportUpdateDialog = ({
     }
   };
 
+  const onCancel = () => {
+    setVisible(null);
+    setTitle(report.title); // 취소시 원상복구
+  };
+
   return (
     <Dialog
       visible={visible === "update"}
@@ -41,7 +46,7 @@ const ReportUpdateDialog = ({
       title='독후감 수정'
       description={`${report.title}의 제목을 수정합니다.`}
       confirmText='수정'
-      onCancel={() => setVisible(null)}
+      onCancel={onCancel}
       onConfirm={onUpdate}
     >
       <Container>
