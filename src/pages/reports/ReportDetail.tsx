@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import styled from "styled-components";
+import Button from "../../components/atoms/Button";
+import ButtonGroup from "../../components/molecules/ButtonGroup";
 import {
   clearReport,
   findReportByIdThunk,
-  removeReportByIdThunk,
   selectReport,
 } from "../../slices/reportsSlice";
 import { useAppDispatch } from "../../store";
@@ -13,17 +14,16 @@ import { pageContainer } from "../../styles/shared";
 import { BasicReportWithFragments } from "../../types/entity";
 import FragmentAddFrom from "./FragmentAddForm";
 import FragmentList from "./FragmentList";
-import ReportTitle from "./ReportTitle";
+import ReportRemoveDialog from "./ReportRemoveDialog";
+import ReportUpdateDialog from "./ReportUpdateDialog";
 
 export interface PureReportDetailProps {
   /**
    * 생각 조각들을 포함하는 기본 독후감 정보
    */
   report: BasicReportWithFragments;
-  /**
-   * 독후감 삭제 버튼 클릭 핸들러
-   */
-  onRemove: () => void;
+  visible: VisibleType;
+  setVisible: React.Dispatch<React.SetStateAction<VisibleType>>;
 }
 
 /**
@@ -31,29 +31,51 @@ export interface PureReportDetailProps {
  */
 export const PureReportDetail = ({
   report,
-  onRemove,
+  visible,
+  setVisible,
 }: PureReportDetailProps) => {
   const { book, fragments } = report;
   return (
-    <Container>
-      <span onClick={onRemove}>X</span>
-      <ReportTitle reportId={report.id} title={report.title} />
-      <div className='book__info'>
-        <span>📔 {book.title}</span>
-        <span>✍️ {book.author.name}</span>
-      </div>
-      <FragmentAddFrom reportId={report.id} />
-      <FragmentList fragments={fragments} />
-    </Container>
+    <>
+      <Container>
+        <ButtonGroup align='flex-end'>
+          <Button onClick={() => setVisible("remove")} size='small'>
+            삭제
+          </Button>
+          <Button onClick={() => setVisible("update")} size='small'>
+            수정
+          </Button>
+        </ButtonGroup>
+        <h2>{report.title}</h2>
+        <div className='book__info'>
+          <span>📔 {book.title}</span>
+          <span>✍️ {book.author.name}</span>
+        </div>
+        <FragmentAddFrom reportId={report.id} />
+        <FragmentList fragments={fragments} />
+      </Container>
+      {/* 삭제 다이얼로그 */}
+      <ReportRemoveDialog
+        report={report}
+        visible={visible}
+        setVisible={setVisible}
+      />
+      {/* 수정 다이얼로그 */}
+      <ReportUpdateDialog
+        report={report}
+        visible={visible}
+        setVisible={setVisible}
+      />
+    </>
   );
 };
 
-const ReportDetail = ({
-  match,
-  history,
-}: RouteComponentProps<{ reportId: string }>) => {
+export type VisibleType = null | "remove" | "update";
+
+const ReportDetail = ({ match }: RouteComponentProps<{ reportId: string }>) => {
   const { reportId } = match.params;
   const report = useSelector(selectReport);
+  const [visible, setVisible] = useState<VisibleType>(null);
   const dispatch = useAppDispatch();
   /**
    * mount & unmount
@@ -65,20 +87,17 @@ const ReportDetail = ({
     };
   }, [dispatch, reportId]);
 
-  const onRemove = async () => {
-    const { meta } = await dispatch(
-      removeReportByIdThunk({ reportId: parseInt(reportId) })
-    );
-    if (meta.requestStatus === "fulfilled") {
-      history.push("/myreports");
-    }
-  };
-
   if (!report) {
     return null;
   }
 
-  return <PureReportDetail report={report} onRemove={onRemove} />;
+  return (
+    <PureReportDetail
+      report={report}
+      visible={visible}
+      setVisible={setVisible}
+    />
+  );
 };
 
 export default ReportDetail;
