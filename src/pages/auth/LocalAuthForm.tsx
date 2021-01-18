@@ -62,6 +62,7 @@ export const PureLocalAuthForm = ({
         value={user.email}
         onChange={onChange}
         placeholder='이메일'
+        focus
       />
 
       <Input

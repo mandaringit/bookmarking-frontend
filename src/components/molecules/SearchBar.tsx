@@ -48,6 +48,7 @@ export const PureSearchBar = ({
         width='100%'
         placeholder='책을 검색해보세요.'
         onKeyDown={onEnter}
+        focus
       />
       <Button onClick={onSearch} size='medium' width='6rem'>
         책찾기
@@ -70,6 +71,7 @@ const SearchBar = () => {
   const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") onSearch();
   };
+
   return (
     <PureSearchBar
       query={query}
