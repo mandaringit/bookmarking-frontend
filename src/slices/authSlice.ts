@@ -130,7 +130,7 @@ const authSlice = createSlice({
     /**
      * 로그아웃
      */
-    builder.addCase(logout.fulfilled, (state, action) => {
+    builder.addCase(logout.fulfilled, (state) => {
       state.loggedInUser = null;
     });
   },
