@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../atoms/Button";
 import Input from "../atoms/Input";
-import {
-  initialSearchBooks,
-  loadNextSearchBooks,
-  setCurrentQuery,
-} from "../../slices/searchSlice";
+import { initialSearchBooks, setCurrentQuery } from "../../slices/searchSlice";
 import { useAppDispatch } from "../../store";
 
 export interface PureSearchBarProps extends SearchBarProps {}
