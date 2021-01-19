@@ -17,21 +17,28 @@ const Container = styled.div`
   height: 100%;
 `;
 
+const Content = styled.section`
+  flex-grow: 1;
+`;
+
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
   return (
     <Container>
       <Navbar loggedInUser={loggedInUser} />
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/login' render={() => <Auth type='login' />} />
-        <Route path='/signup' render={() => <Auth type='signup' />} />
-        {/* TODO: PRIVATE ROUTE 설정 */}
-        <Route path='/search' component={BookSearch} />
-        <Route path='/myreports' component={MyReports} />
-        <Route path='/report/:reportId' component={ReportDetail} />
-        {/* TODO: NOMATCH ROUTE 설정 */}
-      </Switch>
+      <Content>
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/login' render={() => <Auth type='login' />} />
+          <Route path='/signup' render={() => <Auth type='signup' />} />
+          {/* TODO: PRIVATE ROUTE 설정 */}
+          <Route path='/search' component={BookSearch} />
+          <Route path='/myreports' component={MyReports} />
+          <Route path='/report/:reportId' component={ReportDetail} />
+          {/* TODO: NOMATCH ROUTE 설정 */}
+        </Switch>
+      </Content>
+      <div>푸터</div>
     </Container>
   );
 }

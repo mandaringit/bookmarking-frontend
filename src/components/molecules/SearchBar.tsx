@@ -1,13 +1,36 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../atoms/Button";
 import Input from "../atoms/Input";
 import {
-  searchBooksThunk,
-  selectSearchQuery,
-  setQuery,
+  initialSearchBooks,
+  loadNextSearchBooks,
+  setCurrentQuery,
 } from "../../slices/searchSlice";
+import { useAppDispatch } from "../../store";
+
+export interface PureSearchBarProps extends SearchBarProps {}
+
+export const PureSearchBar = ({
+  query,
+  onChange,
+  onSearch,
+}: PureSearchBarProps) => {
+  return (
+    <Container onSubmit={onSearch}>
+      <Input
+        value={query}
+        onChange={onChange}
+        width='100%'
+        placeholder='책을 검색해보세요.'
+        focus
+      />
+      <Button size='medium' width='6rem'>
+        책찾기
+      </Button>
+    </Container>
+  );
+};
 
 export interface SearchBarProps {
   /**
@@ -21,70 +44,32 @@ export interface SearchBarProps {
   /**
    *  Button 클릭 핸들러
    */
-  onSearch?: () => void;
+  onSearch?: (e: React.FormEvent<HTMLFormElement>) => void;
 }
-
-export interface PureSearchBarProps {
-  /**
-   * 책 검색어
-   */
-  query: string;
-  onSearch: () => void;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onEnter: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-}
-
-export const PureSearchBar = ({
-  query,
-  onChange,
-  onSearch,
-  onEnter,
-}: PureSearchBarProps) => {
-  return (
-    <Container>
-      <Input
-        value={query}
-        onChange={onChange}
-        width='100%'
-        placeholder='책을 검색해보세요.'
-        onKeyDown={onEnter}
-        focus
-      />
-      <Button onClick={onSearch} size='medium' width='6rem'>
-        책찾기
-      </Button>
-    </Container>
-  );
-};
 
 /**
  * `SearchBar`는 인풋값을 통해 검색을 수행할 수 있는 컴포넌트 입니다.
  */
 const SearchBar = () => {
-  // const { value: query, onChange } = useInput<HTMLInputElement>("");
-  const query = useSelector(selectSearchQuery);
-  const dispatch = useDispatch();
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setQuery(e.target.value));
-  };
-  const onSearch = () => dispatch(searchBooksThunk());
-  const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") onSearch();
+  const [query, setQuery] = useState<string>("");
+  const dispatch = useAppDispatch();
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setQuery(e.target.value);
+
+  const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(setCurrentQuery(query));
+    dispatch(initialSearchBooks());
   };
 
   return (
-    <PureSearchBar
-      query={query}
-      onChange={onChange}
-      onSearch={onSearch}
-      onEnter={onEnter}
-    />
+    <PureSearchBar query={query} onChange={onChange} onSearch={onSearch} />
   );
 };
 
 export default SearchBar;
 
-const Container = styled.div`
+const Container = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;

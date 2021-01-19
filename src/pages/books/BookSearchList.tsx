@@ -1,7 +1,15 @@
+import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { KakaoBook } from "../../api/kakaoApi";
-import { selectBooks, selectSearchStatus } from "../../slices/searchSlice";
+import Loader from "../../components/molecules/Loader";
+import {
+  loadNextSearchBooks,
+  selectBooks,
+  selectSearchStatus,
+  selectSearchEnd,
+} from "../../slices/searchSlice";
+import { useAppDispatch } from "../../store";
 import { LoadingState } from "../../types/utils";
 import BookSearchItem from "./BookSearchItem";
 
@@ -11,20 +19,32 @@ export interface PureBookSearchListProps {
    */
   books: KakaoBook[];
   /**
-   * API 요청 상태
+   * 첫 검색 요청 상태
    */
-  status: LoadingState;
+  initialStatus: LoadingState;
+  /**
+   * 인피니트 로드 요청 상태
+   */
+  loadNextStatus: LoadingState;
+  /**
+   *  로더에 교차할 때 발생하는 콜백
+   */
+  loaderCallback: IntersectionObserverCallback;
 }
 
 export const PureBookSearchList = ({
   books,
-  status,
+  initialStatus,
+  loadNextStatus,
+  loaderCallback,
 }: PureBookSearchListProps) => {
-  if (status === "idle") {
+  // 초기 대기 화면상태
+  if (initialStatus === "idle") {
     return null;
   }
 
-  if (status === "loading") {
+  // 첫 fetch 중
+  if (initialStatus === "loading" && books.length === 0) {
     return (
       <Container>
         <LoadingItem />
@@ -34,16 +54,29 @@ export const PureBookSearchList = ({
     );
   }
 
-  if (status === "succeeded" && books.length === 0) {
-    // TODO: 빈화면 구현
-    return <Container>EMPTY!</Container>;
+  // fetch 성공 &  아이템 없음
+  if (initialStatus === "succeeded" && books.length === 0) {
+    return (
+      <Empty>
+        <span>앗! 찾으려는 책이 없어요 😭</span>
+      </Empty>
+    );
   }
 
+  // fetch 성공 & 아이템 있음
   return (
     <Container>
-      {books.map((book) => (
-        <BookSearchItem book={book} key={book.isbn} />
+      {books.map((book, i) => (
+        <BookSearchItem book={book} key={book.isbn + i} />
       ))}
+      {loadNextStatus === "loading" ? (
+        <>
+          <LoadingItem />
+          <LoadingItem />
+        </>
+      ) : (
+        <Loader loaderCallback={loaderCallback} />
+      )}
     </Container>
   );
 };
@@ -51,8 +84,25 @@ export const PureBookSearchList = ({
 const BookSearchList = () => {
   const books = useSelector(selectBooks);
   const status = useSelector(selectSearchStatus);
+  const isSearchEnd = useSelector(selectSearchEnd);
+  const dispatch = useAppDispatch();
+  const loaderCallback: IntersectionObserverCallback = useCallback(
+    ([entry]) => {
+      if (!isSearchEnd && entry.isIntersecting) {
+        dispatch(loadNextSearchBooks());
+      }
+    },
+    [dispatch, isSearchEnd]
+  );
 
-  return <PureBookSearchList books={books} status={status} />;
+  return (
+    <PureBookSearchList
+      books={books}
+      initialStatus={status.initial}
+      loadNextStatus={status.next}
+      loaderCallback={loaderCallback}
+    />
+  );
 };
 
 export default BookSearchList;
@@ -64,6 +114,20 @@ const Container = styled.ul`
   display: grid;
   gap: 0.5rem;
 `;
+
+const Empty = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  & > span {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+`;
+
+/**
+ * 이하 로딩 컴포넌트
+ */
 
 const LoadingItem = () => (
   <LoadingContainer>

@@ -186,24 +186,38 @@ const BOOK_SAMPLE = [
 
 export const Default = Template.bind({});
 Default.args = {
-  status: "succeeded",
+  initialStatus: "succeeded",
+  loadNextStatus: "idle",
   books: BOOK_SAMPLE.slice(0, 3),
+  loaderCallback: () => {},
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  status: "loading",
+export const FetchInitialBooks = Template.bind({});
+FetchInitialBooks.args = {
+  ...Default.args,
+  initialStatus: "loading",
   books: [],
 };
 
 export const Empty = Template.bind({});
 Empty.args = {
-  status: "succeeded",
+  ...Default.args,
+  initialStatus: "succeeded",
   books: [],
 };
 
-export const Fetch10Items = Template.bind({});
-Fetch10Items.args = {
-  status: "succeeded",
+export const Initial10Items = Template.bind({});
+Initial10Items.args = {
+  ...Default.args,
+  initialStatus: "succeeded",
   books: BOOK_SAMPLE,
+  loadNextStatus: "idle",
+};
+
+export const FetchNextBooks = Template.bind({});
+FetchNextBooks.args = {
+  ...Default.args,
+  initialStatus: "succeeded",
+  books: BOOK_SAMPLE,
+  loadNextStatus: "loading",
 };

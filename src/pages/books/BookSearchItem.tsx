@@ -36,11 +36,7 @@ const AddButton = ({ alreadyAdded, book }: AddButtonProps) => {
   return <Button onClick={onAdd}>추가하기</Button>;
 };
 
-export interface PureBookSearchItemProps {
-  /**
-   * 네이버 API로 가져온 책 정보
-   */
-  book: KakaoBook;
+export interface PureBookSearchItemProps extends BookSearchItemProps {
   /**
    * 로그인한 유저가 이미 등록한 책인지에 대한 여부
    */
@@ -57,6 +53,7 @@ export const PureBookSearchItem = ({
   const { thumbnail, title, authors, contents } = book;
   const fname = extractFname(thumbnail);
   const imageURL = getFullThumbnailUrl(fname, 150);
+
   return (
     <Container>
       <div className='book__image'>
@@ -76,6 +73,9 @@ export const PureBookSearchItem = ({
 };
 
 export interface BookSearchItemProps {
+  /**
+   * 네이버 API로 가져온 책 정보
+   */
   book: KakaoBook;
 }
 

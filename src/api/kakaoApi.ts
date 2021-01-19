@@ -28,9 +28,9 @@ export interface KakaoBookSearchApiResponse {
 }
 
 const kakaoApi = {
-  searchBooks: (query: string) =>
+  searchBooks: (query: string, page: number) =>
     client.get<any, AxiosResponse<KakaoBookSearchApiResponse>>(
-      `/kakao/search/book/?query=${query}`
+      `/kakao/search/book/?query=${query}&page=${page}`
     ),
 };
 
