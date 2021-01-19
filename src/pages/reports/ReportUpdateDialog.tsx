@@ -8,7 +8,7 @@ import { BasicReport } from "../../types/entity";
 import { VisibleType } from "./ReportDetail";
 
 interface ReportUpdateDialogProps {
-  visible: VisibleType;
+  visible: boolean;
   report: BasicReport;
   setVisible: React.Dispatch<React.SetStateAction<VisibleType>>;
 }
@@ -41,7 +41,7 @@ const ReportUpdateDialog = ({
 
   return (
     <Dialog
-      visible={visible === "update"}
+      visible={visible}
       cancellable
       title='독후감 수정'
       description={`${report.title}의 제목을 수정합니다.`}

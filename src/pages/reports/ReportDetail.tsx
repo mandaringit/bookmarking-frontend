@@ -12,11 +12,12 @@ import {
 import { useAppDispatch } from "../../store";
 import { pageContainer } from "../../styles/shared";
 import { BasicReportWithFragments } from "../../types/entity";
-import FragmentAddFrom from "./FragmentAddForm";
+import FragmentAddDialog from "./FragmentAddDialog";
 import FragmentList from "./FragmentList";
 import ReportRemoveDialog from "./ReportRemoveDialog";
 import ReportUpdateDialog from "./ReportUpdateDialog";
 
+export type VisibleType = null | "remove" | "update" | "addFragment";
 export interface PureReportDetailProps {
   /**
    * 생각 조각들을 포함하는 기본 독후감 정보
@@ -39,6 +40,9 @@ export const PureReportDetail = ({
     <>
       <Container>
         <ButtonGroup align='flex-end'>
+          <Button onClick={() => setVisible("addFragment")} size='small'>
+            생각조각 추가
+          </Button>
           <Button onClick={() => setVisible("remove")} size='small'>
             삭제
           </Button>
@@ -51,26 +55,28 @@ export const PureReportDetail = ({
           <span>📔 {book.title}</span>
           <span>✍️ {book.author.name}</span>
         </div>
-        <FragmentAddFrom reportId={report.id} />
         <FragmentList fragments={fragments} />
       </Container>
+      <FragmentAddDialog
+        report={report}
+        visible={visible === "addFragment"}
+        setVisible={setVisible}
+      />
       {/* 삭제 다이얼로그 */}
       <ReportRemoveDialog
         report={report}
-        visible={visible}
+        visible={visible === "remove"}
         setVisible={setVisible}
       />
       {/* 수정 다이얼로그 */}
       <ReportUpdateDialog
         report={report}
-        visible={visible}
+        visible={visible === "update"}
         setVisible={setVisible}
       />
     </>
   );
 };
-
-export type VisibleType = null | "remove" | "update";
 
 const ReportDetail = ({ match }: RouteComponentProps<{ reportId: string }>) => {
   const { reportId } = match.params;
@@ -104,7 +110,7 @@ export default ReportDetail;
 
 const Container = styled.div`
   ${pageContainer}
-  margin-top:2rem;
+  padding-top:2rem;
 
   .book__info {
     color: #bdbdbd;

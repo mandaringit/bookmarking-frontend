@@ -7,7 +7,7 @@ import { BasicReport } from "../../types/entity";
 import { VisibleType } from "./ReportDetail";
 
 export interface ReportRemoveDialogProps {
-  visible: VisibleType;
+  visible: boolean;
   report: BasicReport;
   setVisible: React.Dispatch<React.SetStateAction<VisibleType>>;
 }
@@ -30,7 +30,7 @@ const ReportRemoveDialog = ({
   };
   return (
     <Dialog
-      visible={visible === "remove"}
+      visible={visible}
       cancellable
       title='독후감 삭제'
       description={`${report.title}을 정말 삭제합니까?`}
