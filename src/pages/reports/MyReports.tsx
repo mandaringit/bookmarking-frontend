@@ -40,4 +40,8 @@ export default MyReports;
 
 const Container = styled.div`
   ${pageContainer}
+  h1 {
+    margin: 0;
+    padding: 1rem 0;
+  }
 `;
