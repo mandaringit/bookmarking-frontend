@@ -16,6 +16,8 @@ const reportsAPI = {
     ),
   findMyReports: async () =>
     await client.get<any, FindMyReportsResponse>("/reports"),
+  findMyReportsWithLibraryStatus: async () =>
+    await client.get<any, FindMyReportsResponse>("/reports/library"),
   createReport: async (book: KakaoBookForm, title: string) =>
     await client.post<any, CreateReportResponse>("/reports", {
       title,

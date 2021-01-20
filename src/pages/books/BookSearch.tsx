@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import SearchBar from "../../components/molecules/SearchBar";
-import { findMyReportsThunk } from "../../slices/reportsSlice";
+import {
+  findMyReportsWithLibraryStatusThunk,
+  clearAllReports,
+} from "../../slices/reportsSlice";
 import { searchInit } from "../../slices/searchSlice";
 import { useAppDispatch } from "../../store";
 import { pageContainer } from "../../styles/shared";
@@ -15,7 +18,10 @@ const BookSearch = (props: BookSearchProps) => {
     // 검색 전 페이지 및 검색어 초기화작업
     dispatch(searchInit());
     // 이미 등록되어있는지 여부를 확인하기 위해선 현재 가지고있는 모든 리포트 목록이 필요함.
-    dispatch(findMyReportsThunk());
+    dispatch(findMyReportsWithLibraryStatusThunk());
+    return () => {
+      dispatch(clearAllReports());
+    };
   }, [dispatch]);
 
   return (

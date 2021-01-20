@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { LIBRARY_CODE_TABLE } from "../../lib/libraryCodes";
 import { getFullThumbnailUrl } from "../../lib/utils";
 import { BasicReport } from "../../types/entity";
 
@@ -9,6 +10,14 @@ export interface PureReportItemProps extends ReportItemProps {}
 export const PureReportItem = ({ report }: PureReportItemProps) => {
   return (
     <Container>
+      {report.book.libraryOwnStatuses &&
+        report.book.libraryOwnStatuses.map((status) => (
+          <div key={status.id}>
+            <div>{LIBRARY_CODE_TABLE[status.library.code]}</div>
+            <div>소장 여부 : {status.hasBook ? "소장" : "미소장"}</div>
+            <div>대출 여부 : {status.loanAvailable ? "가능" : "불가능"}</div>
+          </div>
+        ))}
       <Link to={`/report/${report.id}`}>
         <img
           className='item__thumbnail'

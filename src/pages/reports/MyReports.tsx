@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { findMyReportsThunk, selectReports } from "../../slices/reportsSlice";
+import {
+  clearReport,
+  findMyReportsWithLibraryStatusThunk,
+  selectReports,
+} from "../../slices/reportsSlice";
+import { useAppDispatch } from "../../store";
 import { pageContainer } from "../../styles/shared";
 import { BasicReport } from "../../types/entity";
 import ReportList from "./ReportList";
@@ -17,6 +22,10 @@ export interface PureMyReportsProps {
  * 독후감 목록 등 나의 독후감 관련 정보를 보여주는 페이지 컴포넌트 입니다.
  */
 export const PureMyReports = ({ reports }: PureMyReportsProps) => {
+  if (reports.length === 0) {
+    return <div>로딩중</div>;
+  }
+
   return (
     <Container>
       <h1>나의 독후감 목록</h1>
@@ -26,11 +35,11 @@ export const PureMyReports = ({ reports }: PureMyReportsProps) => {
 };
 
 const MyReports = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const reports = useSelector(selectReports);
 
   useEffect(() => {
-    dispatch(findMyReportsThunk());
+    dispatch(findMyReportsWithLibraryStatusThunk());
   }, [dispatch]);
 
   return <PureMyReports reports={reports} />;

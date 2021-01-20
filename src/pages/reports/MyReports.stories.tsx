@@ -26,6 +26,18 @@ Default.args = {
           id: 9,
           name: "월터 아이작슨",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
     {
@@ -41,6 +53,18 @@ Default.args = {
           id: 10,
           name: "제시 하틀랜드",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
     {
@@ -58,6 +82,18 @@ Default.args = {
           id: 11,
           name: "김영한",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
     {
@@ -73,6 +109,18 @@ Default.args = {
           id: 12,
           name: "이혜강",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
     {
@@ -88,6 +136,18 @@ Default.args = {
           id: 13,
           name: "미야베 미유키",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
     {
@@ -103,6 +163,18 @@ Default.args = {
           id: 13,
           name: "미야베 미유키",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
     {
@@ -120,6 +192,18 @@ Default.args = {
           id: 14,
           name: "양성익",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
     {
@@ -135,6 +219,18 @@ Default.args = {
           id: 15,
           name: "송형주",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
     {
@@ -150,6 +246,18 @@ Default.args = {
           id: 16,
           name: "데이비드 플래너건",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
     {
@@ -165,6 +273,18 @@ Default.args = {
           id: 17,
           name: "유인동",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
     {
@@ -180,6 +300,18 @@ Default.args = {
           id: 18,
           name: "알렉스 뱅크스",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
     {
@@ -195,6 +327,18 @@ Default.args = {
           id: 19,
           name: "아자트 마르단",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
     {
@@ -210,6 +354,18 @@ Default.args = {
           id: 20,
           name: "김민준",
         },
+        libraryOwnStatuses: [
+          {
+            id: 4,
+            hasBook: true,
+            loanAvailable: true,
+            updatedAt: "2021-01-20T11:21:09.459Z",
+            library: {
+              id: 1,
+              code: "146018",
+            },
+          },
+        ],
       },
     },
   ],

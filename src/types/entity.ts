@@ -18,6 +18,7 @@ export interface iBook {
   thumbnail: string;
   isbn: string;
   author: iAuthor;
+  libraryOwnStatuses: iLibraryOwnStatus[];
 }
 
 export interface iFragment {
@@ -33,6 +34,18 @@ export interface iReport {
   user: iUser;
   book: iBook;
   fragments: BasicFragment[];
+}
+
+export interface iLibrary {
+  id: ID;
+  code: string;
+}
+export interface iLibraryOwnStatus {
+  id: ID;
+  library: iLibrary;
+  hasBook: boolean;
+  loanAvailable: boolean;
+  updatedAt: string;
 }
 
 export type BasicReport = Pick<iReport, "id" | "book" | "title">;

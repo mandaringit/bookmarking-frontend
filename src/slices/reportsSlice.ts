@@ -35,13 +35,12 @@ export const createReportThunk = createAsyncThunk<
   return response.data;
 });
 
-export const findMyReportsThunk = createAsyncThunk<BasicReport[]>(
-  "reports/findMyReports",
-  async () => {
-    const response = await reportsAPI.findMyReports();
-    return response.data;
-  }
-);
+export const findMyReportsWithLibraryStatusThunk = createAsyncThunk<
+  BasicReport[]
+>("reports/findMyReports", async () => {
+  const response = await reportsAPI.findMyReportsWithLibraryStatus();
+  return response.data;
+});
 
 export const findReportByIdThunk = createAsyncThunk<
   BasicReportWithFragments,
@@ -106,6 +105,9 @@ const reportsSlice = createSlice({
   name: "reports",
   reducers: {
     clearReport: (state) => {
+      state.report = null;
+    },
+    clearAllReports: (state) => {
       reportAdapter.removeAll(state);
     },
   },
@@ -120,19 +122,28 @@ const reportsSlice = createSlice({
     /**
      * 나의 리포트 가져오기.
      */
-    builder.addCase(findMyReportsThunk.pending, (state, action) => {
-      state.status.findMyReports = "loading";
-      state.error.findMyReports = "";
-    });
-    builder.addCase(findMyReportsThunk.fulfilled, (state, action) => {
-      state.status.findMyReports = "succeeded";
-      state.error.findMyReports = "";
-      reportAdapter.upsertMany(state, action.payload);
-    });
-    builder.addCase(findMyReportsThunk.rejected, (state, action) => {
-      state.status.findMyReports = "failed";
-      state.error.findMyReports = "독후감을 가져오는데 실패했습니다.";
-    });
+    builder.addCase(
+      findMyReportsWithLibraryStatusThunk.pending,
+      (state, action) => {
+        state.status.findMyReports = "loading";
+        state.error.findMyReports = "";
+      }
+    );
+    builder.addCase(
+      findMyReportsWithLibraryStatusThunk.fulfilled,
+      (state, action) => {
+        state.status.findMyReports = "succeeded";
+        state.error.findMyReports = "";
+        reportAdapter.upsertMany(state, action.payload);
+      }
+    );
+    builder.addCase(
+      findMyReportsWithLibraryStatusThunk.rejected,
+      (state, action) => {
+        state.status.findMyReports = "failed";
+        state.error.findMyReports = "독후감을 가져오는데 실패했습니다.";
+      }
+    );
 
     /**
      * 리포트 생성하기
@@ -193,7 +204,7 @@ const reportsSlice = createSlice({
  * 액션
  */
 
-export const { clearReport } = reportsSlice.actions;
+export const { clearReport, clearAllReports } = reportsSlice.actions;
 
 /**
  * 리듀서
