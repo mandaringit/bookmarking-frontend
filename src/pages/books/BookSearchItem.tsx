@@ -1,11 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "../../components/atoms/Button";
-import { useDispatch } from "react-redux";
-import { createReportThunk } from "../../slices/reportsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createReportThunk,
+  selectReportByISBN,
+} from "../../slices/reportsSlice";
 import { KakaoBook } from "../../api/kakaoApi";
 import { KakaoBookForm } from "../../types/utils";
 import { extractFname, getFullThumbnailUrl } from "../../lib/utils";
+import { RootState } from "../../store";
 
 interface AddButtonProps {
   alreadyAdded: boolean;
@@ -21,6 +25,7 @@ const AddButton = ({ alreadyAdded, book }: AddButtonProps) => {
   if (alreadyAdded) {
     return <Button disabled>이미 등록된 책</Button>;
   }
+
   const onAdd = () => {
     const fname = extractFname(book.thumbnail);
     dipatch(
@@ -80,9 +85,13 @@ export interface BookSearchItemProps {
 }
 
 const BookSearchItem = ({ book }: BookSearchItemProps) => {
-  const alreadyAdded = false;
+  const alreadyAdded = useSelector<RootState>((state) =>
+    selectReportByISBN(state, book.isbn)
+  );
 
-  return <PureBookSearchItem book={book} alreadyAdded={alreadyAdded} />;
+  return (
+    <PureBookSearchItem book={book} alreadyAdded={Boolean(alreadyAdded)} />
+  );
 };
 
 export default BookSearchItem;

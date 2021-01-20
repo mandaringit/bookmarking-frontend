@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+} from "@reduxjs/toolkit";
 import fragmentAPI from "../api/fragments";
 import reportsAPI from "../api/reports";
 import { RootState } from "../store";
@@ -13,6 +17,10 @@ import {
   CreateReportForm,
   CreateFragmentForm,
 } from "../types/utils";
+
+const reportAdapter = createEntityAdapter<BasicReport>({
+  selectId: (report) => report.book.isbn,
+});
 
 /**
  * Thunk
@@ -80,30 +88,25 @@ export const removeFragmentThunk = createAsyncThunk<
   return response.data;
 });
 
-/**
- * 초기상태
- */
-
-const initialState = {
-  reports: [] as BasicReport[],
-  report: null as BasicReportWithFragments | null,
-  status: {
-    findMyReports: "idle" as LoadingState,
-    createReport: "idle" as LoadingState,
-  } as { [requestId: string]: LoadingState },
-  error: {
-    findMyReports: "",
-    createReport: "",
-    removeReportByIdThunk: "",
-  },
-};
-
 const reportsSlice = createSlice({
-  initialState,
+  initialState: reportAdapter.getInitialState({
+    // ids: [] ,
+    // entities: [],
+    report: null as BasicReportWithFragments | null,
+    status: {
+      findMyReports: "idle" as LoadingState,
+      createReport: "idle" as LoadingState,
+    } as { [requestId: string]: LoadingState },
+    error: {
+      findMyReports: "",
+      createReport: "",
+      removeReportByIdThunk: "",
+    },
+  }),
   name: "reports",
   reducers: {
     clearReport: (state) => {
-      state.report = null;
+      reportAdapter.removeAll(state);
     },
   },
   extraReducers: (builder) => {
@@ -124,7 +127,7 @@ const reportsSlice = createSlice({
     builder.addCase(findMyReportsThunk.fulfilled, (state, action) => {
       state.status.findMyReports = "succeeded";
       state.error.findMyReports = "";
-      state.reports = action.payload;
+      reportAdapter.upsertMany(state, action.payload);
     });
     builder.addCase(findMyReportsThunk.rejected, (state, action) => {
       state.status.findMyReports = "failed";
@@ -140,7 +143,7 @@ const reportsSlice = createSlice({
     });
     builder.addCase(createReportThunk.fulfilled, (state, action) => {
       state.status.createReport = "succeeded";
-      state.reports.push(action.payload);
+      reportAdapter.upsertOne(state, action.payload);
     });
     builder.addCase(createReportThunk.rejected, (state, action) => {
       state.status.createReport = "failed";
@@ -202,6 +205,11 @@ export default reportsSlice.reducer;
  * 셀렉터
  */
 
-export const selectReports = (state: RootState) => state.reports.reports;
+export const {
+  selectAll: selectReports,
+  selectIds: selectReportISBNs,
+  selectById: selectReportByISBN,
+} = reportAdapter.getSelectors<RootState>((state) => state.reports);
+// export const selectReports = (state: RootState) => state.reports.reports;
 export const selectReport = (state: RootState) => state.reports.report;
 export const selectReportStatus = (state: RootState) => state.reports.status;
