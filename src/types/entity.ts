@@ -48,6 +48,12 @@ export interface iLibraryOwnStatus {
   updatedAt: string;
 }
 
+export interface iWish {
+  id: ID;
+  book: iBook;
+  user: iUser;
+}
+
 export type BasicReport = Pick<iReport, "id" | "book" | "title">;
 export type BasicReportWithFragments = Pick<
   iReport,
@@ -55,3 +61,4 @@ export type BasicReportWithFragments = Pick<
 >;
 
 export type BasicFragment = Pick<iFragment, "id" | "text" | "createdAt">;
+export type BasicWish = Pick<iWish, "id" | "book">;

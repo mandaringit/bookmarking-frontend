@@ -1,51 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "../../components/atoms/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   createReportThunk,
   selectReportByISBN,
 } from "../../slices/reportsSlice";
+import {
+  selectWishByISBN,
+  createWishThunk,
+  removeWishThunk,
+} from "../../slices/wishSlice";
 import { KakaoBook } from "../../api/kakaoApi";
-import { KakaoBookForm } from "../../types/utils";
 import { extractFname, getFullThumbnailUrl } from "../../lib/utils";
-import { RootState } from "../../store";
-
-interface AddButtonProps {
-  alreadyAdded: boolean;
-  book: KakaoBookForm;
-}
-
-/**
- * 책 추가 버튼
- */
-const AddButton = ({ alreadyAdded, book }: AddButtonProps) => {
-  const dipatch = useDispatch();
-
-  if (alreadyAdded) {
-    return <Button disabled>이미 등록된 책</Button>;
-  }
-
-  const onAdd = () => {
-    const fname = extractFname(book.thumbnail);
-    dipatch(
-      createReportThunk({
-        book: {
-          ...book,
-          thumbnail: fname,
-        },
-        title: `${book.title}의 생각 모음`,
-      })
-    );
-  };
-  return <Button onClick={onAdd}>추가하기</Button>;
-};
+import { RootState, useAppDispatch } from "../../store";
+import ButtonGroup from "../../components/molecules/ButtonGroup";
+import { BasicReport, BasicWish } from "../../types/entity";
 
 export interface PureBookSearchItemProps extends BookSearchItemProps {
   /**
    * 로그인한 유저가 이미 등록한 책인지에 대한 여부
    */
-  alreadyAdded: boolean;
+  isReportExist: boolean;
+  isWishExist: boolean;
+  toggleWishHanlder: () => void;
+  addReportHandler: () => void;
 }
 
 /**
@@ -53,7 +32,10 @@ export interface PureBookSearchItemProps extends BookSearchItemProps {
  */
 export const PureBookSearchItem = ({
   book,
-  alreadyAdded,
+  isReportExist,
+  isWishExist,
+  addReportHandler,
+  toggleWishHanlder,
 }: PureBookSearchItemProps) => {
   const { thumbnail, title, authors, contents } = book;
   const fname = extractFname(thumbnail);
@@ -71,7 +53,14 @@ export const PureBookSearchItem = ({
           className='description'
           dangerouslySetInnerHTML={{ __html: contents }}
         />
-        <AddButton alreadyAdded={alreadyAdded} book={book} />
+        <ButtonGroup align='start'>
+          <Button onClick={addReportHandler} disabled={isReportExist}>
+            독후감 추가
+          </Button>
+          <Button onClick={toggleWishHanlder}>
+            {isWishExist ? "💘" : "🖤"}
+          </Button>
+        </ButtonGroup>
       </div>
     </Container>
   );
@@ -85,12 +74,51 @@ export interface BookSearchItemProps {
 }
 
 const BookSearchItem = ({ book }: BookSearchItemProps) => {
-  const alreadyAdded = useSelector<RootState>((state) =>
+  const dispatch = useAppDispatch();
+  const report = useSelector<RootState>((state) =>
     selectReportByISBN(state, book.isbn)
-  );
+  ) as BasicReport;
+  const wish = useSelector<RootState>((state) =>
+    selectWishByISBN(state, book.isbn)
+  ) as BasicWish;
+
+  const fname = extractFname(book.thumbnail);
+
+  const addReportHandler = () => {
+    dispatch(
+      createReportThunk({
+        book: {
+          ...book,
+          thumbnail: fname,
+        },
+        title: `${book.title}의 생각 모음`,
+      })
+    );
+  };
+
+  const toggleWishHandler = () => {
+    if (!wish) {
+      dispatch(
+        createWishThunk({
+          book: {
+            ...book,
+            thumbnail: fname,
+          },
+        })
+      );
+    } else {
+      dispatch(removeWishThunk({ id: wish.id }));
+    }
+  };
 
   return (
-    <PureBookSearchItem book={book} alreadyAdded={Boolean(alreadyAdded)} />
+    <PureBookSearchItem
+      book={book}
+      isReportExist={Boolean(report)}
+      isWishExist={Boolean(wish)}
+      addReportHandler={addReportHandler}
+      toggleWishHanlder={toggleWishHandler}
+    />
   );
 };
 

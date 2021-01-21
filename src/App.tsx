@@ -10,6 +10,7 @@ import ReportDetail from "./pages/reports/ReportDetail";
 import Home from "./pages/Home";
 import { iUser } from "./types/entity";
 import styled from "styled-components";
+import MyWishes from "./pages/wish/MyWishes";
 
 const Container = styled.div`
   display: flex;
@@ -34,6 +35,7 @@ function App() {
           {/* TODO: PRIVATE ROUTE 설정 */}
           <Route path='/search' component={BookSearch} />
           <Route path='/myreports' component={MyReports} />
+          <Route path='/mywishes' component={MyWishes} />
           <Route path='/report/:reportId' component={ReportDetail} />
           {/* TODO: NOMATCH ROUTE 설정 */}
         </Switch>

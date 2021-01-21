@@ -12,7 +12,8 @@ const Template: Story<PureBookSearchItemProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  alreadyAdded: false,
+  isReportExist: false,
+  isWishExist: false,
   book: {
     authors: ["조현영"],
     contents:
@@ -32,8 +33,14 @@ Default.args = {
   },
 };
 
-export const AlreadyAdded = Template.bind({});
-AlreadyAdded.args = {
+export const ReportExist = Template.bind({});
+ReportExist.args = {
   ...Default.args,
-  alreadyAdded: true,
+  isReportExist: true,
+};
+
+export const WishExist = Template.bind({});
+WishExist.args = {
+  ...Default.args,
+  isWishExist: true,
 };

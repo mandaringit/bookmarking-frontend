@@ -44,6 +44,7 @@ export const PureNavbar = ({ loggedInUser, onLogout }: PureNavbarProps) => {
             <>
               <SelectableLink to='/search'>검색</SelectableLink>
               <SelectableLink to='/myreports'>독후감</SelectableLink>
+              <SelectableLink to='/mywishes'>위시리스트</SelectableLink>
               <span className='link' onClick={onLogout}>
                 로그아웃
               </span>
