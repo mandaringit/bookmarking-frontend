@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { LIBRARY_CODE_TABLE } from "../../lib/libraryCodes";
 import { getFullThumbnailUrl } from "../../lib/utils";
@@ -10,21 +9,26 @@ export interface PureWishItemProps extends WishItemProps {}
 export const PureWishItem = ({ wish }: PureWishItemProps) => {
   return (
     <Container>
-      {wish.book.libraryOwnStatuses &&
-        wish.book.libraryOwnStatuses.map((status) => (
-          <div key={status.id}>
-            <div>{LIBRARY_CODE_TABLE[status.library.code]}</div>
-            <div>소장 여부 : {status.hasBook ? "소장" : "미소장"}</div>
-            <div>대출 여부 : {status.loanAvailable ? "가능" : "불가능"}</div>
-          </div>
-        ))}
-      {/* <Link to={`/wish/${wish.id}`}>
-        <img
-          className='item__thumbnail'
-          src={getFullThumbnailUrl(wish.book.thumbnail, 152)}
-          alt={`${wish.book.title} 썸네일`}
-        />
-      </Link> */}
+      <img
+        src={getFullThumbnailUrl(wish.book.thumbnail, 300)}
+        alt={`${wish.book.title} 썸네일`}
+      />
+      <div className='statuses'>
+        <h2 className='book__title'>{wish.book.title}</h2>
+        {wish.book.libraryOwnStatuses &&
+          wish.book.libraryOwnStatuses.map((status) => (
+            <div className='status' key={status.id}>
+              <span>{LIBRARY_CODE_TABLE[status.library.code]}</span>
+              {status.hasBook ? <span>소장</span> : <span>미소장</span>}
+              {status.hasBook &&
+                (status.loanAvailable ? (
+                  <span>대출가능</span>
+                ) : (
+                  <span>대출불가</span>
+                ))}
+            </div>
+          ))}
+      </div>
     </Container>
   );
 };
@@ -43,20 +47,38 @@ const WishItem = ({ wish }: WishItemProps) => {
 export default WishItem;
 
 const Container = styled.li`
+  box-sizing: border-box;
+  font-family: "Gothic A1", sans-serif;
   list-style: none;
-  position: relative;
-  width: 152px;
-  & > a {
-    color: black;
-    text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+
+  & > img {
+    box-sizing: border-box;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    width: 100%;
+    height: 250px;
   }
-  .item__thumbnail {
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    width: 152px;
-    height: 225px;
-  }
-  .item__title {
-    font-size: 0.875rem;
+
+  & > .statuses {
+    padding: 0.5rem;
+    .book__title {
+      font-size: 0.7rem;
+      margin: 0 0 0.1rem 0;
+    }
+    .status {
+      span {
+        font-size: 0.7rem;
+      }
+      span + span {
+        ::before {
+          content: "•";
+        }
+      }
+    }
   }
 `;

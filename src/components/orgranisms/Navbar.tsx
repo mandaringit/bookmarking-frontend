@@ -90,6 +90,7 @@ const Nav = styled.nav`
   border-bottom: 2px solid black;
   background-color: white;
   height: 3rem;
+  z-index: 100;
 `;
 
 // 네비게이션 내부
