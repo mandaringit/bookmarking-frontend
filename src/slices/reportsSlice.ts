@@ -35,12 +35,13 @@ export const createReportThunk = createAsyncThunk<
   return response.data;
 });
 
-export const findMyReportsWithLibraryStatusThunk = createAsyncThunk<
-  BasicReport[]
->("reports/findMyReports", async () => {
-  const response = await reportsAPI.findMyReportsWithLibraryStatus();
-  return response.data;
-});
+export const findMyReportThunk = createAsyncThunk<BasicReport[]>(
+  "reports/findMyReports",
+  async () => {
+    const response = await reportsAPI.findMyReports();
+    return response.data;
+  }
+);
 
 export const findReportByIdThunk = createAsyncThunk<
   BasicReportWithFragments,
@@ -122,28 +123,19 @@ const reportsSlice = createSlice({
     /**
      * 나의 리포트 가져오기.
      */
-    builder.addCase(
-      findMyReportsWithLibraryStatusThunk.pending,
-      (state, action) => {
-        state.status.findMyReports = "loading";
-        state.error.findMyReports = "";
-      }
-    );
-    builder.addCase(
-      findMyReportsWithLibraryStatusThunk.fulfilled,
-      (state, action) => {
-        state.status.findMyReports = "succeeded";
-        state.error.findMyReports = "";
-        reportAdapter.upsertMany(state, action.payload);
-      }
-    );
-    builder.addCase(
-      findMyReportsWithLibraryStatusThunk.rejected,
-      (state, action) => {
-        state.status.findMyReports = "failed";
-        state.error.findMyReports = "독후감을 가져오는데 실패했습니다.";
-      }
-    );
+    builder.addCase(findMyReportThunk.pending, (state, action) => {
+      state.status.findMyReports = "loading";
+      state.error.findMyReports = "";
+    });
+    builder.addCase(findMyReportThunk.fulfilled, (state, action) => {
+      state.status.findMyReports = "succeeded";
+      state.error.findMyReports = "";
+      reportAdapter.upsertMany(state, action.payload);
+    });
+    builder.addCase(findMyReportThunk.rejected, (state, action) => {
+      state.status.findMyReports = "failed";
+      state.error.findMyReports = "독후감을 가져오는데 실패했습니다.";
+    });
 
     /**
      * 리포트 생성하기

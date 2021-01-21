@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   clearReport,
-  findMyReportsWithLibraryStatusThunk,
+  findMyReportThunk,
   selectReports,
 } from "../../slices/reportsSlice";
 import { useAppDispatch } from "../../store";
@@ -39,7 +39,7 @@ const MyReports = () => {
   const reports = useSelector(selectReports);
 
   useEffect(() => {
-    dispatch(findMyReportsWithLibraryStatusThunk());
+    dispatch(findMyReportThunk());
   }, [dispatch]);
 
   return <PureMyReports reports={reports} />;
