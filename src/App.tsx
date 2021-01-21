@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import { iUser } from "./types/entity";
 import styled from "styled-components";
 import MyWishes from "./pages/wish/MyWishes";
+import Footer from "./components/orgranisms/Footer";
 
 const Container = styled.div`
   display: flex;
@@ -40,7 +41,7 @@ function App() {
           {/* TODO: NOMATCH ROUTE 설정 */}
         </Switch>
       </Content>
-      <div>푸터</div>
+      <Footer />
     </Container>
   );
 }
