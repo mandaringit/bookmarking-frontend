@@ -53,7 +53,7 @@ export const findReportByIdThunk = createAsyncThunk<
 
 export const removeReportByIdThunk = createAsyncThunk<
   Pick<BasicReport, "id">,
-  { reportId: ID }
+  { reportId: ID; isbn: string } // isbn은 어댑터에서 지울때 사용함.
 >("reports/removeReportById", async ({ reportId }) => {
   const response = await reportsAPI.removeReport(reportId);
   return response.data;
@@ -154,21 +154,14 @@ const reportsSlice = createSlice({
     });
 
     /**
-     * 리포트 삭제. 아직 따로 하는 일 없음.
+     * 리포트 삭제.
      */
 
-    // builder
-    //   .addCase(removeReportByIdThunk.pending, (state, action) => {
-    //     state.status.removeReportByIdThunk = "loading";
-    //     state.error.removeReportByIdThunk = "";
-    //   })
-    //   .addCase(removeReportByIdThunk.fulfilled, (state, action) => {
-    //     state.status.removeReportByIdThunk = "succeeded";
-    //   })
-    //   .addCase(removeReportByIdThunk.rejected, (state, action) => {
-    //     state.status.removeReportByIdThunk = "failed";
-    //     state.error.removeReportByIdThunk = "삭제에 실패했습니다.";
-    //   });
+    builder.addCase(removeReportByIdThunk.fulfilled, (state, action) => {
+      state.status.removeReportByIdThunk = "succeeded";
+      // isbn을 action 에서 찾아서 쓸 수 있다.
+      reportAdapter.removeOne(state, action.meta.arg.isbn);
+    });
 
     /**
      * 리포트 업데이트

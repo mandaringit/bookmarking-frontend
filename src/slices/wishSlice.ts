@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import wishesAPI from "../api/wish";
 import { RootState } from "../store";
-import { BasicWish } from "../types/entity";
+import { BasicWish, ID } from "../types/entity";
 import { CreateReportForm, LoadingState } from "../types/utils";
 
 const wishAdapter = createEntityAdapter<BasicWish>({
@@ -29,7 +29,7 @@ export const createWishThunk = createAsyncThunk<
 
 export const removeWishThunk = createAsyncThunk<
   BasicWish,
-  Pick<BasicWish, "id">
+  { id: ID; isbn: string }
 >("wishes/removeWish", async ({ id }) => {
   const response = await wishesAPI.removeWish(id);
   return response.data;
@@ -65,7 +65,7 @@ const wishSlice = createSlice({
     });
 
     builder.addCase(removeWishThunk.fulfilled, (state, action) => {
-      wishAdapter.removeOne(state, action.payload.book.isbn);
+      wishAdapter.removeOne(state, action.meta.arg.isbn);
     });
   },
 });
@@ -78,3 +78,5 @@ export const {
   selectAll: selectWishes,
   selectById: selectWishByISBN,
 } = wishAdapter.getSelectors<RootState>((state) => state.wishes);
+
+export const selectWishStatus = (state: RootState) => state.wishes.status;

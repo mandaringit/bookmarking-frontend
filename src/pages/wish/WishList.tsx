@@ -24,6 +24,6 @@ const Container = styled.ul`
   margin: 0;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto;
 `;

@@ -12,10 +12,10 @@ export const PureReportItem = ({ report }: PureReportItemProps) => {
       <Link to={`/report/${report.id}`}>
         <img
           className='item__thumbnail'
-          src={getFullThumbnailUrl(report.book.thumbnail, 152)}
+          src={getFullThumbnailUrl(report.book.thumbnail, 300)}
           alt={`${report.book.title} 썸네일`}
         />
-        <span className='item__title'>{report.title}</span>
+        {/* <span className='item__title'>{report.title}</span> */}
       </Link>
     </Container>
   );
@@ -39,17 +39,18 @@ export default ReportItem;
 
 const Container = styled.li`
   list-style: none;
-  position: relative;
-  width: 152px;
+  width: 100%;
+
   & > a {
     color: black;
     text-decoration: none;
   }
   .item__thumbnail {
-    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    width: 152px;
-    height: 225px;
+    width: 100%;
+    height: 250px;
   }
   .item__title {
     font-size: 0.875rem;

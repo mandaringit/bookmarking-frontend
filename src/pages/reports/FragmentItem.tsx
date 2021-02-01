@@ -41,6 +41,11 @@ export default FragmentItem;
 
 const Container = styled.li`
   list-style: none;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+  background-color: rgba(158, 158, 158, 0.1);
+
+  padding: 1rem;
+  border-radius: 10px;
 
   & + & {
     margin-top: 1rem;
@@ -49,6 +54,7 @@ const Container = styled.li`
   .fragment__text {
     margin: 0.3rem 0 0 0;
     line-height: 1.3;
+    white-space: pre-line;
   }
 
   .fragment__createdAt {

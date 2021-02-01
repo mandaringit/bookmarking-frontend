@@ -40,9 +40,8 @@ export default BookSearch;
 
 const Container = styled.div`
   ${pageContainer}
-
+  font-family: 'Gothic A1';
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 1rem;
 `;

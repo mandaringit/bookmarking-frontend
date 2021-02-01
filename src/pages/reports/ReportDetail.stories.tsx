@@ -39,6 +39,18 @@ Default.args = {
         id: 9,
         name: "월터 아이작슨",
       },
+      libraryOwnStatuses: [
+        {
+          id: 4,
+          hasBook: true,
+          loanAvailable: true,
+          updatedAt: "2021-01-20T11:21:09.459Z",
+          library: {
+            id: 1,
+            code: "146018",
+          },
+        },
+      ],
     },
   },
 };

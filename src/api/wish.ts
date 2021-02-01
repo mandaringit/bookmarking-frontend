@@ -16,7 +16,7 @@ const wishesAPI = {
       bookInfo: book,
     }),
   removeWish: async (wishId: ID) =>
-    await client.delete<any, BasicWishResponse>(`/wishes?wishId=${wishId}`),
+    await client.delete<any, AxiosResponse>(`/wishes?wishId=${wishId}`),
 };
 
 export default wishesAPI;

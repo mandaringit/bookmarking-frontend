@@ -55,7 +55,7 @@ export const PureBookSearchItem = ({
         />
         <ButtonGroup align='start'>
           <Button onClick={addReportHandler} disabled={isReportExist}>
-            독후감 추가
+            + 독후감
           </Button>
           <Button onClick={toggleWishHanlder}>
             {isWishExist ? "💘" : "🖤"}
@@ -107,7 +107,7 @@ const BookSearchItem = ({ book }: BookSearchItemProps) => {
         })
       );
     } else {
-      dispatch(removeWishThunk({ id: wish.id }));
+      dispatch(removeWishThunk({ id: wish.id, isbn: wish.book.isbn }));
     }
   };
 

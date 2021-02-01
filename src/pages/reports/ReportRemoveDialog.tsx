@@ -21,7 +21,7 @@ const ReportRemoveDialog = ({
   const history = useHistory();
   const onRemove = async () => {
     const { meta } = await dispatch(
-      removeReportByIdThunk({ reportId: report.id })
+      removeReportByIdThunk({ reportId: report.id, isbn: report.book.isbn })
     );
 
     if (meta.requestStatus === "fulfilled") {

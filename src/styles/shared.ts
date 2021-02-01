@@ -2,9 +2,10 @@ import { css } from "styled-components";
 
 export const pageContainer = css`
   box-sizing: border-box;
-  max-width: 800px;
+  max-width: 1024px;
   width: 100%;
   margin: 0 auto;
+  padding: 1rem 0;
   height: 100%;
   animation: fade 0.5s;
   @keyframes fade {

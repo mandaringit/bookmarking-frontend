@@ -4,6 +4,7 @@ import { RouteComponentProps } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../components/atoms/Button";
 import ButtonGroup from "../../components/molecules/ButtonGroup";
+import { getFullThumbnailUrl } from "../../lib/utils";
 import {
   clearReport,
   findReportByIdThunk,
@@ -36,13 +37,11 @@ export const PureReportDetail = ({
   setVisible,
 }: PureReportDetailProps) => {
   const { book, fragments } = report;
+
   return (
     <>
       <Container>
         <ButtonGroup align='flex-end'>
-          <Button onClick={() => setVisible("addFragment")} size='small'>
-            생각조각 추가
-          </Button>
           <Button onClick={() => setVisible("remove")} size='small'>
             삭제
           </Button>
@@ -50,11 +49,34 @@ export const PureReportDetail = ({
             수정
           </Button>
         </ButtonGroup>
-        <h2>{report.title}</h2>
-        <div className='book__info'>
-          <span>📔 {book.title}</span>
-          <span>✍️ {book.author.name}</span>
-        </div>
+        <Article>
+          <img src={getFullThumbnailUrl(book.thumbnail, 150)} alt='' />
+          <div
+            style={{
+              display: "flex",
+              flexGrow: 1,
+              flexDirection: "column",
+              alignItems: "flex-end",
+              justifyContent: "center",
+              paddingLeft: "1rem",
+            }}
+          >
+            <h1 style={{ fontSize: "2rem", textAlign: "end" }}>
+              {report.title}
+            </h1>
+            <div>
+              <span>📔 {book.title}</span>
+              <span>✍️ {book.author.name}</span>
+            </div>
+          </div>
+        </Article>
+        <Button
+          onClick={() => setVisible("addFragment")}
+          size='medium'
+          width='100%'
+        >
+          + 생각 조각
+        </Button>
         <FragmentList fragments={fragments} />
       </Container>
       <FragmentAddDialog
@@ -111,13 +133,22 @@ export default ReportDetail;
 const Container = styled.div`
   ${pageContainer}
   padding-top:2rem;
+`;
 
-  .book__info {
-    color: #bdbdbd;
-    span + span {
-      ::before {
-        content: "•";
-      }
+const Article = styled.article`
+  position: relative;
+  display: flex;
+  padding: 1rem 0.5rem;
+  border-bottom: 2px solid black;
+  margin-bottom: 1rem;
+
+  img {
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+  }
+  span + span {
+    ::before {
+      content: "•";
     }
   }
 `;
