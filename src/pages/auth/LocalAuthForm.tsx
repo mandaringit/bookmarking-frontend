@@ -120,18 +120,15 @@ const LocalLoginForm = ({ type }: LocalAuthFormProps) => {
   };
 
   const onSignup = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { meta, payload } = await dispatch(signup(user));
-
+    const { meta } = await dispatch(signup(user));
     if (meta.requestStatus === "fulfilled") {
-      localStorage.setItem("mandarin-dev", JSON.stringify(payload));
       history.push("/");
     }
   };
 
   const onLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { meta, payload } = await dispatch(localLogIn(user));
+    const { meta } = await dispatch(localLogIn(user));
     if (meta.requestStatus === "fulfilled") {
-      localStorage.setItem("mandarin-dev", JSON.stringify(payload));
       history.push("/");
     }
   };

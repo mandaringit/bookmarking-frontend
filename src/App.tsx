@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Auth from "./pages/auth/Auth";
 import Navbar from "./components/orgranisms/Navbar";
 import { useSelector } from "react-redux";
-import { selectLoggedInUser } from "./slices/authSlice";
+import { checkAuth, selectLoggedInUser } from "./slices/authSlice";
 import BookSearch from "./pages/books/BookSearch";
 import MyReports from "./pages/reports/MyReports";
 import ReportDetail from "./pages/reports/ReportDetail";
@@ -12,6 +12,7 @@ import { iUser } from "./types/entity";
 import styled from "styled-components";
 import MyWishes from "./pages/wish/MyWishes";
 import Footer from "./components/orgranisms/Footer";
+import { useAppDispatch } from "./store";
 
 const Container = styled.div`
   display: flex;
@@ -25,6 +26,10 @@ const Content = styled.section`
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
   return (
     <Container>
       <Navbar loggedInUser={loggedInUser} />
