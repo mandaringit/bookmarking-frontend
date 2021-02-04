@@ -8,7 +8,15 @@ import customHistory from "./lib/customHistory";
 import GlobalStyle from "./GlobalStyle";
 import "moment/locale/ko";
 import moment from "moment";
+import { checkAuth } from "./slices/authSlice";
 moment.locale("ko");
+
+// 리프레시
+store.dispatch(checkAuth()).then((res) => {
+  if (res.meta.requestStatus === "rejected") {
+    customHistory.push("/login");
+  }
+});
 
 ReactDOM.render(
   <React.StrictMode>

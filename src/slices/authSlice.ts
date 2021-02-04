@@ -67,6 +67,7 @@ const initialState = {
   status: {
     signup: "idle" as LoadingState,
     login: "idle" as LoadingState,
+    checkAuth: "idle" as LoadingState,
   },
   errors: {
     signup: "",
@@ -127,13 +128,18 @@ const authSlice = createSlice({
      * checkAuth - 새로고침시 유저 체크
      */
     builder
+      .addCase(checkAuth.pending, (state, action) => {
+        state.status.checkAuth = "loading";
+      })
       .addCase(checkAuth.fulfilled, (state, action) => {
+        state.status.checkAuth = "succeeded";
         client.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${action.payload.token}`;
         state.loggedInUser = action.payload.user;
       })
       .addCase(checkAuth.rejected, (state) => {
+        state.status.checkAuth = "failed";
         state.loggedInUser = null;
       });
 
