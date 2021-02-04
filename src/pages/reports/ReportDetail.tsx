@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../components/atoms/Button";
 import ButtonGroup from "../../components/molecules/ButtonGroup";
@@ -100,8 +100,8 @@ export const PureReportDetail = ({
   );
 };
 
-const ReportDetail = ({ match }: RouteComponentProps<{ reportId: string }>) => {
-  const { reportId } = match.params;
+const ReportDetail = () => {
+  const { reportId } = useRouteMatch<{ reportId: string }>().params;
   const report = useSelector(selectReport);
   const [visible, setVisible] = useState<VisibleType>(null);
   const dispatch = useAppDispatch();

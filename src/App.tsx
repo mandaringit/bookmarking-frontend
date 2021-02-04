@@ -27,10 +27,6 @@ function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
   const { checkAuth: checkAuthStatus } = useSelector(selectAuthStatus);
 
-  if (checkAuthStatus === "loading") {
-    return <div>AUTHCHECKING</div>;
-  }
-
   return (
     <Container>
       <Navbar loggedInUser={loggedInUser} />
@@ -40,10 +36,34 @@ function App() {
           <Route path='/login' render={() => <Auth type='login' />} />
           <Route path='/signup' render={() => <Auth type='signup' />} />
           {/* TODO: PRIVATE ROUTE 설정 */}
-          <Route path='/search' component={BookSearch} />
-          <Route path='/myreports' component={MyReports} />
-          <Route path='/mywishes' component={MyWishes} />
-          <Route path='/report/:reportId' component={ReportDetail} />
+          <Route
+            path='/search'
+            render={() =>
+              checkAuthStatus === "loading" ? <div>로딩..</div> : <BookSearch />
+            }
+          />
+          <Route
+            path='/myreports'
+            render={() =>
+              checkAuthStatus === "loading" ? <div>로딩..</div> : <MyReports />
+            }
+          />
+          <Route
+            path='/mywishes'
+            render={() =>
+              checkAuthStatus === "loading" ? <div>로딩..</div> : <MyWishes />
+            }
+          />
+          <Route
+            path='/report/:reportId'
+            render={() =>
+              checkAuthStatus === "loading" ? (
+                <div>로딩..</div>
+              ) : (
+                <ReportDetail />
+              )
+            }
+          />
           {/* TODO: NOMATCH ROUTE 설정 */}
         </Switch>
       </Content>
