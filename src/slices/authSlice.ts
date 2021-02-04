@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
-import authAPI from "../api/auth";
+import authAPI, { UserWithToken } from "../api/auth";
+import { client } from "../api/client";
 import { RootState } from "../store";
 import { iUser } from "../types/entity";
 import { LoginForm, SignupForm, LoadingState } from "../types/utils";
@@ -14,7 +15,7 @@ export interface RejectValueType {
  * Thunk
  */
 export const signup = createAsyncThunk<
-  iUser,
+  UserWithToken,
   SignupForm,
   { rejectValue: RejectValueType }
 >("auth/signup", async ({ email, password }, { rejectWithValue }) => {
@@ -32,13 +33,13 @@ export const signup = createAsyncThunk<
 });
 
 export const localLogIn = createAsyncThunk<
-  iUser,
+  UserWithToken,
   LoginForm,
   { rejectValue: RejectValueType }
 >("auth/localLogin", async ({ email, password }, { rejectWithValue }) => {
   try {
     const response = await authAPI.localAuth(email, password);
-    return response.data as iUser;
+    return response.data;
   } catch (e) {
     const error = e.response as AxiosResponse;
     return rejectWithValue({
@@ -48,10 +49,13 @@ export const localLogIn = createAsyncThunk<
   }
 });
 
-export const checkAuth = createAsyncThunk("auth/checkAuth", async () => {
-  const response = await authAPI.checkAuth();
-  return response.data as iUser;
-});
+export const checkAuth = createAsyncThunk<UserWithToken>(
+  "auth/checkAuth",
+  async () => {
+    const response = await authAPI.checkAuth();
+    return response.data;
+  }
+);
 
 export const logout = createAsyncThunk("auth/logut", async () => {
   const response = await authAPI.logout();
@@ -63,6 +67,7 @@ const initialState = {
   status: {
     signup: "idle" as LoadingState,
     login: "idle" as LoadingState,
+    checkAuth: "idle" as LoadingState,
   },
   errors: {
     signup: "",
@@ -91,7 +96,6 @@ const authSlice = createSlice({
       .addCase(signup.fulfilled, (state, action) => {
         state.status.signup = "succeeded";
         state.errors.signup = "";
-        state.loggedInUser = action.payload;
       })
       .addCase(signup.rejected, (state, action) => {
         state.status.signup = "failed";
@@ -109,7 +113,11 @@ const authSlice = createSlice({
       .addCase(localLogIn.fulfilled, (state, action) => {
         state.status.login = "succeeded";
         state.errors.login = "";
-        state.loggedInUser = action.payload;
+        state.loggedInUser = action.payload.user;
+        // 앞으로의 요청에 토큰 달아주기
+        client.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${action.payload.token}`;
       })
       .addCase(localLogIn.rejected, (state, action) => {
         state.status.login = "failed";
@@ -120,10 +128,18 @@ const authSlice = createSlice({
      * checkAuth - 새로고침시 유저 체크
      */
     builder
+      .addCase(checkAuth.pending, (state, action) => {
+        state.status.checkAuth = "loading";
+      })
       .addCase(checkAuth.fulfilled, (state, action) => {
-        state.loggedInUser = action.payload;
+        state.status.checkAuth = "succeeded";
+        client.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${action.payload.token}`;
+        state.loggedInUser = action.payload.user;
       })
       .addCase(checkAuth.rejected, (state) => {
+        state.status.checkAuth = "failed";
         state.loggedInUser = null;
       });
 

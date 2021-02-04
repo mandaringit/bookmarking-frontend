@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { client } from "../../api/client";
 import { logout } from "../../slices/authSlice";
 import { useAppDispatch } from "../../store";
 import { iUser } from "../../types/entity";
@@ -72,7 +73,7 @@ const Navbar = ({ loggedInUser }: NavbarProps) => {
   const onLogout = async () => {
     const { meta } = await dispatch(logout());
     if (meta.requestStatus === "fulfilled") {
-      localStorage.removeItem("mandarin-dev");
+      delete client.defaults.headers.common["Authorization"];
       history.push("/");
     }
   };

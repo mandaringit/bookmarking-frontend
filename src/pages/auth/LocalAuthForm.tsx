@@ -5,6 +5,7 @@ import Button from "../../components/atoms/Button";
 import Input from "../../components/atoms/Input";
 import { LoadingState, LoginForm } from "../../types/utils";
 import {
+  checkAuth,
   localLogIn,
   selectAuthErrors,
   selectAuthStatus,
@@ -12,6 +13,7 @@ import {
 } from "../../slices/authSlice";
 import { useAppDispatch } from "../../store";
 import { useHistory } from "react-router-dom";
+import { config } from "../../config";
 
 export interface PureLocalAuthFormProps extends LocalAuthFormProps {
   /**
@@ -120,18 +122,19 @@ const LocalLoginForm = ({ type }: LocalAuthFormProps) => {
   };
 
   const onSignup = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { meta, payload } = await dispatch(signup(user));
-
+    const { meta } = await dispatch(signup(user));
     if (meta.requestStatus === "fulfilled") {
-      localStorage.setItem("mandarin-dev", JSON.stringify(payload));
       history.push("/");
     }
   };
 
   const onLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { meta, payload } = await dispatch(localLogIn(user));
+    const { meta } = await dispatch(localLogIn(user));
     if (meta.requestStatus === "fulfilled") {
-      localStorage.setItem("mandarin-dev", JSON.stringify(payload));
+      // 토큰 만료 전에 요청하도록 구현 -> 로그아웃 후에 없애야 하나?
+      setInterval(() => {
+        dispatch(checkAuth());
+      }, config.JWT_EXPIRE_TIME);
       history.push("/");
     }
   };
