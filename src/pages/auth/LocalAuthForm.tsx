@@ -12,7 +12,7 @@ import {
   signup,
 } from "../../slices/authSlice";
 import { useAppDispatch } from "../../store";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { config } from "../../config";
 
 export interface PureLocalAuthFormProps extends LocalAuthFormProps {
@@ -89,6 +89,20 @@ export const PureLocalAuthForm = ({
         </Button>
       )}
 
+      <div>
+        {type === "login" ? (
+          <>
+            <span>계정이 없으신가요?</span>
+            <Link to='/signup'>회원가입</Link>
+          </>
+        ) : (
+          <>
+            <span>계정이 있으신가요?</span>
+            <Link to='/login'>로그인</Link>
+          </>
+        )}
+      </div>
+
       <span className='error'>{error ? error : null}</span>
     </Container>
   );
@@ -158,7 +172,8 @@ const Container = styled.form`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: 500px;
+  max-width: 500px;
+  width: 100%;
   * + * {
     margin-top: 0.8rem;
   }
