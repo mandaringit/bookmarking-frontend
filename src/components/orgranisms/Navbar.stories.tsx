@@ -10,7 +10,12 @@ const Template: Story<PureNavbarProps> = (args) => <PureNavbar {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  loggedInUser: null,
+  loggedInUser: {
+    id: 1,
+    email: "mandarin.test@gmail.com",
+    googleId: "131231249812904asdas",
+    username: "MANDARIN",
+  },
 };
 
 export const NotLogIn = Template.bind({});

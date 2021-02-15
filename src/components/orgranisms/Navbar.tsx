@@ -29,7 +29,35 @@ export interface PureNavbarProps extends NavbarProps {
 export const PureNavbar = ({ loggedInUser, onLogout }: PureNavbarProps) => {
   return (
     <Nav>
-      <Container>
+      {/* 모바일 사이즈 네비게이션 */}
+      <MobileWidthContainer>
+        {!loggedInUser ? (
+          <>
+            <Link className='link' to='/'>
+              🔖 북마킹
+            </Link>
+            <Link className='link' to='/login'>
+              로그인
+            </Link>
+          </>
+        ) : (
+          <>
+            <div>버거버튼</div>
+
+            <Link className='link' to='/'>
+              🔖 북마킹
+            </Link>
+
+            <SelectableLink to='/search'>검색</SelectableLink>
+            <SelectableLink to='/mywishes'>위시리스트</SelectableLink>
+            <span className='link' onClick={onLogout}>
+              로그아웃
+            </span>
+          </>
+        )}
+      </MobileWidthContainer>
+      {/* 일반 사이즈 네비게이션 */}
+      <DefaultWidthContainer>
         <div className='main'>
           <Link className='link' to='/'>
             🔖 북마킹
@@ -44,7 +72,6 @@ export const PureNavbar = ({ loggedInUser, onLogout }: PureNavbarProps) => {
           ) : (
             <>
               <SelectableLink to='/search'>검색</SelectableLink>
-              <SelectableLink to='/myreports'>독후감</SelectableLink>
               <SelectableLink to='/mywishes'>위시리스트</SelectableLink>
               <span className='link' onClick={onLogout}>
                 로그아웃
@@ -52,7 +79,7 @@ export const PureNavbar = ({ loggedInUser, onLogout }: PureNavbarProps) => {
             </>
           )}
         </div>
-      </Container>
+      </DefaultWidthContainer>
     </Nav>
   );
 };
@@ -92,20 +119,6 @@ const Nav = styled.nav`
   background-color: white;
   height: 3rem;
   z-index: 100;
-`;
-
-// 네비게이션 내부
-const Container = styled.div`
-  max-width: 800px;
-  height: 100%;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-
-  font-size: 1.2rem;
-  .main {
-    flex-grow: 1;
-  }
 
   .link {
     text-decoration: none;
@@ -120,6 +133,38 @@ const Container = styled.div`
         opacity: 1;
       }
     }
+  }
+`;
+
+const MobileWidthContainer = styled.div`
+  @media (min-width: 600px) {
+    display: none;
+  }
+  height: 100%;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+`;
+
+// 네비게이션 내부
+const DefaultWidthContainer = styled.div`
+  @media (max-width: 600px) {
+    display: none;
+  }
+
+  max-width: 800px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+
+  font-size: 1.2rem;
+  .main {
+    flex-grow: 1;
   }
 
   a + a,
