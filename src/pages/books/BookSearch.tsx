@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import SearchBar from "../../components/molecules/SearchBar";
+import { selectAuthStatus } from "../../slices/authSlice";
 import { findMyReportThunk, clearAllReports } from "../../slices/reportsSlice";
 import { searchInit } from "../../slices/searchSlice";
 import {
@@ -14,6 +16,7 @@ import BookSearchList from "./BookSearchList";
 export interface BookSearchProps {}
 const BookSearch = (props: BookSearchProps) => {
   const dispatch = useAppDispatch();
+  const { checkAuth: checkAuthStatus } = useSelector(selectAuthStatus);
 
   useEffect(() => {
     // 검색 전 페이지 및 검색어 초기화작업
@@ -27,6 +30,10 @@ const BookSearch = (props: BookSearchProps) => {
       dispatch(clearAllWishes());
     };
   }, [dispatch]);
+
+  if (checkAuthStatus === "loading") {
+    return <div>로딩 ...</div>;
+  }
 
   return (
     <Container>

@@ -5,7 +5,7 @@ export const pageContainer = css`
   max-width: 1024px;
   width: 100%;
   margin: 0 auto;
-  padding: 1rem 0;
+  padding: 1rem 1rem;
   height: 100%;
   animation: fade 0.5s;
   @keyframes fade {

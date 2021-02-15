@@ -30,6 +30,8 @@ const StyledInput = styled.input`
   min-width: 200px;
   width: ${(props) => props.width};
   box-sizing: border-box;
+  /* 포커스 시 오토 줌 안되게 만들기 */
+  font-size: 16px;
   :focus {
     outline: none;
   }

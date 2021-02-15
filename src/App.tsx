@@ -13,16 +13,6 @@ import styled from "styled-components";
 import MyWishes from "./pages/wish/MyWishes";
 import Footer from "./components/orgranisms/Footer";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
-
-const Content = styled.section`
-  flex-grow: 1;
-`;
-
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
   const { checkAuth: checkAuthStatus } = useSelector(selectAuthStatus);
@@ -36,12 +26,7 @@ function App() {
           <Route path='/login' render={() => <Auth type='login' />} />
           <Route path='/signup' render={() => <Auth type='signup' />} />
           {/* TODO: PRIVATE ROUTE 설정 */}
-          <Route
-            path='/search'
-            render={() =>
-              checkAuthStatus === "loading" ? <div>로딩..</div> : <BookSearch />
-            }
-          />
+          <Route path='/search' component={BookSearch} />
           <Route
             path='/myreports'
             render={() =>
@@ -73,6 +58,18 @@ function App() {
 }
 
 export default App;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const Content = styled.section`
+  flex-grow: 1;
+  /* Safari flex -> height bug fix*/
+  height: 0;
+`;
 
 interface AuthRouteProps {
   children: React.ReactNode;
