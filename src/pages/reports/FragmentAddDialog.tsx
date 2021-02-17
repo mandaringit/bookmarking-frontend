@@ -58,7 +58,6 @@ const FragmentAddDialog = ({
 export default FragmentAddDialog;
 
 const TextArea = styled.textarea`
-  font-family: "Nanum Myeongjo", serif;
   box-sizing: border-box;
   height: 400px;
   width: 100%;

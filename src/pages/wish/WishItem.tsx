@@ -64,7 +64,6 @@ export default WishItem;
 
 const Container = styled.li`
   box-sizing: border-box;
-  font-family: "Gothic A1", sans-serif;
   list-style: none;
   display: flex;
   flex-direction: column;

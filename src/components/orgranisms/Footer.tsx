@@ -8,7 +8,6 @@ const Footer = () => {
 export default Footer;
 
 const Container = styled.footer`
-  /* font-family: "Gothic A1", sans-serif; */
   box-sizing: border-box;
   padding: 0.5rem 2rem 0.5rem 0.5rem;
   height: 60px;
